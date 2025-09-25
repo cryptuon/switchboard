@@ -4,9 +4,8 @@
  * Provides common database operations with proper error handling and metrics
  */
 
-import { Document, Model, FilterQuery, UpdateQuery, QueryOptions, PopulateOptions, ClientSession } from 'mongoose';
+import { Document, Model, FilterQuery, UpdateQuery, PopulateOptions, ClientSession } from 'mongoose';
 import { Logger } from '../logging/logger';
-import { ServiceError, ErrorCode } from '../errors/service-errors';
 import { DatabaseConnectionManager } from './connection-manager';
 import { MetricsCollector } from '../metrics/metrics-collector';
 
@@ -68,7 +67,7 @@ export abstract class RepositoryBase<T extends Document> {
 
         if (options.populateOptions) {
           for (const populate of options.populateOptions) {
-            query = query.populate(populate);
+            query = query.populate(populate) as any;
           }
         }
 
@@ -88,11 +87,11 @@ export abstract class RepositoryBase<T extends Document> {
   ): Promise<T | null> {
     return this.executeQuery(
       async () => {
-        let query = this.model.findOne(filter, null, { session: options.session });
+        let query = this.model.findOne(filter, null, { session: options.session }) as any;
 
         if (options.populateOptions) {
           for (const populate of options.populateOptions) {
-            query = query.populate(populate);
+            query = query.populate(populate) as any;
           }
         }
 
@@ -112,11 +111,11 @@ export abstract class RepositoryBase<T extends Document> {
   ): Promise<T[]> {
     return this.executeQuery(
       async () => {
-        let query = this.model.find(filter, null, { session: options.session });
+        let query = this.model.find(filter, null, { session: options.session }) as any;
 
         if (options.populateOptions) {
           for (const populate of options.populateOptions) {
-            query = query.populate(populate);
+            query = query.populate(populate) as any;
           }
         }
 
@@ -148,7 +147,7 @@ export abstract class RepositoryBase<T extends Document> {
         let query = this.model
           .find(filter, null, { session: repositoryOptions.session })
           .skip(skip)
-          .limit(limit);
+          .limit(limit) as any;
 
         if (paginationOptions.sort) {
           query = query.sort(paginationOptions.sort);
@@ -156,7 +155,7 @@ export abstract class RepositoryBase<T extends Document> {
 
         if (repositoryOptions.populateOptions) {
           for (const populate of repositoryOptions.populateOptions) {
-            query = query.populate(populate);
+            query = query.populate(populate) as any;
           }
         }
 
@@ -360,7 +359,7 @@ export abstract class RepositoryBase<T extends Document> {
   ): Promise<boolean> {
     return this.executeQuery(
       async () => {
-        const result = await this.model.exists(filter, { session: options.session });
+        const result = await this.model.exists(filter);
         return !!result;
       },
       'exists',
@@ -420,7 +419,7 @@ export abstract class RepositoryBase<T extends Document> {
    */
   async createIndexes(indexes: any[]): Promise<void> {
     try {
-      await this.model.createIndexes(indexes);
+      await this.model.createIndexes(indexes as any);
       this.logger.info('Database indexes created', {
         model: this.modelName,
         indexCount: indexes.length

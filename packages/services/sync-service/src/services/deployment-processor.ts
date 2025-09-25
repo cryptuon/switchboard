@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Connection, Keypair, PublicKey, Transaction as SolanaTransaction } from '@solana/web3.js';
+import { Connection, Keypair } from '@solana/web3.js';
 import { ethers } from 'ethers';
 
 import {
@@ -46,7 +46,7 @@ export interface DeploymentResult {
 
 export class DeploymentProcessor extends EventEmitter {
   private readonly logger: Logger;
-  private readonly retryManager: RetryManager;
+  // private readonly _retryManager: RetryManager; // Unused currently
   private readonly metricsCollector?: MetricsCollector;
   private readonly messageBus?: MessageBus;
   private readonly deploymentRepo: DeploymentRepository;
@@ -64,7 +64,7 @@ export class DeploymentProcessor extends EventEmitter {
     deploymentRepo: DeploymentRepository,
     transactionRepo: TransactionRepository,
     logger: Logger,
-    retryManager: RetryManager,
+    _retryManager: RetryManager,
     metricsCollector?: MetricsCollector,
     messageBus?: MessageBus
   ) {
@@ -72,7 +72,7 @@ export class DeploymentProcessor extends EventEmitter {
     this.deploymentRepo = deploymentRepo;
     this.transactionRepo = transactionRepo;
     this.logger = logger;
-    this.retryManager = retryManager;
+    // this._retryManager = retryManager;
     this.metricsCollector = metricsCollector;
     this.messageBus = messageBus;
 
@@ -133,7 +133,7 @@ export class DeploymentProcessor extends EventEmitter {
     } catch (error) {
       this.logger.error('Failed to configure chain', error, { chain: chainName });
       throw new ServiceError(
-        `Failed to configure chain ${chainName}: ${error.message}`,
+        `Failed to configure chain ${chainName}: ${String(error)}`,
         ErrorCode.CONFIGURATION_ERROR,
         500,
         { chain: chainName, originalError: error },
@@ -431,7 +431,7 @@ export class DeploymentProcessor extends EventEmitter {
         deployment.deploymentId,
         chainName,
         'failed',
-        { error: error.message }
+        { error: String(error) }
       );
 
       this.logger.error('Chain deployment failed', error, {
@@ -449,8 +449,8 @@ export class DeploymentProcessor extends EventEmitter {
   private async deploySolanaContract(
     deployment: IDeployment,
     chainName: string,
-    connection: Connection,
-    signer: Keypair
+    _connection: Connection, // Unused in current implementation
+    _signer: Keypair // Unused in current implementation
   ): Promise<DeploymentResult> {
     // Solana deployment implementation would go here
     // This is a simplified example
@@ -471,15 +471,15 @@ export class DeploymentProcessor extends EventEmitter {
   private async deployEvmContract(
     deployment: IDeployment,
     chainName: string,
-    provider: ethers.JsonRpcProvider,
-    signer: ethers.Wallet
+    _provider: ethers.JsonRpcProvider, // Unused in current implementation
+    _signer: ethers.Wallet // Unused in current implementation
   ): Promise<DeploymentResult> {
     try {
       // Create contract factory
       const factory = new ethers.ContractFactory(
         [], // ABI would be extracted from contractCode
         deployment.contractCode,
-        signer
+        _signer
       );
 
       // Deploy with configuration
@@ -508,7 +508,7 @@ export class DeploymentProcessor extends EventEmitter {
         deploymentId: deployment.deploymentId,
         chain: chainName,
         success: false,
-        error: error.message
+        error: String(error)
       };
     }
   }
@@ -549,7 +549,7 @@ export class DeploymentProcessor extends EventEmitter {
       if (this.messageBus && message.correlationId) {
         await this.messageBus.sendResponse(message, {
           success: false,
-          error: error.message
+          error: String(error)
         });
       }
     }

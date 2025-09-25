@@ -63,7 +63,7 @@ export class MongoDBAdapter implements DocumentStorageAdapter {
     } catch (error) {
       this.logger.error('Failed to connect to MongoDB', error);
       throw new ServiceError(
-        `MongoDB connection failed: ${error.message}`,
+        `MongoDB connection failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { originalError: error },
@@ -269,7 +269,7 @@ export class MongoDBAdapter implements DocumentStorageAdapter {
       }
 
       const coll = this.connection.collection(collection);
-      const result = await coll.insertOne(document, { session: options.session });
+      const result = await coll.insertOne(document as any, { session: options.session });
 
       this.metricsCollector?.recordDatabaseOperation('insertOne', collection, true, timer?.() || 0);
       return { ...document, _id: result.insertedId } as T;

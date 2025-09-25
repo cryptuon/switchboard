@@ -4,7 +4,9 @@
  * High-performance time-series storage for blockchain events and analytics
  */
 
-import { createClient, ClickHouseClient } from '@clickhouse/client';
+// import { createClient, ClickHouseClient } from '@clickhouse/client';
+type ClickHouseClient = any;
+const createClient = (_config: any): ClickHouseClient => { throw new Error('ClickHouse client not installed'); };
 import { Logger } from '../../logging/logger';
 import { ServiceError, ErrorCode } from '../../errors/service-errors';
 import { MetricsCollector } from '../../metrics/metrics-collector';
@@ -55,7 +57,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       this.isConnected = false;
       this.logger.error('Failed to connect to ClickHouse', error);
       throw new ServiceError(
-        `ClickHouse connection failed: ${error.message}`,
+        `ClickHouse connection failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { originalError: error },
@@ -178,7 +180,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       });
 
       throw new ServiceError(
-        `ClickHouse insert failed: ${error.message}`,
+        `ClickHouse insert failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { table, recordCount: data.length, originalError: error },
@@ -238,7 +240,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       this.logger.error('ClickHouse stream insert failed', error, { table });
 
       throw new ServiceError(
-        `ClickHouse stream insert failed: ${error.message}`,
+        `ClickHouse stream insert failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { table, originalError: error },
@@ -250,7 +252,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
   /**
    * Time-series optimized queries
    */
-  async queryTimeSeries<T>(query: TimeSeriesQuery, table: string, options: QueryOptions = {}): Promise<T[]> {
+  async queryTimeSeries<T>(table: string, query: TimeSeriesQuery, _options: QueryOptions = {}): Promise<T[]> {
     const timer = this.metricsCollector?.createTimer();
 
     try {
@@ -265,7 +267,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       ];
 
       if (query.filters) {
-        for (const [key, value] of Object.entries(query.filters)) {
+        for (const [key, _value] of Object.entries(query.filters)) {
           whereConditions.push(`${key} = {${key}:String}`);
         }
       }
@@ -297,7 +299,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
         format: 'JSONEachRow'
       });
 
-      const data = await result.json<T>();
+      const data = await result.json() as T;
 
       this.metricsCollector?.recordDatabaseOperation('queryTimeSeries', table, true, timer?.() || 0);
 
@@ -309,7 +311,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       this.logger.error('ClickHouse time-series query failed', error, { table, query });
 
       throw new ServiceError(
-        `ClickHouse time-series query failed: ${error.message}`,
+        `ClickHouse time-series query failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { table, query, originalError: error },
@@ -328,7 +330,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
     orderBy?: Array<{ field: string; direction: 'ASC' | 'DESC' }>;
     having?: Record<string, any>;
     limit?: number;
-  }, options: QueryOptions = {}): Promise<T[]> {
+  }, _options: QueryOptions = {}): Promise<T[]> {
     const timer = this.metricsCollector?.createTimer();
 
     try {
@@ -376,7 +378,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
         format: 'JSONEachRow'
       });
 
-      const data = await result.json<T>();
+      const data = await result.json() as T;
 
       this.metricsCollector?.recordDatabaseOperation('aggregate', table, true, timer?.() || 0);
 
@@ -388,7 +390,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       this.logger.error('ClickHouse aggregation failed', error, { table, query });
 
       throw new ServiceError(
-        `ClickHouse aggregation failed: ${error.message}`,
+        `ClickHouse aggregation failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { table, query, originalError: error },
@@ -408,7 +410,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
     endTime: Date;
     groupBy?: string[];
     filters?: Record<string, any>;
-  }, options: QueryOptions = {}): Promise<T[]> {
+  }, _options: QueryOptions = {}): Promise<T[]> {
     const timer = this.metricsCollector?.createTimer();
 
     try {
@@ -462,7 +464,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
         format: 'JSONEachRow'
       });
 
-      const data = await result.json<T>();
+      const data = await result.json() as T;
 
       this.metricsCollector?.recordDatabaseOperation('aggregateByTime', table, true, timer?.() || 0);
 
@@ -474,7 +476,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
       this.logger.error('ClickHouse time aggregation failed', error, { table, query });
 
       throw new ServiceError(
-        `ClickHouse time aggregation failed: ${error.message}`,
+        `ClickHouse time aggregation failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { table, query, originalError: error },
@@ -501,7 +503,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
     } catch (error) {
       this.logger.error('Failed to create materialized view', error, { viewName });
       throw new ServiceError(
-        `Failed to create materialized view: ${error.message}`,
+        `Failed to create materialized view: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { viewName, originalError: error },
@@ -570,7 +572,7 @@ export class ClickHouseAdapter implements TimeSeriesStorageAdapter {
     } catch (error) {
       this.logger.error('Failed to create ClickHouse table', error, { tableName });
       throw new ServiceError(
-        `Failed to create table: ${error.message}`,
+        `Failed to create table: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { tableName, originalError: error },

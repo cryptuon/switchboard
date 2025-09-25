@@ -14,6 +14,7 @@ export * from './metrics/metrics-collector';
 export * from './base/base-service';
 export * from './database';
 export * from './communication';
+export * from './auth';
 export * from './testing';
 
 // Common types

@@ -64,12 +64,36 @@ services:
       timeout: 10s
       retries: 3
 
-  # Oracle Service - Real-time streaming
-  oracle-service:
+  # PostgreSQL for relational data (alternative to MongoDB)
+  postgresql:
+    image: postgres:15
+    container_name: chainsync-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: chainsync
+      POSTGRES_USER: chainsync
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres123}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - chainsync-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chainsync -d chainsync"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles:
+      - postgres
+
+  # Core Engine Service - Backend processing (oracle, sync, billing)
+  core-engine:
     build:
       context: .
-      dockerfile: packages/services/oracle-service/Dockerfile
-    container_name: chainsync-oracle
+      dockerfile: packages/services/core-engine/Dockerfile
+    container_name: chainsync-core-engine
     restart: unless-stopped
     ports:
       - "3001:3001"
@@ -77,8 +101,13 @@ services:
       # Service configuration
       - NODE_ENV=${NODE_ENV:-production}
       - PORT=3001
-      - SERVICE_NAME=oracle-service
+      - SERVICE_NAME=core-engine
       - LOG_LEVEL=${LOG_LEVEL:-info}
+
+      # Database configuration (choose mongodb or postgresql)
+      - DATABASE_TYPE=${DATABASE_TYPE:-mongodb}
+      - MONGODB_URL=mongodb://chainsync:${MONGODB_PASSWORD:-chainsync123}@mongodb:27017/chainsync
+      - POSTGRES_URL=postgres://chainsync:${POSTGRES_PASSWORD:-postgres123}@postgresql:5432/chainsync
 
       # Solana configuration
       - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}
@@ -93,14 +122,19 @@ services:
       - AVALANCHE_RPC_URL=${AVALANCHE_RPC_URL:-https://api.avax.network/ext/bc/C/rpc}
 
       # Streaming configuration
+      - STREAMING_ENABLED=${STREAMING_ENABLED:-true}
       - COORDINATION_LATENCY_TARGET=${COORDINATION_LATENCY_TARGET:-400}
       - BATCH_PROCESSING_SIZE=${BATCH_PROCESSING_SIZE:-50}
       - MAX_CONCURRENT_CHAINS=${MAX_CONCURRENT_CHAINS:-100}
 
-      # Database connections
-      - MONGODB_URL=mongodb://chainsync:${MONGODB_PASSWORD:-chainsync123}@mongodb:27017/chainsync
+      # Analytics connections
       - CLICKHOUSE_URL=http://chainsync:${CLICKHOUSE_PASSWORD:-clickhouse123}@clickhouse:8123/chainsync_analytics
       - REDIS_URL=redis://:${REDIS_PASSWORD:-redis123}@redis:6379
+
+      # Stripe configuration
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
 
       # Monitoring
       - PROMETHEUS_ENABLED=${PROMETHEUS_ENABLED:-true}
@@ -121,58 +155,12 @@ services:
       retries: 3
       start_period: 60s
 
-  # Sync Service - Cross-chain coordination
-  sync-service:
+  # Customer API Service - Customer-facing interface
+  customer-api:
     build:
       context: .
-      dockerfile: packages/services/sync-service/Dockerfile
-    container_name: chainsync-sync
-    restart: unless-stopped
-    ports:
-      - "3002:3002"
-    environment:
-      # Service configuration
-      - NODE_ENV=${NODE_ENV:-production}
-      - PORT=3002
-      - SERVICE_NAME=sync-service
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-
-      # Oracle integration
-      - ORACLE_SERVICE_URL=http://oracle-service:3001
-      - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}
-
-      # Database connections
-      - MONGODB_URL=mongodb://chainsync:${MONGODB_PASSWORD:-chainsync123}@mongodb:27017/chainsync
-      - CLICKHOUSE_URL=http://chainsync:${CLICKHOUSE_PASSWORD:-clickhouse123}@clickhouse:8123/chainsync_analytics
-      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis123}@redis:6379
-
-      # Processing configuration
-      - MAX_CONCURRENT_DEPLOYMENTS=${MAX_CONCURRENT_DEPLOYMENTS:-10}
-      - MONITOR_INTERVAL_MS=${MONITOR_INTERVAL_MS:-5000}
-    depends_on:
-      oracle-service:
-        condition: service_healthy
-      mongodb:
-        condition: service_healthy
-      clickhouse:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-    networks:
-      - chainsync-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-
-  # API Service - External interface
-  api-service:
-    build:
-      context: .
-      dockerfile: packages/services/api/Dockerfile
-    container_name: chainsync-api
+      dockerfile: packages/services/customer-api/Dockerfile
+    container_name: chainsync-customer-api
     restart: unless-stopped
     ports:
       - "3000:3000"
@@ -180,25 +168,26 @@ services:
       # Service configuration
       - NODE_ENV=${NODE_ENV:-production}
       - PORT=3000
-      - SERVICE_NAME=api-service
+      - SERVICE_NAME=customer-api
       - LOG_LEVEL=${LOG_LEVEL:-info}
 
-      # Service integrations
-      - ORACLE_SERVICE_URL=http://oracle-service:3001
-      - SYNC_SERVICE_URL=http://sync-service:3002
+      # Core Engine integration
+      - CORE_ENGINE_URL=http://core-engine:3001
+
+      # Database configuration (choose mongodb or postgresql)
+      - DATABASE_TYPE=${DATABASE_TYPE:-mongodb}
+      - MONGODB_URL=mongodb://chainsync:${MONGODB_PASSWORD:-chainsync123}@mongodb:27017/chainsync
+      - POSTGRES_URL=postgres://chainsync:${POSTGRES_PASSWORD:-postgres123}@postgresql:5432/chainsync
 
       # Security configuration
       - JWT_SECRET=${JWT_SECRET}
       - API_RATE_LIMIT=${API_RATE_LIMIT:-100}
       - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000,https://app.chainsync.dev}
 
-      # Database connections
-      - MONGODB_URL=mongodb://chainsync:${MONGODB_PASSWORD:-chainsync123}@mongodb:27017/chainsync
+      # Redis for caching
       - REDIS_URL=redis://:${REDIS_PASSWORD:-redis123}@redis:6379
     depends_on:
-      oracle-service:
-        condition: service_healthy
-      sync-service:
+      core-engine:
         condition: service_healthy
       mongodb:
         condition: service_healthy
@@ -233,9 +222,8 @@ services:
     networks:
       - chainsync-network
     depends_on:
-      - oracle-service
-      - sync-service
-      - api-service
+      - core-engine
+      - customer-api
 
   # Grafana for visualization
   grafana:
@@ -259,6 +247,8 @@ services:
 
 volumes:
   mongodb_data:
+    driver: local
+  postgres_data:
     driver: local
   clickhouse_data:
     driver: local

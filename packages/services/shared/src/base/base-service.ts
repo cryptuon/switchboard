@@ -43,7 +43,7 @@ export abstract class BaseService extends EventEmitter {
   protected readonly config: ServiceConfig;
   protected readonly configManager: ConfigManager;
   protected readonly retryManager: RetryManager;
-  protected readonly healthChecker: HealthChecker;
+  protected readonly healthChecker?: HealthChecker;
   protected readonly metricsCollector?: MetricsCollector;
   protected readonly circuitBreakers: Map<string, CircuitBreaker> = new Map();
 
@@ -122,7 +122,7 @@ export abstract class BaseService extends EventEmitter {
       this.state = ServiceState.ERROR;
       const serviceError = error instanceof ServiceError ? error :
         new ServiceError(
-          `Failed to start service: ${error.message}`,
+          `Failed to start service: ${String(error)}`,
           ErrorCode.INTERNAL_ERROR,
           500,
           { originalError: error },

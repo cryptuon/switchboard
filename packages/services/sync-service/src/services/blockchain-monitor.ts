@@ -5,7 +5,7 @@
  */
 
 import { EventEmitter } from 'events';
-import { Connection, PublicKey } from '@solana/web3.js';
+import { Connection } from '@solana/web3.js';
 import { ethers } from 'ethers';
 import WebSocket from 'ws';
 
@@ -50,7 +50,7 @@ export class BlockchainMonitor extends EventEmitter {
   private monitoringIntervals: Map<string, NodeJS.Timeout> = new Map();
 
   private readonly logger: Logger;
-  private readonly retryManager: RetryManager;
+  // private readonly _retryManager: RetryManager; // Unused currently
   private readonly metricsCollector?: MetricsCollector;
   private readonly transactionRepo: TransactionRepository;
   private readonly deploymentRepo: DeploymentRepository;
@@ -62,14 +62,14 @@ export class BlockchainMonitor extends EventEmitter {
     transactionRepo: TransactionRepository,
     deploymentRepo: DeploymentRepository,
     logger: Logger,
-    retryManager: RetryManager,
+    _retryManager: RetryManager, // Unused currently
     metricsCollector?: MetricsCollector
   ) {
     super();
     this.transactionRepo = transactionRepo;
     this.deploymentRepo = deploymentRepo;
     this.logger = logger;
-    this.retryManager = retryManager;
+    // this._retryManager = retryManager;
     this.metricsCollector = metricsCollector;
   }
 
@@ -113,9 +113,7 @@ export class BlockchainMonitor extends EventEmitter {
         await this.initializeProvider(chainName, config);
         this.startChainMonitoring(chainName);
       } catch (error) {
-        this.logger.error('Failed to initialize provider', error, {
-          chain: chainName
-        });
+        this.logger.error(`Failed to initialize provider for ${chainName}: ${String(error)}`);
       }
     }
 
@@ -199,7 +197,7 @@ export class BlockchainMonitor extends EventEmitter {
     } catch (error) {
       this.metricsCollector?.recordError('provider_initialization', chainName);
       throw new ServiceError(
-        `Failed to initialize provider for ${chainName}: ${error.message}`,
+        `Failed to initialize provider for ${chainName}: ${String(error)}`,
         ErrorCode.EXTERNAL_SERVICE_ERROR,
         500,
         { chain: chainName, config, originalError: error },
@@ -454,7 +452,8 @@ export class BlockchainMonitor extends EventEmitter {
         timer?.() || 0
       );
 
-      if (error.message.includes('not found') || error.message.includes('invalid')) {
+      const errorMessage = String(error);
+      if (errorMessage.includes('not found') || errorMessage.includes('invalid')) {
         // Transaction might be dropped
         await this.transactionRepo.markAsDropped(transactionHash);
         this.emit('transactionDropped', { chainName, transactionHash });

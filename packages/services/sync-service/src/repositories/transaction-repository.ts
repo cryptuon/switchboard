@@ -142,10 +142,13 @@ export class TransactionRepository extends RepositoryBase<ITransaction> {
           return null;
         }
 
-        transaction.updateConfirmations(confirmations, blockNumber);
+        // Update confirmations directly
+        transaction.confirmations = confirmations;
+        transaction.blockNumber = blockNumber;
         if (blockHash) {
           transaction.blockHash = blockHash;
         }
+        transaction.updatedAt = new Date();
 
         return transaction.save();
       },
@@ -164,7 +167,10 @@ export class TransactionRepository extends RepositoryBase<ITransaction> {
           return null;
         }
 
-        transaction.markAsFailed(error);
+        // Mark as failed directly
+        transaction.status = 'failed';
+        transaction.error = error;
+        transaction.updatedAt = new Date();
         return transaction.save();
       },
       'markAsFailed'
@@ -182,7 +188,9 @@ export class TransactionRepository extends RepositoryBase<ITransaction> {
           return null;
         }
 
-        transaction.markAsDropped();
+        // Mark as dropped directly
+        transaction.status = 'dropped';
+        transaction.updatedAt = new Date();
         return transaction.save();
       },
       'markAsDropped'
@@ -255,7 +263,22 @@ export class TransactionRepository extends RepositoryBase<ITransaction> {
 
     for (const result of results) {
       stats.total += result.count;
-      stats[result._id] = result.count;
+
+      // Type-safe property assignment
+      switch (result._id) {
+        case 'pending':
+          stats.pending = result.count;
+          break;
+        case 'confirmed':
+          stats.confirmed = result.count;
+          break;
+        case 'failed':
+          stats.failed = result.count;
+          break;
+        case 'dropped':
+          stats.dropped = result.count;
+          break;
+      }
 
       if (result._id === 'confirmed' && result.avgConfirmationTime) {
         totalConfirmationTime += result.avgConfirmationTime * result.count;

@@ -15,11 +15,16 @@
     "mongoose": "^7.3.0",
     "winston": "^3.10.0",
     "joi": "^17.9.2",
-    "prom-client": "^14.2.0"
+    "prom-client": "^14.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "express-rate-limit": "^6.10.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/bcrypt": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "eslint": "^8.42.0",

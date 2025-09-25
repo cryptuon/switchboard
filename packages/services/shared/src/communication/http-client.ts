@@ -137,7 +137,7 @@ export class HttpClient {
       return response;
 
     } catch (error) {
-      const statusCode = error.status || 0;
+      const statusCode = (error as any).status || 0;
       this.metricsCollector?.recordHttpRequest(
         requestConfig.method || 'GET',
         url,
@@ -204,7 +204,7 @@ export class HttpClient {
       let data: T;
 
       if (contentType.includes('application/json')) {
-        data = await response.json();
+        data = await response.json() as T;
       } else if (contentType.includes('text/')) {
         data = await response.text() as any;
       } else {

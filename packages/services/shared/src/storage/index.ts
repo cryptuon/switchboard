@@ -29,7 +29,7 @@ export { MongoDBAdapter } from './adapters/mongodb-adapter';
 export { PostgreSQLAdapter } from './adapters/postgresql-adapter';
 export { ClickHouseAdapter } from './adapters/clickhouse-adapter';
 export { DuckDBAdapter } from './adapters/duckdb-adapter';
-export { RedisAdapter } from './adapters/redis-adapter';
+// export { RedisAdapter } from './adapters/redis-adapter'; // Not implemented
 
 // Repository layer
 export { BaseRepository, RepositoryOptions } from './repositories/base-repository';

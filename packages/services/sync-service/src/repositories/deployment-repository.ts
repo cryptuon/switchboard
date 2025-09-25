@@ -133,7 +133,13 @@ export class DeploymentRepository extends RepositoryBase<IDeployment> {
           return null;
         }
 
-        deployment.updateChainStatus(chainName, status, data);
+        // Update chain status directly on the document using type assertion
+        const deploymentDoc = deployment as any;
+        if (!deploymentDoc.chainStatus) {
+          deploymentDoc.chainStatus = {};
+        }
+        deploymentDoc.chainStatus[chainName] = { status, ...data };
+        deploymentDoc.updatedAt = new Date();
         return deployment.save();
       },
       'updateChainStatus'
@@ -204,7 +210,25 @@ export class DeploymentRepository extends RepositoryBase<IDeployment> {
 
     for (const result of results) {
       stats.total += result.count;
-      stats[result._id] = result.count;
+
+      // Type-safe property assignment
+      switch (result._id) {
+        case 'pending':
+          stats.pending = result.count;
+          break;
+        case 'inProgress':
+          stats.inProgress = result.count;
+          break;
+        case 'completed':
+          stats.completed = result.count;
+          break;
+        case 'failed':
+          stats.failed = result.count;
+          break;
+        case 'partial':
+          stats.partial = result.count;
+          break;
+      }
 
       if (result._id === 'completed' && result.avgCompletionTime) {
         totalCompletionTime += result.avgCompletionTime * result.count;

@@ -15,31 +15,36 @@ export class MetricsCollector {
   private isStarted: boolean = false;
 
   // HTTP metrics
-  private httpRequestsTotal: Counter<string>;
-  private httpRequestDuration: Histogram<string>;
-  private httpRequestsInFlight: Gauge<string>;
+  private httpRequestsTotal!: Counter<string>;
+  private httpRequestDuration!: Histogram<string>;
+  private httpRequestsInFlight!: Gauge<string>;
 
   // Database metrics
-  private dbConnectionsActive: Gauge<string>;
-  private dbQueryDuration: Histogram<string>;
-  private dbQueryTotal: Counter<string>;
+  private dbConnectionsActive!: Gauge<string>;
+  private dbQueryDuration!: Histogram<string>;
+  private dbQueryTotal!: Counter<string>;
 
   // Blockchain metrics
-  private blockchainRequestsTotal: Counter<string>;
-  private blockchainRequestDuration: Histogram<string>;
-  private blockchainConnectionsActive: Gauge<string>;
+  private blockchainRequestsTotal!: Counter<string>;
+  private blockchainRequestDuration!: Histogram<string>;
+  private blockchainConnectionsActive!: Gauge<string>;
 
   // Business metrics
-  private deploymentsTotal: Counter<string>;
-  private deploymentDuration: Histogram<string>;
-  private activeDeployments: Gauge<string>;
-  private transactionsTotal: Counter<string>;
-  private transactionFees: Histogram<string>;
+  private deploymentsTotal!: Counter<string>;
+  private deploymentDuration!: Histogram<string>;
+  private activeDeployments!: Gauge<string>;
+  private transactionsTotal!: Counter<string>;
+  private transactionFees!: Histogram<string>;
+
+  // Billing metrics
+  private billingOperationsTotal!: Counter<string>;
+  private billingOperationDuration!: Histogram<string>;
+  private authOperationsTotal!: Counter<string>;
+  private authOperationDuration!: Histogram<string>;
 
   // System metrics
-  private errorRate: Counter<string>;
-  private memoryUsage: Gauge<string>;
-  private cpuUsage: Gauge<string>;
+  private errorRate!: Counter<string>;
+  private memoryUsage!: Gauge<string>;
 
   constructor(serviceName: string) {
     this.serviceName = serviceName;
@@ -47,7 +52,6 @@ export class MetricsCollector {
   }
 
   private initializeMetrics(): void {
-    const labelNames = ['service', 'method', 'status', 'endpoint'];
     const blockchainLabelNames = ['service', 'network', 'operation', 'status'];
     const dbLabelNames = ['service', 'operation', 'table', 'status'];
 
@@ -173,12 +177,38 @@ export class MetricsCollector {
       registers: [register]
     });
 
-    this.cpuUsage = new Gauge({
-      name: 'cpu_usage_percent',
-      help: 'CPU usage percentage',
-      labelNames: ['service'],
+    // Billing metrics
+    this.billingOperationsTotal = new Counter({
+      name: 'billing_operations_total',
+      help: 'Total number of billing operations',
+      labelNames: ['service', 'operation', 'status'],
       registers: [register]
     });
+
+    this.billingOperationDuration = new Histogram({
+      name: 'billing_operation_duration_seconds',
+      help: 'Duration of billing operations in seconds',
+      labelNames: ['service', 'operation'],
+      buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 2, 5],
+      registers: [register]
+    });
+
+    // Authentication metrics
+    this.authOperationsTotal = new Counter({
+      name: 'auth_operations_total',
+      help: 'Total number of authentication operations',
+      labelNames: ['service', 'operation', 'status'],
+      registers: [register]
+    });
+
+    this.authOperationDuration = new Histogram({
+      name: 'auth_operation_duration_seconds',
+      help: 'Duration of authentication operations in seconds',
+      labelNames: ['service', 'operation'],
+      buckets: [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 2],
+      registers: [register]
+    });
+
   }
 
   /**
@@ -351,6 +381,48 @@ export class MetricsCollector {
   }
 
   /**
+   * Record billing operation metrics
+   */
+  recordBillingOperation(
+    operation: string,
+    success: boolean,
+    duration: number
+  ): void {
+    const labels = {
+      service: this.serviceName,
+      operation,
+      status: success ? 'success' : 'error'
+    };
+
+    this.billingOperationsTotal.inc(labels);
+    this.billingOperationDuration.observe(
+      { service: this.serviceName, operation },
+      duration / 1000
+    );
+  }
+
+  /**
+   * Record authentication operation metrics
+   */
+  recordAuthOperation(
+    operation: string,
+    success: boolean,
+    duration: number
+  ): void {
+    const labels = {
+      service: this.serviceName,
+      operation,
+      status: success ? 'success' : 'error'
+    };
+
+    this.authOperationsTotal.inc(labels);
+    this.authOperationDuration.observe(
+      { service: this.serviceName, operation },
+      duration / 1000
+    );
+  }
+
+  /**
    * Record error
    */
   recordError(errorType: string, operation: string): void {
@@ -404,7 +476,6 @@ export class MetricsCollector {
     this.memoryUsage.set({ service: this.serviceName, type: 'rss' }, memUsage.rss);
 
     // CPU usage would require additional libraries, skipping for now
-    // this.cpuUsage.set({ service: this.serviceName }, cpuPercent);
   }
 
   /**

@@ -54,11 +54,11 @@ export class Logger {
         winston.format.printf((info) => {
           const logEntry: LogEntry = {
             level: info.level as LogLevel,
-            message: info.message,
-            context: { ...this.defaultContext, ...info.context },
-            timestamp: info.timestamp,
+            message: String(info.message),
+            context: { ...this.defaultContext, ...(info.context || {}) },
+            timestamp: String(info.timestamp),
             error: info.error,
-            duration: info.duration,
+            duration: Number(info.duration) || undefined,
             metadata: info.metadata
           };
           return JSON.stringify(logEntry);
@@ -70,7 +70,7 @@ export class Logger {
             winston.format.colorize(),
             winston.format.simple(),
             winston.format.printf((info) => {
-              const context = { ...this.defaultContext, ...info.context };
+              const context = { ...this.defaultContext, ...(info.context || {}) };
               const contextStr = Object.keys(context).length > 1
                 ? ` [${Object.entries(context).map(([k, v]) => `${k}=${v}`).join(', ')}]`
                 : '';

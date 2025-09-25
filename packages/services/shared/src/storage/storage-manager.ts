@@ -451,12 +451,13 @@ export class StorageManager implements StorageHealthCheck {
    */
   private async initializeCacheStorage(): Promise<void> {
     if (this.config.cache!.type === 'redis') {
-      const { RedisAdapter } = await import('./adapters/redis-adapter');
-      this.cacheAdapter = new RedisAdapter(
-        this.config.cache!.config,
-        this.logger,
-        this.metricsCollector
-      );
+      // const { RedisAdapter } = await import('./adapters/redis-adapter');
+      throw new Error('Redis adapter not implemented');
+      // this.cacheAdapter = new RedisAdapter(
+      //   this.config.cache!.config,
+      //   this.logger,
+      //   this.metricsCollector
+      // );
     } else {
       throw new ServiceError(
         `Unsupported cache storage type: ${this.config.cache!.type}`,

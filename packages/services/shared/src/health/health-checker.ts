@@ -316,7 +316,7 @@ export class CommonHealthChecks {
         } catch (error) {
           return {
             status: 'unhealthy',
-            message: `Database error: ${error.message}`,
+            message: `Database error: ${String(error)}`,
             timestamp: new Date(),
             details: { error: error instanceof Error ? error.stack : error }
           };
@@ -360,7 +360,7 @@ export class CommonHealthChecks {
         } catch (error) {
           return {
             status: 'unhealthy',
-            message: `Service unreachable: ${error.message}`,
+            message: `Service unreachable: ${String(error)}`,
             timestamp: new Date(),
             details: { error: error instanceof Error ? error.stack : error, url }
           };
@@ -473,7 +473,7 @@ export class CommonHealthChecks {
         } catch (error) {
           return {
             status: 'unhealthy',
-            message: `Failed to check disk space: ${error.message}`,
+            message: `Failed to check disk space: ${String(error)}`,
             timestamp: new Date(),
             details: { error: error instanceof Error ? error.stack : error, path }
           };

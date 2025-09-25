@@ -4,7 +4,7 @@
  * Provides database connection pooling, transaction management, and query optimization
  */
 
-import mongoose, { Connection, ClientSession, TransactionOptions } from 'mongoose';
+import mongoose, { Connection, ClientSession } from 'mongoose';
 import { Logger } from '../logging/logger';
 import { ServiceError, ErrorCode } from '../errors/service-errors';
 import { RetryManager } from '../retry/retry-manager';
@@ -106,7 +106,7 @@ export class DatabaseConnectionManager {
     } catch (error) {
       this.logger.error('Error disconnecting from database', error);
       throw new ServiceError(
-        `Failed to disconnect from database: ${error.message}`,
+        `Failed to disconnect from database: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { originalError: error },
@@ -160,7 +160,7 @@ export class DatabaseConnectionManager {
    */
   async withTransaction<T>(
     operation: (session: ClientSession) => Promise<T>,
-    options?: TransactionOptions
+    options?: any
   ): Promise<T> {
     const timer = this.metricsCollector?.createTimer();
     let session: ClientSession | null = null;
@@ -178,7 +178,7 @@ export class DatabaseConnectionManager {
       committed = true;
       this.metricsCollector?.recordDatabaseOperation('transaction', 'commit', true, timer?.() || 0);
 
-      return result;
+      return result as T;
     } catch (error) {
       this.metricsCollector?.recordDatabaseOperation('transaction', 'commit', false, timer?.() || 0);
 
@@ -188,7 +188,7 @@ export class DatabaseConnectionManager {
       });
 
       throw new ServiceError(
-        `Transaction failed: ${error.message}`,
+        `Transaction failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { originalError: error, committed },
@@ -243,7 +243,7 @@ export class DatabaseConnectionManager {
       });
 
       throw new ServiceError(
-        `Database query failed: ${error.message}`,
+        `Database query failed: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { originalError: error, operation: operationName },
@@ -383,7 +383,7 @@ export class DatabaseConnectionManager {
       this.logger.error('Failed to connect to database', error);
 
       throw new ServiceError(
-        `Failed to connect to database: ${error.message}`,
+        `Failed to connect to database: ${String(error)}`,
         ErrorCode.DATABASE_ERROR,
         500,
         { originalError: error, config: { ...this.config, password: '[REDACTED]' } },

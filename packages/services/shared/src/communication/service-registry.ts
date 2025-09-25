@@ -41,6 +41,7 @@ export interface ServiceQuery {
 export class ServiceRegistry extends EventEmitter {
   private services: Map<string, ServiceRegistration> = new Map();
   private heartbeatIntervals: Map<string, NodeJS.Timeout> = new Map();
+  private roundRobinIndices: Map<string, number> = new Map();
   private cleanupInterval: NodeJS.Timeout;
 
   private readonly logger: Logger;
@@ -293,11 +294,9 @@ export class ServiceRegistry extends EventEmitter {
       default:
         // Simple round-robin using service name as key
         const key = `rr_${serviceName}`;
-        if (!this[key]) {
-          this[key] = 0;
-        }
-        const index = this[key] % healthyServices.length;
-        this[key] = (this[key] + 1) % healthyServices.length;
+        const currentIndex = this.roundRobinIndices.get(key) || 0;
+        const index = currentIndex % healthyServices.length;
+        this.roundRobinIndices.set(key, (currentIndex + 1) % healthyServices.length);
         return healthyServices[index];
     }
   }
@@ -332,7 +331,7 @@ export class ServiceRegistry extends EventEmitter {
   private validateRegistration(registration: ServiceRegistration): void {
     const required = ['id', 'name', 'version', 'host', 'port'];
     for (const field of required) {
-      if (!registration[field]) {
+      if (!(registration as any)[field]) {
         throw new ServiceError(
           `Missing required field: ${field}`,
           ErrorCode.VALIDATION_ERROR,

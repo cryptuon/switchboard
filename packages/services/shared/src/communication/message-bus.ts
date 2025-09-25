@@ -137,7 +137,7 @@ export class MessageBus extends EventEmitter {
       });
 
       throw new ServiceError(
-        `Failed to publish message: ${error.message}`,
+        `Failed to publish message: ${String(error)}`,
         ErrorCode.INTERNAL_ERROR,
         500,
         { originalError: error, message: fullMessage },

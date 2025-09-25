@@ -109,7 +109,7 @@ export class ConfigManager {
       return config;
     } catch (error) {
       const configError = new ServiceError(
-        `Configuration validation failed: ${error.message}`,
+        `Configuration validation failed: ${String(error)}`,
         ErrorCode.VALIDATION_ERROR,
         500,
         { originalError: error },

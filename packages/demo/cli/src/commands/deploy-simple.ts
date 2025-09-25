@@ -78,11 +78,17 @@ export const deployCommand = new Command('deploy')
       spinner.text = 'Initializing ChainSync SDK...';
 
       // Initialize ChainSync SDK
+      const chains: { [chainName: string]: string } = {
+        solana: process.env.SOLANA_RPC_URL || config.solana.rpcUrl
+      };
+
+      if (process.env.ETHEREUM_RPC_URL) chains.ethereum = process.env.ETHEREUM_RPC_URL;
+      if (process.env.POLYGON_RPC_URL) chains.polygon = process.env.POLYGON_RPC_URL;
+      if (process.env.ARBITRUM_RPC_URL) chains.arbitrum = process.env.ARBITRUM_RPC_URL;
+
       const chainSync = new ChainSync({
         solanaRpcUrl: process.env.SOLANA_RPC_URL || config.solana.rpcUrl,
-        ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
-        polygonRpcUrl: process.env.POLYGON_RPC_URL,
-        arbitrumRpcUrl: process.env.ARBITRUM_RPC_URL
+        chains
       });
 
       spinner.text = 'Deploying contracts...';
@@ -101,10 +107,10 @@ export const deployCommand = new Command('deploy')
       console.log(chalk.blue(`\n📋 Deployment Details:`));
       console.log(chalk.gray(`Deployment ID: ${deployment.id}`));
       console.log(chalk.gray(`Status: ${deployment.status}`));
-      console.log(chalk.gray(`Estimated Fee: ${deployment.estimatedFee} tokens`));
+      console.log(chalk.gray(`Coordination Latency: ${deployment.coordinationLatency}ms`));
 
       console.log(chalk.blue('\n🔗 Chain Deployments:'));
-      deployment.deployments.forEach((deploy) => {
+      deployment.chains.forEach((deploy: any) => {
         console.log(chalk.gray(`  ${deploy.chainName}: ${deploy.status} (TX: ${deploy.transactionHash || 'Pending'})`));
       });
 
