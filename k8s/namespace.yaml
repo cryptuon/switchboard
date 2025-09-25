@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chainsync
+  labels:
+    name: chainsync
+    environment: production
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: chainsync-secrets
+  namespace: chainsync
+type: Opaque
+stringData:
+  mongodb-password: "change-in-production"
+  clickhouse-password: "change-in-production"
+  redis-password: "change-in-production"
+  jwt-secret: "change-in-production-minimum-32-characters"
+  solana-private-key: "change-in-production"
+  alchemy-api-key: "change-in-production"
+  grafana-password: "change-in-production"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chainsync-config
+  namespace: chainsync
+data:
+  NODE_ENV: "production"
+  LOG_LEVEL: "info"
+  COORDINATION_LATENCY_TARGET: "400"
+  BATCH_PROCESSING_SIZE: "50"
+  MAX_CONCURRENT_CHAINS: "100"
+  MAX_CONCURRENT_DEPLOYMENTS: "10"
+  MONITOR_INTERVAL_MS: "5000"
+  API_RATE_LIMIT: "100"
+  PROMETHEUS_ENABLED: "true"
+  ENABLE_REAL_TIME_STREAMING: "true"
+  ENABLE_WEBSOCKETS: "true"
+  ENABLE_PERFORMANCE_MONITORING: "true"
+  SOLANA_RPC_URL: "https://api.mainnet-beta.solana.com"
+  BSC_RPC_URL: "https://bsc-dataseed1.binance.org"
+  AVALANCHE_RPC_URL: "https://api.avax.network/ext/bc/C/rpc"

@@ -1,0 +1,13 @@
+{
+  "packages": [
+    "packages/programs/state-oracle",
+    "packages/programs/coordinator",
+    "packages/programs/test-simple",
+    "packages/sdk",
+    "packages/services/*",
+    "packages/demo/*"
+  ],
+  "version": "0.1.0",
+  "npmClient": "npm",
+  "useWorkspaces": true
+}

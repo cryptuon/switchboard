@@ -1,0 +1,375 @@
+# Oracle Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracle-service
+  namespace: chainsync
+  labels:
+    app: oracle-service
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: oracle-service
+  template:
+    metadata:
+      labels:
+        app: oracle-service
+        version: v1
+    spec:
+      containers:
+      - name: oracle-service
+        image: chainsync/oracle-service:latest
+        ports:
+        - containerPort: 3001
+        - containerPort: 9090  # Metrics port
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: NODE_ENV
+        - name: PORT
+          value: "3001"
+        - name: SERVICE_NAME
+          value: "oracle-service"
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: LOG_LEVEL
+        - name: SOLANA_RPC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: SOLANA_RPC_URL
+        - name: SOLANA_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: solana-private-key
+        - name: ETHEREUM_RPC_URL
+          value: "https://eth-mainnet.g.alchemy.com/v2/$(ALCHEMY_API_KEY)"
+        - name: POLYGON_RPC_URL
+          value: "https://polygon-mainnet.g.alchemy.com/v2/$(ALCHEMY_API_KEY)"
+        - name: ARBITRUM_RPC_URL
+          value: "https://arb-mainnet.g.alchemy.com/v2/$(ALCHEMY_API_KEY)"
+        - name: OPTIMISM_RPC_URL
+          value: "https://opt-mainnet.g.alchemy.com/v2/$(ALCHEMY_API_KEY)"
+        - name: ALCHEMY_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: alchemy-api-key
+        - name: BSC_RPC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: BSC_RPC_URL
+        - name: AVALANCHE_RPC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: AVALANCHE_RPC_URL
+        - name: COORDINATION_LATENCY_TARGET
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: COORDINATION_LATENCY_TARGET
+        - name: BATCH_PROCESSING_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: BATCH_PROCESSING_SIZE
+        - name: MAX_CONCURRENT_CHAINS
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: MAX_CONCURRENT_CHAINS
+        - name: MONGODB_URL
+          value: "mongodb://chainsync:$(MONGODB_PASSWORD)@mongodb:27017/chainsync"
+        - name: CLICKHOUSE_URL
+          value: "http://chainsync:$(CLICKHOUSE_PASSWORD)@clickhouse:8123/chainsync_analytics"
+        - name: REDIS_URL
+          value: "redis://:$(REDIS_PASSWORD)@redis:6379"
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: mongodb-password
+        - name: CLICKHOUSE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: clickhouse-password
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: redis-password
+        - name: PROMETHEUS_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: PROMETHEUS_ENABLED
+        - name: METRICS_PORT
+          value: "9090"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracle-service
+  namespace: chainsync
+  labels:
+    app: oracle-service
+spec:
+  selector:
+    app: oracle-service
+  ports:
+  - name: http
+    port: 3001
+    targetPort: 3001
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+---
+# Sync Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sync-service
+  namespace: chainsync
+  labels:
+    app: sync-service
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sync-service
+  template:
+    metadata:
+      labels:
+        app: sync-service
+        version: v1
+    spec:
+      containers:
+      - name: sync-service
+        image: chainsync/sync-service:latest
+        ports:
+        - containerPort: 3002
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: NODE_ENV
+        - name: PORT
+          value: "3002"
+        - name: SERVICE_NAME
+          value: "sync-service"
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: LOG_LEVEL
+        - name: ORACLE_SERVICE_URL
+          value: "http://oracle-service:3001"
+        - name: SOLANA_RPC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: SOLANA_RPC_URL
+        - name: MONGODB_URL
+          value: "mongodb://chainsync:$(MONGODB_PASSWORD)@mongodb:27017/chainsync"
+        - name: CLICKHOUSE_URL
+          value: "http://chainsync:$(CLICKHOUSE_PASSWORD)@clickhouse:8123/chainsync_analytics"
+        - name: REDIS_URL
+          value: "redis://:$(REDIS_PASSWORD)@redis:6379"
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: mongodb-password
+        - name: CLICKHOUSE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: clickhouse-password
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: redis-password
+        - name: MAX_CONCURRENT_DEPLOYMENTS
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: MAX_CONCURRENT_DEPLOYMENTS
+        - name: MONITOR_INTERVAL_MS
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: MONITOR_INTERVAL_MS
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3002
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3002
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sync-service
+  namespace: chainsync
+  labels:
+    app: sync-service
+spec:
+  selector:
+    app: sync-service
+  ports:
+  - name: http
+    port: 3002
+    targetPort: 3002
+---
+# API Service Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service
+  namespace: chainsync
+  labels:
+    app: api-service
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-service
+  template:
+    metadata:
+      labels:
+        app: api-service
+        version: v1
+    spec:
+      containers:
+      - name: api-service
+        image: chainsync/api-service:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: NODE_ENV
+        - name: PORT
+          value: "3000"
+        - name: SERVICE_NAME
+          value: "api-service"
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: LOG_LEVEL
+        - name: ORACLE_SERVICE_URL
+          value: "http://oracle-service:3001"
+        - name: SYNC_SERVICE_URL
+          value: "http://sync-service:3002"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: jwt-secret
+        - name: API_RATE_LIMIT
+          valueFrom:
+            configMapKeyRef:
+              name: chainsync-config
+              key: API_RATE_LIMIT
+        - name: CORS_ORIGINS
+          value: "https://app.chainsync.dev,https://chainsync.dev"
+        - name: MONGODB_URL
+          value: "mongodb://chainsync:$(MONGODB_PASSWORD)@mongodb:27017/chainsync"
+        - name: REDIS_URL
+          value: "redis://:$(REDIS_PASSWORD)@redis:6379"
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: mongodb-password
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: redis-password
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+  namespace: chainsync
+  labels:
+    app: api-service
+spec:
+  selector:
+    app: api-service
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  type: LoadBalancer

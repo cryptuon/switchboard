@@ -1,0 +1,300 @@
+# Prometheus Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: chainsync
+  labels:
+    app: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:latest
+        ports:
+        - containerPort: 9090
+        args:
+        - '--config.file=/etc/prometheus/prometheus.yml'
+        - '--storage.tsdb.path=/prometheus'
+        - '--web.console.libraries=/etc/prometheus/console_libraries'
+        - '--web.console.templates=/etc/prometheus/consoles'
+        - '--storage.tsdb.retention.time=30d'
+        - '--web.enable-lifecycle'
+        volumeMounts:
+        - name: prometheus-config
+          mountPath: /etc/prometheus
+        - name: prometheus-storage
+          mountPath: /prometheus
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+      - name: prometheus-storage
+        persistentVolumeClaim:
+          claimName: prometheus-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: chainsync
+  labels:
+    app: prometheus
+spec:
+  selector:
+    app: prometheus
+  ports:
+  - port: 9090
+    targetPort: 9090
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-pvc
+  namespace: chainsync
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: chainsync
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+
+    scrape_configs:
+      - job_name: 'chainsync-oracle'
+        static_configs:
+          - targets: ['oracle-service:9090']
+        metrics_path: /metrics
+        scrape_interval: 5s
+
+      - job_name: 'chainsync-api'
+        static_configs:
+          - targets: ['api-service:3000']
+        metrics_path: /metrics
+        scrape_interval: 15s
+
+      - job_name: 'chainsync-sync'
+        static_configs:
+          - targets: ['sync-service:3002']
+        metrics_path: /metrics
+        scrape_interval: 15s
+
+      - job_name: 'mongodb'
+        static_configs:
+          - targets: ['mongodb:27017']
+        scrape_interval: 30s
+
+      - job_name: 'redis'
+        static_configs:
+          - targets: ['redis:6379']
+        scrape_interval: 30s
+
+      - job_name: 'clickhouse'
+        static_configs:
+          - targets: ['clickhouse:8123']
+        scrape_interval: 30s
+
+    rule_files:
+      - "chainsync_rules.yml"
+
+  chainsync_rules.yml: |
+    groups:
+      - name: chainsync.rules
+        rules:
+          - alert: ChainSyncHighLatency
+            expr: chainsync_coordination_latency_ms > 1000
+            for: 2m
+            labels:
+              severity: warning
+            annotations:
+              summary: "ChainSync coordination latency is high"
+              description: "Coordination latency is {{ $value }}ms, above 1000ms threshold"
+
+          - alert: ChainSyncServiceDown
+            expr: up{job=~"chainsync-.*"} == 0
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "ChainSync service is down"
+              description: "Service {{ $labels.job }} has been down for more than 1 minute"
+
+          - alert: ChainSyncLowSuccessRate
+            expr: chainsync_success_rate < 0.95
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "ChainSync success rate is low"
+              description: "Success rate is {{ $value }}, below 95% threshold"
+
+          - alert: ChainSyncQueueBacklog
+            expr: chainsync_coordination_queue_size > 100
+            for: 2m
+            labels:
+              severity: warning
+            annotations:
+              summary: "ChainSync coordination queue has backlog"
+              description: "Queue size is {{ $value }}, above 100 threshold"
+---
+# Grafana Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: chainsync
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: chainsync-secrets
+              key: grafana-password
+        - name: GF_INSTALL_PLUGINS
+          value: "grafana-clickhouse-datasource"
+        volumeMounts:
+        - name: grafana-storage
+          mountPath: /var/lib/grafana
+        - name: grafana-provisioning
+          mountPath: /etc/grafana/provisioning
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: grafana-storage
+        persistentVolumeClaim:
+          claimName: grafana-pvc
+      - name: grafana-provisioning
+        configMap:
+          name: grafana-provisioning
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: chainsync
+  labels:
+    app: grafana
+spec:
+  selector:
+    app: grafana
+  ports:
+  - port: 3000
+    targetPort: 3000
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-pvc
+  namespace: chainsync
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning
+  namespace: chainsync
+data:
+  datasources.yml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus:9090
+        isDefault: true
+      - name: ClickHouse
+        type: clickhouse
+        access: proxy
+        url: http://clickhouse:8123
+        user: chainsync
+        database: chainsync_analytics
+        basicAuth: true
+        basicAuthUser: chainsync
+
+  dashboards.yml: |
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        updateIntervalSeconds: 10
+        allowUiUpdates: true
+        options:
+          path: /var/lib/grafana/dashboards

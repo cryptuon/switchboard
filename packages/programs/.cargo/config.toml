@@ -1,0 +1,5 @@
+[target.'cfg(target_os = "solana")']
+rustflags = ["-C", "link-arg=-z", "-C", "link-arg=max-page-size=0x1000"]
+
+[net]
+git-fetch-with-cli = true

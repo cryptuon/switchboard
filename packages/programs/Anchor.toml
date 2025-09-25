@@ -1,0 +1,26 @@
+[features]
+seeds = false
+skip-lint = false
+
+[programs.devnet]
+state_oracle = "F9PpEEnEt7nnNzDom1wK2GtLk2A94ffvMuqbcxXkfwtn"
+coordinator = "CZP1U8GuiYYW8P3FRTb23nkFBKiKHcwX64oxxMp9QYtP"
+test_simple = "32vyJ45ERLUVDzPwaCVWxBfjFx8gBBRz46GxUgm8uXGy"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+
+[test]
+startup_wait = 10000
+
+[test.validator]
+port = 8899
+dynamic_port_range = "10000-10100"
+gossip_port = 10001

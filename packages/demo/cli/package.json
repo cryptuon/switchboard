@@ -1,0 +1,58 @@
+{
+  "name": "@chainsync/cli",
+  "version": "0.1.0",
+  "description": "ChainSync Developer CLI - Cross-chain deployment and management tool",
+  "main": "dist/index.js",
+  "bin": {
+    "chainsync": "dist/cli.js",
+    "cs": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/cli.ts",
+    "start": "node dist/cli.js",
+    "clean": "rm -rf dist",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest"
+  },
+  "keywords": [
+    "blockchain",
+    "cross-chain",
+    "solana",
+    "ethereum",
+    "polygon",
+    "cli",
+    "developer-tools"
+  ],
+  "author": "ChainSync Team",
+  "license": "MIT",
+  "dependencies": {
+    "@chainsync/sdk": "file:../../sdk",
+    "commander": "^11.0.0",
+    "inquirer": "^9.2.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "table": "^6.8.1",
+    "dotenv": "^16.3.0",
+    "yaml": "^2.3.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.0",
+    "@types/node": "^18.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "jest": "^29.0.0",
+    "@types/jest": "^29.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

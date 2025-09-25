@@ -1,0 +1,41 @@
+{
+  "name": "chainsync",
+  "version": "0.1.0",
+  "description": "Unified Cross-Chain State Synchronization for Solana",
+  "private": true,
+  "workspaces": [
+    "packages/programs/state-oracle",
+    "packages/programs/coordinator",
+    "packages/programs/test-simple",
+    "packages/sdk",
+    "packages/services/*",
+    "packages/demo/*"
+  ],
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna run clean",
+    "lint": "lerna run lint",
+    "format": "lerna run format",
+    "dev": "lerna run dev --parallel"
+  },
+  "devDependencies": {
+    "lerna": "^6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/chainsync.git"
+  },
+  "keywords": [
+    "solana",
+    "blockchain",
+    "cross-chain",
+    "defi"
+  ],
+  "author": "ChainSync Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-org/chainsync/issues"
+  },
+  "homepage": "https://github.com/your-org/chainsync#readme"
+}
