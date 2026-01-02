@@ -1,0 +1,97 @@
+/* ChainSync Documentation Custom Styles */
+
+:root {
+  --md-primary-fg-color: #7c3aed;
+  --md-primary-fg-color--light: #a78bfa;
+  --md-primary-fg-color--dark: #5b21b6;
+  --md-accent-fg-color: #8b5cf6;
+}
+
+/* Hero section styling */
+.md-typeset h1 {
+  font-weight: 700;
+}
+
+/* Code block improvements */
+.md-typeset code {
+  border-radius: 4px;
+}
+
+/* Card grid styling */
+.grid.cards > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.grid.cards > ul > li {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 1rem;
+  list-style: none;
+}
+
+/* Table improvements */
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color--light);
+  color: white;
+}
+
+/* Admonition styling */
+.md-typeset .admonition {
+  border-radius: 8px;
+}
+
+/* Button styling */
+.md-typeset .md-button {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Footer */
+.md-footer {
+  margin-top: 2rem;
+}
+
+/* Navigation improvements */
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+/* Search improvements */
+.md-search__input {
+  border-radius: 8px;
+}
+
+/* Mobile improvements */
+@media screen and (max-width: 76.1875em) {
+  .md-nav--primary .md-nav__title {
+    background-color: var(--md-primary-fg-color);
+  }
+}
+
+/* Syntax highlighting adjustments */
+.highlight .hll {
+  background-color: rgba(124, 58, 237, 0.1);
+}
+
+/* Status badges */
+.status-supported {
+  color: #22c55e;
+}
+
+.status-beta {
+  color: #f59e0b;
+}
+
+/* Architecture diagrams */
+.md-typeset pre > code {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
