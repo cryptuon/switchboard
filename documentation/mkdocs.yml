@@ -1,10 +1,10 @@
 site_name: ChainSync Documentation
 site_description: Unified Cross-Chain State Synchronization Platform - Deploy once, sync everywhere
 site_author: ChainSync Team
-site_url: https://docs.chainsync.dev
+site_url: https://switchboard.docs.cryptuon.com/
 
-repo_name: chainsync/chainsync
-repo_url: https://github.com/chainsync/chainsync
+repo_name: cryptuon/switchboard
+repo_url: https://github.com/cryptuon/switchboard
 edit_uri: edit/main/documentation/docs/
 
 theme:
