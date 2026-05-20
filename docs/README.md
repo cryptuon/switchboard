@@ -60,7 +60,7 @@ If you can't find what you're looking for:
 1. Check the [examples](examples/) directory for practical code samples
 2. Review the [architecture documentation](ARCHITECTURE.md) for system understanding
 3. Look at [development setup](development/setup.md) for environment issues
-4. Open an [issue](https://github.com/your-org/chainsync/issues) if something is missing
+4. Open an [issue](https://github.com/cryptuon/switchboard/issues) if something is missing
 
 ---
 

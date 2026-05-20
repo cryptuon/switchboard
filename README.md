@@ -1,5 +1,9 @@
 # ChainSync 🔗
 
+> **Active development.** This project is under active development. APIs,
+> schemas, and on-chain layouts may change between releases.
+> Production use at your own risk. Issues and PRs welcome.
+
 **Unified Cross-Chain State Synchronization Platform**
 
 ChainSync enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, ChainSync provides real-time verification across all supported chains with **sub-400ms coordination latency**.
@@ -48,8 +52,8 @@ ChainSync uses a simplified **2-service architecture**:
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/your-org/chainsync.git
-cd chainsync
+git clone https://github.com/cryptuon/switchboard.git
+cd switchboard
 npm install
 ```
 
@@ -86,6 +90,8 @@ npm run test:integration
 ---
 
 ## 📖 Documentation
+
+Full docs: [docs.cryptuon.com/switchboard/](https://docs.cryptuon.com/switchboard/) · Marketing: [switchboard.cryptuon.com](https://switchboard.cryptuon.com/)
 
 | Topic | Location |
 |-------|----------|
@@ -174,10 +180,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- 📖 **Documentation:** [docs/](docs/)
-- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/your-org/chainsync/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/your-org/chainsync/discussions)
-- 📧 **Contact:** support@chainsync.dev
+- 📖 **Documentation:** [docs.cryptuon.com/switchboard/](https://docs.cryptuon.com/switchboard/)
+- 🌐 **Marketing site:** [switchboard.cryptuon.com](https://switchboard.cryptuon.com/)
+- 🐛 **Bug Reports:** [GitHub Issues](https://github.com/cryptuon/switchboard/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/cryptuon/switchboard/discussions)
 
 ---
 

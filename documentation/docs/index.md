@@ -1,5 +1,11 @@
 # ChainSync
 
+!!! warning "Under active development"
+
+    ChainSync is under active development. APIs, schemas, and on-chain
+    layouts may change. Production use at your own risk.
+    Issues + PRs welcome — see the [GitHub repo](https://github.com/cryptuon/switchboard).
+
 **Unified Cross-Chain State Synchronization Platform**
 
 ChainSync enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, ChainSync provides real-time verification across all supported chains with **sub-400ms coordination latency**.
