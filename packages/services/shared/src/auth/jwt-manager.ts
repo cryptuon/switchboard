@@ -1,5 +1,5 @@
 /**
- * ChainSync JWT Authentication Manager
+ * Switchboard JWT Authentication Manager
  *
  * Provides JWT token generation, validation, and management
  */

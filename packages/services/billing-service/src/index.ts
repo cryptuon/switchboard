@@ -1,5 +1,5 @@
 /**
- * Main application file for ChainSync Billing Service
+ * Main application file for Switchboard Billing Service
  */
 
 import express, { Express, Request, Response } from 'express';
@@ -207,7 +207,7 @@ export class BillingService {
    */
   public start(): void {
     this.app.listen(this.config.port, () => {
-      console.log(`ChainSync Billing Service listening on port ${this.config.port}`);
+      console.log(`Switchboard Billing Service listening on port ${this.config.port}`);
       // Log the config to use the declared variable
       console.log('Config:', this.config);
     });

@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: chainsync
+  name: switchboard
   labels:
-    name: chainsync
+    name: switchboard
     environment: production
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: chainsync-secrets
-  namespace: chainsync
+  name: switchboard-secrets
+  namespace: switchboard
 type: Opaque
 stringData:
   mongodb-password: "change-in-production"
@@ -24,8 +24,8 @@ stringData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: chainsync-config
-  namespace: chainsync
+  name: switchboard-config
+  namespace: switchboard
 data:
   NODE_ENV: "production"
   LOG_LEVEL: "info"

@@ -1,7 +1,7 @@
 /**
  * Solana Program Integration
  *
- * Handles real integration with ChainSync Solana programs
+ * Handles real integration with Switchboard Solana programs
  */
 
 import {

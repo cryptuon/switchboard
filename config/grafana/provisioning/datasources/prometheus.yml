@@ -60,7 +60,7 @@ datasources:
 
     # ClickHouse authentication
     basicAuth: true
-    basicAuthUser: chainsync
+    basicAuthUser: switchboard
     secureJsonData:
       basicAuthPassword: "${CLICKHOUSE_PASSWORD:-clickhouse123}"
 

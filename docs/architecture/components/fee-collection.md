@@ -1,12 +1,12 @@
-# ChainSync Fee Collection System
+# Switchboard Fee Collection System
 
 ## Overview
 
-ChainSync implements a comprehensive fee collection system that generates revenue through transaction fees while providing transparency and value to users. The system is designed to be efficient, secure, and transparent.
+Switchboard implements a comprehensive fee collection system that generates revenue through transaction fees while providing transparency and value to users. The system is designed to be efficient, secure, and transparent.
 
 ## Fee Structure
 
-ChainSync uses a tiered fee structure based on transaction volume:
+Switchboard uses a tiered fee structure based on transaction volume:
 
 | Tier | Fee Rate | Description |
 |------|----------|-------------|

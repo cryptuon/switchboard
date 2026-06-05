@@ -1,5 +1,5 @@
 /**
- * ChainSync Oracle Service - Real-time Streaming Edition
+ * Switchboard Oracle Service - Real-time Streaming Edition
  *
  * Collects and verifies state data from 50+ blockchain networks
  * Features sub-400ms cross-chain state coordination
@@ -334,7 +334,7 @@ export { StreamingStateOracle }; // New real-time streaming oracle
  * Demo: Real-time streaming oracle vs legacy polling oracle
  */
 async function demonstrateStreamingPerformance() {
-  console.log('🚀 ChainSync Oracle Performance Demo');
+  console.log('🚀 Switchboard Oracle Performance Demo');
   console.log('====================================');
 
   const config = {

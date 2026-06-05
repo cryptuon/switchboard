@@ -1,7 +1,7 @@
 /**
- * ChainSync Testing Helpers
+ * Switchboard Testing Helpers
  *
- * Shared testing utilities for ChainSync services
+ * Shared testing utilities for Switchboard services
  */
 
 import { Connection } from 'mongoose';

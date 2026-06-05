@@ -1,6 +1,6 @@
 # Production Deployment
 
-Best practices for deploying ChainSync in production.
+Best practices for deploying Switchboard in production.
 
 ## Pre-Deployment Checklist
 
@@ -23,7 +23,7 @@ LOG_LEVEL=info
 
 # Database
 DATABASE_TYPE=mongodb
-MONGODB_URL=mongodb://user:password@mongodb-cluster:27017/chainsync?replicaSet=rs0
+MONGODB_URL=mongodb://user:password@mongodb-cluster:27017/switchboard?replicaSet=rs0
 
 # Redis (for caching)
 REDIS_URL=redis://:password@redis-cluster:6379
@@ -78,7 +78,7 @@ version: '3.8'
 
 services:
   customer-api:
-    image: chainsync/customer-api:latest
+    image: switchboard/customer-api:latest
     restart: always
     ports:
       - "3000:3000"
@@ -102,7 +102,7 @@ services:
         max-file: "3"
 
   core-engine:
-    image: chainsync/core-engine:latest
+    image: switchboard/core-engine:latest
     restart: always
     ports:
       - "3001:3001"
@@ -136,10 +136,10 @@ upstream customer_api {
 
 server {
     listen 443 ssl http2;
-    server_name api.chainsync.dev;
+    server_name api.switchboard.dev;
 
-    ssl_certificate /etc/ssl/certs/chainsync.crt;
-    ssl_certificate_key /etc/ssl/private/chainsync.key;
+    ssl_certificate /etc/ssl/certs/switchboard.crt;
+    ssl_certificate_key /etc/ssl/private/switchboard.key;
 
     # Security headers
     add_header Strict-Transport-Security "max-age=31536000" always;
@@ -221,7 +221,7 @@ Services expose metrics at `/metrics`:
 ```yaml
 # prometheus.yml
 scrape_configs:
-  - job_name: 'chainsync'
+  - job_name: 'switchboard'
     static_configs:
       - targets:
         - 'customer-api:3000'
@@ -240,10 +240,10 @@ scrape_configs:
 
 ### Grafana Dashboard
 
-Import the ChainSync dashboard from:
+Import the Switchboard dashboard from:
 
 ```
-https://grafana.com/grafana/dashboards/chainsync
+https://grafana.com/grafana/dashboards/switchboard
 ```
 
 ## Logging
@@ -268,7 +268,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: "fluentd:24224"
-        tag: "chainsync.customer-api"
+        tag: "switchboard.customer-api"
 ```
 
 ## Backups
@@ -288,10 +288,10 @@ pg_dump "$POSTGRES_URL" > /backups/$(date +%Y%m%d).sql
 ```yaml
 services:
   backup:
-    image: chainsync/backup
+    image: switchboard/backup
     environment:
       - BACKUP_SCHEDULE=0 2 * * *
-      - S3_BUCKET=chainsync-backups
+      - S3_BUCKET=switchboard-backups
     volumes:
       - backup_data:/backups
 ```

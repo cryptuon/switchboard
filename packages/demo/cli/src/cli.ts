@@ -14,17 +14,17 @@ const program = new Command();
 // CLI Header
 console.log(chalk.cyan(`
   ╔═══════════════════════════════════════╗
-  ║              ChainSync CLI            ║
+  ║              Switchboard CLI            ║
   ║    Cross-Chain Development Made Easy  ║
   ╚═══════════════════════════════════════╝
 `));
 
 program
-  .name('chainsync')
-  .description('ChainSync CLI - Unified cross-chain development toolkit')
+  .name('switchboard')
+  .description('Switchboard CLI - Unified cross-chain development toolkit')
   .version('0.1.0')
   .option('-v, --verbose', 'Enable verbose logging')
-  .option('-c, --config <path>', 'Specify config file path', '.chainsync.yaml');
+  .option('-c, --config <path>', 'Specify config file path', '.switchboard.yaml');
 
 // Commands
 program

@@ -1,6 +1,6 @@
-# ChainSync Billing Service
+# Switchboard Billing Service
 
-The Billing Service handles all billing and subscription management for ChainSync's SDK and API services.
+The Billing Service handles all billing and subscription management for Switchboard's SDK and API services.
 
 ## Features
 

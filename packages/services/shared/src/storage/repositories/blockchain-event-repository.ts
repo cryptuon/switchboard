@@ -1,5 +1,5 @@
 /**
- * ChainSync Blockchain Event Repository
+ * Switchboard Blockchain Event Repository
  *
  * Repository for managing blockchain events in analytics storage
  */

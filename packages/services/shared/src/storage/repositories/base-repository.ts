@@ -1,5 +1,5 @@
 /**
- * ChainSync Base Repository
+ * Switchboard Base Repository
  *
  * Abstract repository that routes operations to appropriate storage backends
  */

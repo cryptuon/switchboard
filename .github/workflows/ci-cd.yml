@@ -1,4 +1,4 @@
-name: ChainSync CI/CD Pipeline
+name: Switchboard CI/CD Pipeline
 
 on:
   push:
@@ -112,7 +112,7 @@ jobs:
       run: npm run test:integration
       env:
         CI: true
-        TEST_DATABASE_URL: mongodb://test:test@localhost:27017/chainsync-test
+        TEST_DATABASE_URL: mongodb://test:test@localhost:27017/switchboard-test
         TEST_REDIS_URL: redis://localhost:6379
         SKIP_STRIPE_TESTS: true
 
@@ -350,7 +350,7 @@ jobs:
 
     environment:
       name: staging
-      url: https://staging.chainsync.dev
+      url: https://staging.switchboard.dev
 
     steps:
     - name: Deploy to staging
@@ -360,7 +360,7 @@ jobs:
         username: ${{ secrets.STAGING_USER }}
         key: ${{ secrets.STAGING_SSH_KEY }}
         script: |
-          cd /opt/chainsync
+          cd /opt/switchboard
           git pull origin develop
           docker-compose -f docker-compose.staging.yml pull
           docker-compose -f docker-compose.staging.yml up -d
@@ -374,7 +374,7 @@ jobs:
 
     environment:
       name: production
-      url: https://chainsync.dev
+      url: https://switchboard.dev
 
     steps:
     - name: Deploy to production
@@ -384,7 +384,7 @@ jobs:
         username: ${{ secrets.PRODUCTION_USER }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         script: |
-          cd /opt/chainsync
+          cd /opt/switchboard
           git pull origin main
           docker-compose pull
           docker-compose up -d
@@ -393,15 +393,15 @@ jobs:
     - name: Health check
       run: |
         sleep 60
-        curl -f https://chainsync.dev/health || exit 1
-        curl -f https://api.chainsync.dev/health || exit 1
+        curl -f https://switchboard.dev/health || exit 1
+        curl -f https://api.switchboard.dev/health || exit 1
 
     - name: Notify deployment
       uses: 8398a7/action-slack@v3
       if: always()
       with:
         status: ${{ job.status }}
-        text: "ChainSync ${{ github.event.release.tag_name }} deployed to production"
+        text: "Switchboard ${{ github.event.release.tag_name }} deployed to production"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
@@ -419,5 +419,5 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: failure
-        text: "ChainSync CI/CD pipeline failed on ${{ github.ref_name }}"
+        text: "Switchboard CI/CD pipeline failed on ${{ github.ref_name }}"
         webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

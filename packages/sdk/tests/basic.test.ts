@@ -4,7 +4,7 @@
  */
 
 import { describe, it, beforeEach, expect, jest } from '@jest/globals';
-import ChainSync, { ChainSyncConfig } from '../src/index';
+import Switchboard, { ChainSyncConfig } from '../src/index';
 
 // Mock fetch
 const mockFetch = jest.fn() as jest.MockedFunction<typeof fetch>;
@@ -22,8 +22,8 @@ jest.mock('ws', () => ({
   WebSocket: jest.fn(() => mockWebSocket)
 }));
 
-describe('ChainSync SDK - Basic Functionality', () => {
-  let sdk: ChainSync;
+describe('Switchboard SDK - Basic Functionality', () => {
+  let sdk: Switchboard;
   let mockConfig: ChainSyncConfig;
 
   beforeEach(() => {
@@ -35,13 +35,13 @@ describe('ChainSync SDK - Basic Functionality', () => {
       coordinationLatencyTarget: 400
     };
 
-    sdk = new ChainSync(mockConfig);
+    sdk = new Switchboard(mockConfig);
     mockFetch.mockClear();
   });
 
   describe('SDK Initialization', () => {
     it('should create SDK with configuration', () => {
-      expect(sdk).toBeInstanceOf(ChainSync);
+      expect(sdk).toBeInstanceOf(Switchboard);
       expect(sdk.getConfig().coordinationLatencyTarget).toBe(400);
     });
 
@@ -102,7 +102,7 @@ describe('ChainSync SDK - Basic Functionality', () => {
 
   describe('Error Handling', () => {
     it('should throw when not initialized', async () => {
-      const uninitializedSdk = new ChainSync(mockConfig);
+      const uninitializedSdk = new Switchboard(mockConfig);
 
       await expect(uninitializedSdk.deployContract({
         bytecode: '0x123',

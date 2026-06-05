@@ -1,13 +1,13 @@
 # Core Methods
 
-Complete API reference for the ChainSync SDK.
+Complete API reference for the Switchboard SDK.
 
 ## Initialization
 
 ### Constructor
 
 ```typescript
-const chainSync = new ChainSync(config: ChainSyncConfig);
+const switchboard = new Switchboard(config: ChainSyncConfig);
 ```
 
 **Parameters:**
@@ -23,7 +23,7 @@ const chainSync = new ChainSync(config: ChainSyncConfig);
 Deploy a contract across multiple chains.
 
 ```typescript
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   name: 'MyToken',
   bytecode: '0x...',
   abi: [...],
@@ -65,7 +65,7 @@ interface Deployment {
 Track the status of a deployment.
 
 ```typescript
-const status = await chainSync.trackDeployment(deploymentId);
+const status = await switchboard.trackDeployment(deploymentId);
 ```
 
 **Parameters:**
@@ -95,7 +95,7 @@ interface DeploymentStatus {
 Track a transaction across chains.
 
 ```typescript
-const txStatus = await chainSync.trackTransaction({
+const txStatus = await switchboard.trackTransaction({
   hash: '0x...',
   chain: 'ethereum',
 });
@@ -115,7 +115,7 @@ const txStatus = await chainSync.trackTransaction({
 Get transaction history for an address.
 
 ```typescript
-const history = await chainSync.getTransactionHistory({
+const history = await switchboard.getTransactionHistory({
   address: '0x...',
   chains: ['ethereum', 'polygon'],
   limit: 100,
@@ -129,7 +129,7 @@ const history = await chainSync.getTransactionHistory({
 Get the current state of a contract.
 
 ```typescript
-const state = await chainSync.getState({
+const state = await switchboard.getState({
   contractAddress: '0x...',
   chains: ['ethereum', 'polygon', 'arbitrum'],
 });
@@ -155,7 +155,7 @@ interface StateInfo {
 Verify state consistency across chains.
 
 ```typescript
-const isConsistent = await chainSync.verifyState({
+const isConsistent = await switchboard.verifyState({
   contractAddress: '0x...',
   chains: ['ethereum', 'polygon'],
 });
@@ -168,7 +168,7 @@ const isConsistent = await chainSync.verifyState({
 Register a state on the Solana coordination layer.
 
 ```typescript
-await chainSync.registerState({
+await switchboard.registerState({
   chainId: 1,
   contractAddress: '0x...',
   stateHash: '0x...',
@@ -182,7 +182,7 @@ await chainSync.registerState({
 Subscribe to state changes.
 
 ```typescript
-const unsubscribe = chainSync.onStateChange(
+const unsubscribe = switchboard.onStateChange(
   '0xContractAddress',
   (event) => {
     console.log(`State changed on ${event.chain}`);
@@ -207,7 +207,7 @@ unsubscribe();
 Subscribe to deployment updates.
 
 ```typescript
-const unsubscribe = chainSync.onDeploymentUpdate(
+const unsubscribe = switchboard.onDeploymentUpdate(
   deploymentId,
   (update) => {
     console.log(`Deployment ${update.status}`);
@@ -223,7 +223,7 @@ const unsubscribe = chainSync.onDeploymentUpdate(
 Subscribe to state conflicts.
 
 ```typescript
-chainSync.onConflict((conflict) => {
+switchboard.onConflict((conflict) => {
   console.log(`Conflict detected: ${conflict.type}`);
   console.log(`Affected chains: ${conflict.chains.join(', ')}`);
 });
@@ -236,7 +236,7 @@ chainSync.onConflict((conflict) => {
 Estimate deployment fees across chains.
 
 ```typescript
-const fees = await chainSync.estimateFees({
+const fees = await switchboard.estimateFees({
   bytecodeSize: 5000,
   chains: ['ethereum', 'polygon', 'arbitrum'],
 });
@@ -262,7 +262,7 @@ interface FeeEstimate {
 Get current gas prices for chains.
 
 ```typescript
-const prices = await chainSync.getGasPrices(['ethereum', 'polygon']);
+const prices = await switchboard.getGasPrices(['ethereum', 'polygon']);
 ```
 
 **Returns:** `Promise<Record<string, GasPrice>>`
@@ -274,7 +274,7 @@ const prices = await chainSync.getGasPrices(['ethereum', 'polygon']);
 Get list of supported chains.
 
 ```typescript
-const chains = await chainSync.getSupportedChains();
+const chains = await switchboard.getSupportedChains();
 // ['ethereum', 'polygon', 'arbitrum', ...]
 ```
 
@@ -283,7 +283,7 @@ const chains = await chainSync.getSupportedChains();
 Get information about a specific chain.
 
 ```typescript
-const info = await chainSync.getChainInfo('ethereum');
+const info = await switchboard.getChainInfo('ethereum');
 ```
 
 **Returns:** `Promise<ChainInfo>`
@@ -301,10 +301,10 @@ interface ChainInfo {
 
 ### getStatus
 
-Get ChainSync service status.
+Get Switchboard service status.
 
 ```typescript
-const status = await chainSync.getStatus();
+const status = await switchboard.getStatus();
 ```
 
 **Returns:** `Promise<ServiceStatus>`
@@ -324,15 +324,15 @@ The SDK throws typed errors for different scenarios:
 
 ```typescript
 import {
-  ChainSync,
+  Switchboard,
   ChainSyncError,
   NetworkError,
   DeploymentError,
   ValidationError,
-} from '@chainsync/sdk';
+} from '@switchboard/sdk';
 
 try {
-  await chainSync.deployContract(config);
+  await switchboard.deployContract(config);
 } catch (error) {
   if (error instanceof NetworkError) {
     console.log(`Network issue on ${error.chain}: ${error.message}`);
@@ -361,7 +361,7 @@ import type {
   FeeEstimate,
   ChainInfo,
   ServiceStatus,
-} from '@chainsync/sdk';
+} from '@switchboard/sdk';
 ```
 
 ## Next Steps

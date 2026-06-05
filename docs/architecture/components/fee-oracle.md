@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Fee Oracle is a monitoring service that tracks on-chain fee collection, generates reports, and provides analytics for ChainSync's fee collection system. It ensures transparency and provides insights into the financial performance of the platform.
+The Fee Oracle is a monitoring service that tracks on-chain fee collection, generates reports, and provides analytics for Switchboard's fee collection system. It ensures transparency and provides insights into the financial performance of the platform.
 
 ## Architecture
 
@@ -199,9 +199,9 @@ The service exposes metrics for monitoring:
 
 ## Integration Points
 
-### ChainSync Services
+### Switchboard Services
 
-Integration with other ChainSync services:
+Integration with other Switchboard services:
 
 - **Billing Service**: Provides fee data for billing
 - **API Service**: Exposes fee analytics to users

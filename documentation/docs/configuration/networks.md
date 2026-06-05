@@ -1,6 +1,6 @@
 # Network Configuration
 
-Configure blockchain networks for ChainSync deployments.
+Configure blockchain networks for Switchboard deployments.
 
 ## Overview
 
@@ -54,7 +54,7 @@ FUJI_RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
 
 ## Project Configuration
 
-### chainsync.config.js
+### switchboard.config.js
 
 ```javascript
 module.exports = {
@@ -204,20 +204,20 @@ networks: {
 ### Deploy to Specific Networks
 
 ```bash
-chainsync deploy --networks ethereum,polygon,arbitrum
+switchboard deploy --networks ethereum,polygon,arbitrum
 ```
 
 ### Deploy by Category
 
 ```bash
 # All EVM networks
-chainsync deploy --category evm
+switchboard deploy --category evm
 
 # All Layer 2s
-chainsync deploy --category layer2
+switchboard deploy --category layer2
 
 # All testnets
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 ```
 
 ### Network Groups
@@ -241,7 +241,7 @@ module.exports = {
 Use groups:
 
 ```bash
-chainsync deploy --group mainEvm
+switchboard deploy --group mainEvm
 ```
 
 ## Validation
@@ -250,17 +250,17 @@ chainsync deploy --group mainEvm
 
 ```bash
 # Validate all networks
-chainsync validate --networks
+switchboard validate --networks
 
 # Check specific network
-chainsync health --network ethereum
+switchboard health --network ethereum
 ```
 
 ### Test RPC Connection
 
 ```bash
 # Test RPC endpoint
-chainsync test:rpc --network ethereum
+switchboard test:rpc --network ethereum
 ```
 
 ## Troubleshooting

@@ -16,19 +16,19 @@ Use templates to quickly scaffold projects:
 
 ```bash
 # Token deployment
-chainsync init my-token --template token --dev-mode
+switchboard init my-token --template token --dev-mode
 
 # DeFi protocol
-chainsync init my-defi --template defi --dev-mode
+switchboard init my-defi --template defi --dev-mode
 
 # NFT collection
-chainsync init my-nft --template nft --dev-mode
+switchboard init my-nft --template nft --dev-mode
 
 # Cross-chain bridge
-chainsync init my-bridge --template bridge --dev-mode
+switchboard init my-bridge --template bridge --dev-mode
 
 # GameFi platform
-chainsync init my-game --template gamefi --dev-mode
+switchboard init my-game --template gamefi --dev-mode
 ```
 
 ## Project Structure
@@ -37,7 +37,7 @@ All templates follow this structure:
 
 ```
 my-project/
-├── chainsync.config.js     # ChainSync configuration
+├── switchboard.config.js     # Switchboard configuration
 ├── contracts/              # Smart contracts
 │   ├── evm/               # Solidity contracts
 │   ├── near/              # NEAR contracts
@@ -59,11 +59,11 @@ my-project/
 
 ```javascript
 // scripts/deploy.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import artifact from '../artifacts/MyContract.json';
 
 async function main() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
     networks: {
       ethereum: {
@@ -77,7 +77,7 @@ async function main() {
     },
   });
 
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     name: 'MyContract',
     bytecode: artifact.bytecode,
     abi: artifact.abi,
@@ -96,17 +96,17 @@ main().catch(console.error);
 
 ```javascript
 // scripts/monitor.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function main() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
   });
 
   const contractAddress = '0x...';
 
   // Subscribe to state changes
-  chainSync.onStateChange(contractAddress, (event) => {
+  switchboard.onStateChange(contractAddress, (event) => {
     console.log(`Chain: ${event.chain}`);
     console.log(`State: ${event.stateHash}`);
     console.log(`Latency: ${event.latency}ms`);
@@ -122,14 +122,14 @@ main().catch(console.error);
 
 ```javascript
 // scripts/estimate.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function main() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
   });
 
-  const fees = await chainSync.estimateFees({
+  const fees = await switchboard.estimateFees({
     bytecodeSize: 5000,
     chains: ['ethereum', 'polygon', 'arbitrum'],
   });
@@ -153,7 +153,7 @@ main().catch(console.error);
 3. Configure environment
 
 ```bash
-git clone https://github.com/chainsync/examples
+git clone https://github.com/switchboard/examples
 cd examples/token-deployment
 
 npm install

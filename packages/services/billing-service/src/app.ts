@@ -1,5 +1,5 @@
 /**
- * Main application file for ChainSync Billing Service
+ * Main application file for Switchboard Billing Service
  */
 
 import { BillingService } from './index';
@@ -28,4 +28,4 @@ process.on('SIGINT', () => {
 // Start the service
 billingService.start();
 
-console.log('ChainSync Billing Service started');
+console.log('Switchboard Billing Service started');

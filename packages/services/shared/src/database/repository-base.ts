@@ -1,5 +1,5 @@
 /**
- * ChainSync Repository Base Class
+ * Switchboard Repository Base Class
  *
  * Provides common database operations with proper error handling and metrics
  */

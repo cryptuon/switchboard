@@ -1,6 +1,6 @@
 # Supported Chains
 
-ChainSync supports **50+ blockchain networks** across multiple ecosystems, enabling truly universal cross-chain deployment.
+Switchboard supports **50+ blockchain networks** across multiple ecosystems, enabling truly universal cross-chain deployment.
 
 ## Network Categories
 
@@ -98,38 +98,38 @@ Development and testing networks.
 === "Layer 1s"
 
     ```bash
-    chainsync init --chains ethereum,polygon,bsc,avalanche
+    switchboard init --chains ethereum,polygon,bsc,avalanche
     ```
 
 === "Layer 2s"
 
     ```bash
-    chainsync init --chains base,arbitrum,optimism,zksync
+    switchboard init --chains base,arbitrum,optimism,zksync
     ```
 
 === "Alternative L1s"
 
     ```bash
-    chainsync init --chains near,cosmos,sui,aptos
+    switchboard init --chains near,cosmos,sui,aptos
     ```
 
 === "Mixed"
 
     ```bash
-    chainsync init --chains ethereum,polygon,near,sui
+    switchboard init --chains ethereum,polygon,near,sui
     ```
 
 ### Deploy Across Networks
 
 ```bash
 # Deploy to major EVM chains
-chainsync deploy --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche
+switchboard deploy --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche
 
 # Deploy to Layer 2 ecosystem
-chainsync deploy --chains base,zksync,polygonzkevm,linea,mantle,scroll
+switchboard deploy --chains base,zksync,polygonzkevm,linea,mantle,scroll
 
 # Deploy to alternative platforms
-chainsync deploy --chains near,cosmos,sui,aptos
+switchboard deploy --chains near,cosmos,sui,aptos
 ```
 
 ## Network Characteristics
@@ -244,20 +244,20 @@ Check the current status of all supported networks:
 
 ```bash
 # Check all networks
-chainsync status --chains
+switchboard status --chains
 
 # Check specific network
-chainsync health --network ethereum
+switchboard health --network ethereum
 
 # Validate configuration
-chainsync validate --all
+switchboard validate --all
 ```
 
 ## Adding New Networks
 
-ChainSync is designed to be extensible. To request support for a new network:
+Switchboard is designed to be extensible. To request support for a new network:
 
-1. Open an issue on [GitHub](https://github.com/chainsync/chainsync/issues)
+1. Open an issue on [GitHub](https://github.com/switchboard/switchboard/issues)
 2. Provide network details (RPC, chain ID, etc.)
 3. The team will evaluate and add support
 

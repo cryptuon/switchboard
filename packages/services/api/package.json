@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/api-service",
+  "name": "@switchboard/api-service",
   "version": "0.1.0",
-  "description": "ChainSync API Service",
+  "description": "Switchboard API Service",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,8 +14,8 @@
     "format": "prettier --write src"
   },
   "dependencies": {
-    "@chainsync/sdk": "^0.1.0",
-    "@chainsync/services-shared": "^0.1.0",
+    "@switchboard/sdk": "^0.1.0",
+    "@switchboard/services-shared": "^0.1.0",
     "@solana/web3.js": "^1.78.0",
     "@types/supertest": "^6.0.3",
     "compression": "^1.7.4",
@@ -47,6 +47,6 @@
     "api",
     "cross-chain"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

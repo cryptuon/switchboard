@@ -1,5 +1,5 @@
 /**
- * ChainSync PostgreSQL Adapter
+ * Switchboard PostgreSQL Adapter
  *
  * Relational storage adapter optimized for complex relationships and ACID transactions
  */

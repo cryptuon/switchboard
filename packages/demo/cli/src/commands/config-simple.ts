@@ -4,7 +4,7 @@ import path from 'path';
 import { loadConfig, saveConfig, ChainSyncConfig } from '../utils/config';
 
 export const configCommand = new Command('config')
-  .description('Manage ChainSync configuration')
+  .description('Manage Switchboard configuration')
   .addCommand(
     new Command('show')
       .description('Show current configuration')
@@ -27,11 +27,11 @@ async function showConfig(): Promise<void> {
   try {
     const config = await loadConfig();
     if (!config) {
-      console.log(chalk.yellow('⚠️  No configuration found. Run: chainsync init'));
+      console.log(chalk.yellow('⚠️  No configuration found. Run: switchboard init'));
       return;
     }
 
-    console.log(chalk.blue('📋 Current ChainSync Configuration:\n'));
+    console.log(chalk.blue('📋 Current Switchboard Configuration:\n'));
 
     // Project information
     console.log(chalk.cyan('Project:'));
@@ -62,7 +62,7 @@ async function showConfig(): Promise<void> {
     console.log(chalk.gray(`  Confirmations: ${config.deployment.confirmations}`));
 
     // Configuration file path
-    console.log(chalk.gray(`\n📁 Config file: ${path.resolve('.chainsync.yaml')}`));
+    console.log(chalk.gray(`\n📁 Config file: ${path.resolve('.switchboard.yaml')}`));
 
   } catch (error) {
     console.error(chalk.red('Failed to show configuration:'), error);
@@ -73,7 +73,7 @@ async function setConfig(key: string, value: string): Promise<void> {
   try {
     const config = await loadConfig();
     if (!config) {
-      console.log(chalk.red('❌ No configuration found. Run: chainsync init'));
+      console.log(chalk.red('❌ No configuration found. Run: switchboard init'));
       return;
     }
 
@@ -112,7 +112,7 @@ async function validateConfig(): Promise<void> {
   try {
     const config = await loadConfig();
     if (!config) {
-      console.log(chalk.red('❌ No configuration found. Run: chainsync init'));
+      console.log(chalk.red('❌ No configuration found. Run: switchboard init'));
       return;
     }
 
@@ -156,7 +156,7 @@ async function validateConfig(): Promise<void> {
       }
 
       console.log(chalk.blue('\n💡 Tips:'));
-      console.log(chalk.gray('• Use "chainsync config set <key> <value>" to fix specific issues'));
+      console.log(chalk.gray('• Use "switchboard config set <key> <value>" to fix specific issues'));
       console.log(chalk.gray('• Check your .env file for required environment variables'));
     }
 

@@ -1,5 +1,5 @@
-# ChainSync Prometheus Configuration
-# Comprehensive monitoring for ChainSync microservices
+# Switchboard Prometheus Configuration
+# Comprehensive monitoring for Switchboard microservices
 
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds
@@ -9,7 +9,7 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-    cluster: 'chainsync-production'
+    cluster: 'switchboard-production'
     environment: 'production'
 
 # Alertmanager configuration
@@ -26,8 +26,8 @@ rule_files:
 
 # A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
-  # ChainSync API Service
-  - job_name: 'chainsync-api'
+  # Switchboard API Service
+  - job_name: 'switchboard-api'
     static_configs:
       - targets: ['api-service:3000']
     scrape_interval: 15s
@@ -47,8 +47,8 @@ scrape_configs:
       - target_label: component
         replacement: 'api'
 
-  # ChainSync Oracle Service (Real-time streaming)
-  - job_name: 'chainsync-oracle'
+  # Switchboard Oracle Service (Real-time streaming)
+  - job_name: 'switchboard-oracle'
     static_configs:
       - targets: ['oracle-service:3001']
     scrape_interval: 10s # More frequent for real-time metrics
@@ -68,8 +68,8 @@ scrape_configs:
         target_label: critical_metric
         replacement: 'true'
 
-  # ChainSync Sync Service (Cross-chain coordination)
-  - job_name: 'chainsync-sync'
+  # Switchboard Sync Service (Cross-chain coordination)
+  - job_name: 'switchboard-sync'
     static_configs:
       - targets: ['sync-service:3002']
     scrape_interval: 15s
@@ -173,13 +173,13 @@ scrape_configs:
 # groups:
 #   - name: chainsync_performance
 #     rules:
-#       - record: chainsync:coordination_latency:rate5m
+#       - record: switchboard:coordination_latency:rate5m
 #         expr: rate(chainsync_coordination_latency_seconds_sum[5m]) / rate(chainsync_coordination_latency_seconds_count[5m])
 #
-#       - record: chainsync:deployment_success_rate:5m
+#       - record: switchboard:deployment_success_rate:5m
 #         expr: rate(chainsync_deployments_successful_total[5m]) / rate(chainsync_deployments_total[5m])
 #
-#       - record: chainsync:api_request_rate:5m
+#       - record: switchboard:api_request_rate:5m
 #         expr: rate(http_requests_total{service="api-service"}[5m])
 
 # Storage configuration for long-term retention
@@ -206,6 +206,6 @@ global:
 
   # Labels to add to all metrics
   external_labels:
-    monitor: 'chainsync-prometheus'
+    monitor: 'switchboard-prometheus'
     environment: '${ENVIRONMENT:-production}'
-    cluster: 'chainsync-cluster'
+    cluster: 'switchboard-cluster'

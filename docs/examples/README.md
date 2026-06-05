@@ -1,6 +1,6 @@
-# ChainSync Examples
+# Switchboard Examples
 
-This directory contains practical examples showing how to use ChainSync for various cross-chain use cases.
+This directory contains practical examples showing how to use Switchboard for various cross-chain use cases.
 
 ## Getting Started
 
@@ -56,19 +56,19 @@ Create a gaming platform that works across different blockchain ecosystems.
 
 ```bash
 # Simple token deployment
-chainsync init my-token --template simple-token
+switchboard init my-token --template simple-token
 cd my-token
-chainsync deploy --networks ethereum,polygon,arbitrum
+switchboard deploy --networks ethereum,polygon,arbitrum
 
 # DeFi protocol
-chainsync init my-defi --template defi-protocol
+switchboard init my-defi --template defi-protocol
 cd my-defi
-chainsync deploy --category evm --exclude mainnet
+switchboard deploy --category evm --exclude mainnet
 
 # NFT collection
-chainsync init my-nft --template nft-collection
+switchboard init my-nft --template nft-collection
 cd my-nft
-chainsync deploy --networks ethereum,polygon,flow,near
+switchboard deploy --networks ethereum,polygon,flow,near
 ```
 
 ### Run Example Tutorials
@@ -172,7 +172,7 @@ Each example follows this structure:
 example-name/
 ├── README.md           # Detailed tutorial
 ├── package.json        # Dependencies and scripts
-├── chainsync.config.js # Network configuration
+├── switchboard.config.js # Network configuration
 ├── contracts/          # Smart contracts
 │   ├── evm/           # EVM contracts
 │   ├── near/          # NEAR contracts
@@ -202,7 +202,7 @@ mkdir examples/my-example
 cd examples/my-example
 
 # Initialize structure
-chainsync init . --template example-base
+switchboard init . --template example-base
 
 # Develop your example
 # Add contracts, scripts, tests, documentation
@@ -240,14 +240,14 @@ Each example includes pre-configured network settings for:
 
 Explore examples contributed by the community:
 
-- [ChainSync Awesome Examples](https://github.com/chainsync/awesome-examples)
-- [Community Showcase](https://showcase.chainsync.network)
-- [Developer Gallery](https://developers.chainsync.network/gallery)
+- [Switchboard Awesome Examples](https://github.com/switchboard/awesome-examples)
+- [Community Showcase](https://showcase.switchboard.network)
+- [Developer Gallery](https://developers.switchboard.network/gallery)
 
 ## Support
 
 Need help with examples?
 
-- [GitHub Discussions](https://github.com/chainsync/chainsync/discussions)
-- [Discord Community](https://discord.gg/chainsync)
-- [Developer Forum](https://forum.chainsync.network)
+- [GitHub Discussions](https://github.com/switchboard/switchboard/discussions)
+- [Discord Community](https://discord.gg/switchboard)
+- [Developer Forum](https://forum.switchboard.network)

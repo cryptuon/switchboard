@@ -1,5 +1,5 @@
 /**
- * Solana Connector for ChainSync State Oracle
+ * Solana Connector for Switchboard State Oracle
  * 
  * Connects to Solana blockchain
  */

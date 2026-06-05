@@ -1,16 +1,16 @@
 # Frequently Asked Questions
 
-Common questions about ChainSync.
+Common questions about Switchboard.
 
 ## General
 
-### What is ChainSync?
+### What is Switchboard?
 
-ChainSync is a unified cross-chain state synchronization platform that enables developers to deploy once and sync everywhere across 50+ blockchains with sub-400ms coordination latency.
+Switchboard is a unified cross-chain state synchronization platform that enables developers to deploy once and sync everywhere across 50+ blockchains with sub-400ms coordination latency.
 
 ### How does cross-chain coordination work?
 
-ChainSync uses Solana as a high-performance coordination layer. When you deploy contracts or update state:
+Switchboard uses Solana as a high-performance coordination layer. When you deploy contracts or update state:
 
 1. Changes are recorded on Solana
 2. Solana coordinates state across target chains
@@ -18,7 +18,7 @@ ChainSync uses Solana as a high-performance coordination layer. When you deploy 
 
 ### What chains are supported?
 
-ChainSync supports 50+ chains including:
+Switchboard supports 50+ chains including:
 
 - **EVM**: Ethereum, Polygon, Arbitrum, Optimism, BSC, Avalanche, Base
 - **Layer 2**: zkSync Era, Polygon zkEVM, Linea, Mantle
@@ -27,15 +27,15 @@ ChainSync supports 50+ chains including:
 
 See [Supported Chains](../architecture/supported-chains.md) for the full list.
 
-### Is ChainSync open source?
+### Is Switchboard open source?
 
-Yes, ChainSync is open source under the MIT license. Contributions are welcome!
+Yes, Switchboard is open source under the MIT license. Contributions are welcome!
 
 ## Pricing
 
-### How much does ChainSync cost?
+### How much does Switchboard cost?
 
-ChainSync offers:
+Switchboard offers:
 
 - **Free tier**: 10 deployments/month, 5 chains
 - **Pro tier**: $49/month, 100 deployments, unlimited chains
@@ -43,13 +43,13 @@ ChainSync offers:
 
 ### What are the gas costs?
 
-Gas costs depend on the target chains. ChainSync helps optimize gas through:
+Gas costs depend on the target chains. Switchboard helps optimize gas through:
 
 - Batched transactions
 - Optimal gas price selection
 - Multi-chain parallelization
 
-Use `chainsync estimate` to calculate costs before deployment.
+Use `switchboard estimate` to calculate costs before deployment.
 
 ## Technical
 
@@ -83,7 +83,7 @@ Recommended providers: Alchemy, Infura, QuickNode.
 
 ### What's the maximum latency?
 
-ChainSync targets sub-400ms coordination latency. Actual latency depends on:
+Switchboard targets sub-400ms coordination latency. Actual latency depends on:
 
 - Network conditions
 - Target chain block times
@@ -94,7 +94,7 @@ ChainSync targets sub-400ms coordination latency. Actual latency depends on:
 
 Multiple options:
 
-1. **CLI**: `chainsync status --watch`
+1. **CLI**: `switchboard status --watch`
 2. **SDK**: Subscribe to deployment events
 3. **API**: Poll deployment status endpoint
 4. **Dashboard**: Real-time web interface
@@ -119,13 +119,13 @@ npm run test --workspace=packages/sdk
 Enable debug logging:
 
 ```bash
-DEBUG=chainsync:* chainsync deploy
+DEBUG=switchboard:* switchboard deploy
 ```
 
 Or use the diagnostics tool:
 
 ```bash
-chainsync doctor
+switchboard doctor
 ```
 
 ### Can I contribute?
@@ -139,7 +139,7 @@ Yes! See the [Contributing Guide](../development/contributing.md).
 Yes, use production mode:
 
 ```bash
-chainsync deploy --prod-mode
+switchboard deploy --prod-mode
 ```
 
 Always test on testnets first.
@@ -147,13 +147,13 @@ Always test on testnets first.
 ### How do I verify contracts?
 
 ```bash
-chainsync verify --contract MyContract --network ethereum
+switchboard verify --contract MyContract --network ethereum
 ```
 
 Or enable auto-verification:
 
 ```javascript
-// chainsync.config.js
+// switchboard.config.js
 module.exports = {
   deployment: {
     verification: true,
@@ -163,19 +163,19 @@ module.exports = {
 
 ### What if deployment fails on one chain?
 
-ChainSync handles partial failures:
+Switchboard handles partial failures:
 
 1. Successful chains are recorded
 2. Failed chains can be retried
 3. State remains consistent
 
 ```bash
-chainsync deploy:retry --deployment-id abc123
+switchboard deploy:retry --deployment-id abc123
 ```
 
 ## Security
 
-### Is ChainSync secure?
+### Is Switchboard secure?
 
 Security measures include:
 
@@ -189,13 +189,13 @@ Security measures include:
 
 Private keys are:
 
-- Never stored by ChainSync
+- Never stored by Switchboard
 - Used only for transaction signing
 - Kept in your environment
 
 ### How do I report vulnerabilities?
 
-Email: security@chainsync.dev
+Email: security@switchboard.dev
 
 Do NOT open public issues for security vulnerabilities.
 
@@ -210,7 +210,7 @@ Do NOT open public issues for security vulnerabilities.
 
 ### Is there enterprise support?
 
-Yes, contact enterprise@chainsync.dev for:
+Yes, contact enterprise@switchboard.dev for:
 
 - Priority support
 - Custom integrations
@@ -219,7 +219,7 @@ Yes, contact enterprise@chainsync.dev for:
 
 ### How do I stay updated?
 
-- [GitHub Releases](https://github.com/chainsync/chainsync/releases)
-- [Twitter](https://twitter.com/chainsync)
-- [Discord Announcements](https://discord.gg/chainsync)
-- [Blog](https://blog.chainsync.dev)
+- [GitHub Releases](https://github.com/switchboard/switchboard/releases)
+- [Twitter](https://twitter.com/switchboard)
+- [Discord Announcements](https://discord.gg/switchboard)
+- [Blog](https://blog.switchboard.dev)

@@ -1,22 +1,22 @@
 # Quick Start
 
-Get ChainSync running in under 5 minutes.
+Get Switchboard running in under 5 minutes.
 
 ## Step 1: Install the CLI
 
 ```bash
-# Install ChainSync CLI globally
-npm install -g @chainsync/cli
+# Install Switchboard CLI globally
+npm install -g @switchboard/cli
 
 # Verify installation
-chainsync --version
+switchboard --version
 ```
 
 ## Step 2: Create a Project
 
 ```bash
 # Initialize a new project in development mode (uses testnets)
-chainsync init my-first-dapp --dev-mode
+switchboard init my-first-dapp --dev-mode
 
 cd my-first-dapp
 ```
@@ -25,7 +25,7 @@ This creates a project with:
 
 ```
 my-first-dapp/
-├── chainsync.config.js     # Main configuration
+├── switchboard.config.js     # Main configuration
 ├── contracts/              # Smart contracts
 │   ├── evm/               # EVM-compatible contracts
 │   ├── near/              # NEAR contracts
@@ -64,9 +64,9 @@ PRIVATE_KEY=your_test_private_key
 ## Step 4: Get Test Tokens
 
 ```bash
-# ChainSync can help you get test tokens
-chainsync faucet --network sepolia --address YOUR_ADDRESS
-chainsync faucet --network mumbai --address YOUR_ADDRESS
+# Switchboard can help you get test tokens
+switchboard faucet --network sepolia --address YOUR_ADDRESS
+switchboard faucet --network mumbai --address YOUR_ADDRESS
 ```
 
 Or visit faucet websites:
@@ -79,20 +79,20 @@ Or visit faucet websites:
 
 ```bash
 # Deploy to development networks (testnets)
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 
 # Or deploy to specific networks
-chainsync deploy --networks sepolia,mumbai,fuji
+switchboard deploy --networks sepolia,mumbai,fuji
 ```
 
 ## Step 6: Monitor
 
 ```bash
 # Check deployment status
-chainsync status
+switchboard status
 
 # Real-time monitoring
-chainsync status --watch
+switchboard status --watch
 ```
 
 ---
@@ -101,7 +101,7 @@ chainsync status --watch
 
 - [Installation Guide](installation.md) - Explore all installation options
 - [First Deployment](first-deployment.md) - Detailed walkthrough of your first deployment
-- [Architecture Overview](../architecture/index.md) - Understand how ChainSync works
+- [Architecture Overview](../architecture/index.md) - Understand how Switchboard works
 
 ## Common Issues
 
@@ -109,24 +109,24 @@ chainsync status --watch
 
 ```bash
 # Test network connectivity
-chainsync test:rpc --network sepolia
+switchboard test:rpc --network sepolia
 
 # Check network status
-chainsync health --network sepolia
+switchboard health --network sepolia
 ```
 
 ### Gas Estimation Failures
 
 ```bash
 # Set manual gas price
-chainsync deploy --gas-price 20000000000
+switchboard deploy --gas-price 20000000000
 
 # Enable gas optimization
-chainsync config set gasOptimization true
+switchboard config set gasOptimization true
 ```
 
 ### Need Help?
 
 - Check the [Troubleshooting Guide](../support/troubleshooting.md)
-- Ask in [Discord](https://discord.gg/chainsync)
-- Open an [Issue on GitHub](https://github.com/chainsync/chainsync/issues)
+- Ask in [Discord](https://discord.gg/switchboard)
+- Open an [Issue on GitHub](https://github.com/switchboard/switchboard/issues)

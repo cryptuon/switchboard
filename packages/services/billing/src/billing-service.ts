@@ -1,5 +1,5 @@
 /**
- * ChainSync Billing Service
+ * Switchboard Billing Service
  *
  * Handles payments, subscriptions, and billing operations with Stripe
  */
@@ -16,7 +16,7 @@ import {
   DatabaseConnectionManager,
   Logger,
   MetricsCollector
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
 export interface BillingServiceConfig extends ServiceConfig {
   stripe: {

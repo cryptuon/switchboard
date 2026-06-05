@@ -1,5 +1,5 @@
 /**
- * ChainSync Configuration Manager
+ * Switchboard Configuration Manager
  *
  * Provides centralized configuration management with validation
  */

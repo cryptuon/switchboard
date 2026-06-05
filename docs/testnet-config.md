@@ -1,22 +1,22 @@
-# ChainSync Testnet Configuration Guide
+# Switchboard Testnet Configuration Guide
 
 This guide provides complete testnet configurations for development mode deployment across all supported networks.
 
 ## 🧪 Development Mode (All Testnets)
 
-ChainSync's development mode uses testnets across all supported blockchain ecosystems, providing a risk-free environment for testing and development.
+Switchboard's development mode uses testnets across all supported blockchain ecosystems, providing a risk-free environment for testing and development.
 
 ### Quick Setup
 
 ```bash
 # Initialize project in development mode
-chainsync init my-project --dev-mode
+switchboard init my-project --dev-mode
 
 # Deploy to all testnets
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 
 # Monitor testnet deployments
-chainsync status --dev-mode
+switchboard status --dev-mode
 ```
 
 ## 🌐 Testnet Network Configurations
@@ -223,9 +223,9 @@ DEFAULT_GAS_PRICE=20000000000
 DEFAULT_GAS_LIMIT=2000000
 ```
 
-### Complete ChainSync Development Config
+### Complete Switchboard Development Config
 ```javascript
-// chainsync.config.js
+// switchboard.config.js
 module.exports = {
   mode: 'development',
 
@@ -358,39 +358,39 @@ module.exports = {
 ### 1. Multi-Testnet Token Deployment
 ```bash
 # Initialize token project
-chainsync init my-token --template token --dev-mode
+switchboard init my-token --template token --dev-mode
 
 cd my-token
 
 # Deploy to all EVM testnets
-chainsync deploy --category evm --dev-mode
+switchboard deploy --category evm --dev-mode
 
 # Deploy to specific testnets
-chainsync deploy --networks sepolia,mumbai,fuji
+switchboard deploy --networks sepolia,mumbai,fuji
 
 # Check deployment status
-chainsync status --dev-mode
+switchboard status --dev-mode
 ```
 
 ### 2. Cross-Ecosystem Testing
 ```bash
 # Deploy across different blockchain ecosystems
-chainsync deploy --networks sepolia,mumbai,near-testnet,sui-testnet
+switchboard deploy --networks sepolia,mumbai,near-testnet,sui-testnet
 
 # Test cross-chain functionality
 npm run test:cross-chain
 
 # Monitor cross-chain synchronization
-chainsync monitor --cross-chain
+switchboard monitor --cross-chain
 ```
 
 ### 3. Rapid Prototyping
 ```bash
 # Quick DeFi protocol setup
-chainsync init my-defi --template defi --dev-mode
+switchboard init my-defi --template defi --dev-mode
 
 # Deploy to fast testnets only
-chainsync deploy --networks mumbai,fuji,arbitrum-goerli
+switchboard deploy --networks mumbai,fuji,arbitrum-goerli
 
 # Run integration tests
 npm run test:integration
@@ -402,13 +402,13 @@ npm run test:integration
 
 #### Automated Faucet Access
 ```bash
-# ChainSync can request test tokens for you
-chainsync faucet --network sepolia --address YOUR_ADDRESS
-chainsync faucet --network mumbai --address YOUR_ADDRESS
-chainsync faucet --network fuji --address YOUR_ADDRESS
+# Switchboard can request test tokens for you
+switchboard faucet --network sepolia --address YOUR_ADDRESS
+switchboard faucet --network mumbai --address YOUR_ADDRESS
+switchboard faucet --network fuji --address YOUR_ADDRESS
 
 # Request tokens for all configured networks
-chainsync faucet --all --address YOUR_ADDRESS
+switchboard faucet --all --address YOUR_ADDRESS
 ```
 
 #### Manual Faucet Links
@@ -440,37 +440,37 @@ chainsync faucet --all --address YOUR_ADDRESS
 ### Network Health Monitoring
 ```bash
 # Check all testnet health
-chainsync health --dev-mode
+switchboard health --dev-mode
 
 # Monitor specific testnets
-chainsync health --networks sepolia,mumbai,fuji
+switchboard health --networks sepolia,mumbai,fuji
 
 # Real-time health monitoring
-chainsync health --watch --dev-mode
+switchboard health --watch --dev-mode
 ```
 
 ### Deployment Monitoring
 ```bash
 # Monitor all testnet deployments
-chainsync monitor --dev-mode
+switchboard monitor --dev-mode
 
 # Monitor specific deployment
-chainsync monitor --deployment-id abc123
+switchboard monitor --deployment-id abc123
 
 # Monitor with custom interval
-chainsync monitor --interval 30 --dev-mode
+switchboard monitor --interval 30 --dev-mode
 ```
 
 ### Analytics and Metrics
 ```bash
 # View deployment analytics
-chainsync analytics --dev-mode
+switchboard analytics --dev-mode
 
 # Cross-chain transaction metrics
-chainsync metrics --cross-chain
+switchboard metrics --cross-chain
 
 # Generate development report
-chainsync report --dev-mode --output report.json
+switchboard report --dev-mode --output report.json
 ```
 
 ## 🧪 Testing Strategies
@@ -478,45 +478,45 @@ chainsync report --dev-mode --output report.json
 ### 1. Incremental Testing
 ```bash
 # Test on single network first
-chainsync deploy --networks sepolia
+switchboard deploy --networks sepolia
 npm run test:sepolia
 
 # Then expand to multiple networks
-chainsync deploy --networks sepolia,mumbai
+switchboard deploy --networks sepolia,mumbai
 npm run test:multi-chain
 
 # Finally test full ecosystem
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 npm run test:full-ecosystem
 ```
 
 ### 2. Network-Specific Testing
 ```bash
 # EVM-only testing
-chainsync deploy --category evm --dev-mode
+switchboard deploy --category evm --dev-mode
 npm run test:evm
 
 # Layer 2 specific testing
-chainsync deploy --networks mumbai,arbitrum-goerli,optimism-goerli
+switchboard deploy --networks mumbai,arbitrum-goerli,optimism-goerli
 npm run test:layer2
 
 # Alternative L1 testing
-chainsync deploy --networks near-testnet,sui-testnet,aptos-testnet
+switchboard deploy --networks near-testnet,sui-testnet,aptos-testnet
 npm run test:alt-l1
 ```
 
 ### 3. Performance Testing
 ```bash
 # High-frequency testing
-chainsync deploy --networks mumbai,fuji  # Fast networks
+switchboard deploy --networks mumbai,fuji  # Fast networks
 npm run test:performance
 
 # Gas optimization testing
-chainsync deploy --gas-optimization
+switchboard deploy --gas-optimization
 npm run test:gas
 
 # Parallel deployment testing
-chainsync deploy --parallel --dev-mode
+switchboard deploy --parallel --dev-mode
 npm run test:parallel
 ```
 
@@ -525,22 +525,22 @@ npm run test:parallel
 ### 1. Configuration Migration
 ```bash
 # Copy development config as template
-cp chainsync.config.js chainsync.config.prod.js
+cp switchboard.config.js switchboard.config.prod.js
 
 # Update to production networks
-chainsync migrate-config --from development --to production
+switchboard migrate-config --from development --to production
 ```
 
 ### 2. Testing Migration Path
 ```bash
 # Final testnet validation
-chainsync validate --dev-mode --comprehensive
+switchboard validate --dev-mode --comprehensive
 
 # Production readiness check
-chainsync validate --prod-mode --pre-flight
+switchboard validate --prod-mode --pre-flight
 
 # Deploy to production
-chainsync deploy --prod-mode --verify
+switchboard deploy --prod-mode --verify
 ```
 
 ### 3. Environment Switching
@@ -552,13 +552,13 @@ export CHAINSYNC_MODE=development
 export CHAINSYNC_MODE=production
 
 # Use mode-specific configs
-chainsync deploy --config chainsync.config.${CHAINSYNC_MODE}.js
+switchboard deploy --config switchboard.config.${CHAINSYNC_MODE}.js
 ```
 
 ## 📋 Development Checklist
 
 ### Before Starting Development
-- [ ] Install ChainSync CLI
+- [ ] Install Switchboard CLI
 - [ ] Set up testnet accounts and private keys
 - [ ] Configure environment variables
 - [ ] Get test tokens from faucets
@@ -585,51 +585,51 @@ chainsync deploy --config chainsync.config.${CHAINSYNC_MODE}.js
 #### Network Connectivity
 ```bash
 # Test RPC connectivity
-chainsync test-rpc --network sepolia
+switchboard test-rpc --network sepolia
 
 # Check network status
-chainsync network-status --all-testnets
+switchboard network-status --all-testnets
 
 # Switch to backup RPC
-chainsync config set sepolia.rpcUrl https://backup-rpc.com
+switchboard config set sepolia.rpcUrl https://backup-rpc.com
 ```
 
 #### Insufficient Test Tokens
 ```bash
 # Check balances
-chainsync balance --address YOUR_ADDRESS --all-testnets
+switchboard balance --address YOUR_ADDRESS --all-testnets
 
 # Request more tokens
-chainsync faucet --network sepolia --amount 1
+switchboard faucet --network sepolia --amount 1
 
 # Use multi-faucet strategy
-chainsync faucet --all --retry 3
+switchboard faucet --all --retry 3
 ```
 
 #### Gas Issues
 ```bash
 # Use conservative gas settings
-chainsync deploy --gas-price 20000000000 --gas-limit 2000000
+switchboard deploy --gas-price 20000000000 --gas-limit 2000000
 
 # Enable gas optimization
-chainsync config set gasOptimization true
+switchboard config set gasOptimization true
 
 # Use dynamic gas pricing
-chainsync config set gasStrategy dynamic
+switchboard config set gasStrategy dynamic
 ```
 
 ### Debug Mode
 ```bash
 # Enable comprehensive debugging
-export DEBUG=chainsync:*
+export DEBUG=switchboard:*
 
 # Run with verbose output
-chainsync deploy --debug --verbose --dev-mode
+switchboard deploy --debug --verbose --dev-mode
 
 # Save detailed logs
-chainsync deploy --log-file testnet-debug.log --dev-mode
+switchboard deploy --log-file testnet-debug.log --dev-mode
 ```
 
 ---
 
-This testnet configuration guide provides everything needed for robust development mode testing across ChainSync's 50+ supported networks. Use these configurations to build, test, and validate your cross-chain applications before production deployment.
+This testnet configuration guide provides everything needed for robust development mode testing across Switchboard's 50+ supported networks. Use these configurations to build, test, and validate your cross-chain applications before production deployment.

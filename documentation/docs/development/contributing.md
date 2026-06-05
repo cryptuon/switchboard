@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to ChainSync!
+Thank you for your interest in contributing to Switchboard!
 
 ## Getting Started
 
@@ -11,14 +11,14 @@ Click the "Fork" button on GitHub to create your own copy.
 ### 2. Clone Your Fork
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/chainsync
-cd chainsync
+git clone https://github.com/YOUR_USERNAME/switchboard
+cd switchboard
 ```
 
 ### 3. Add Upstream Remote
 
 ```bash
-git remote add upstream https://github.com/chainsync/chainsync
+git remote add upstream https://github.com/switchboard/switchboard
 ```
 
 ### 4. Install Dependencies
@@ -142,7 +142,7 @@ npm run test --workspace=packages/sdk
 
 ### Code of Conduct
 
-Be respectful and inclusive. See [CODE_OF_CONDUCT.md](https://github.com/chainsync/chainsync/blob/main/CODE_OF_CONDUCT.md).
+Be respectful and inclusive. See [CODE_OF_CONDUCT.md](https://github.com/switchboard/switchboard/blob/main/CODE_OF_CONDUCT.md).
 
 ## Recognition
 
@@ -154,5 +154,5 @@ Contributors are:
 
 ## Questions?
 
-- Ask in [GitHub Discussions](https://github.com/chainsync/chainsync/discussions)
-- Join [Discord](https://discord.gg/chainsync)
+- Ask in [GitHub Discussions](https://github.com/switchboard/switchboard/discussions)
+- Join [Discord](https://discord.gg/switchboard)

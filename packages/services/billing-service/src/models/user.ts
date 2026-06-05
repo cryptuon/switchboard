@@ -1,5 +1,5 @@
 /**
- * User model for ChainSync Billing Service
+ * User model for Switchboard Billing Service
  */
 
 export interface User {

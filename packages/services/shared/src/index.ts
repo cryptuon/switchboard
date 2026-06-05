@@ -1,7 +1,7 @@
 /**
- * ChainSync Services Shared Utilities
+ * Switchboard Services Shared Utilities
  *
- * Common functions and types used by all ChainSync services
+ * Common functions and types used by all Switchboard services
  */
 
 // Export all shared modules

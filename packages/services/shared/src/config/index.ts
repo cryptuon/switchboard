@@ -1,5 +1,5 @@
 /**
- * ChainSync Config Module
+ * Switchboard Config Module
  *
  * Exports all configuration functionality
  */

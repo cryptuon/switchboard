@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { createSpinner } from '../utils/spinner';
 import { loadConfig } from '../utils/config';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 export const deployCommand = new Command('deploy')
   .description('Deploy contracts across multiple chains')
@@ -24,7 +24,7 @@ export const deployCommand = new Command('deploy')
       // Load configuration
       const config = await loadConfig();
       if (!config) {
-        console.log(chalk.red('❌ No ChainSync configuration found. Run: chainsync init'));
+        console.log(chalk.red('❌ No Switchboard configuration found. Run: switchboard init'));
         return;
       }
 
@@ -75,9 +75,9 @@ export const deployCommand = new Command('deploy')
       // Read contract - for demo, use placeholder bytecode
       const bytecode = '0x608060405234801561001057600080fd5b50600436106100365760003560e01c8063a41368621461003b578063cfae321714610059575b600080fd5b610043610077565b6040516100509190610114565b60405180910390f35b6100616100b5565b60405161006e9190610114565b60405180910390f35b60606040518060400160405280600d81526020017f48656c6c6f2c20576f726c642100000000000000000000000000000000000000815250905090565b60018054600181600116156101000203166002900480601f01602080910402602001604051908101604052809291908181526020018280546001816001161561010002031660029004801561014d5780601f106101225761010080835404028352916020019161014d565b820191906000526020600020905b81548152906001019060200180831161013057829003601f168201915b5050505050905090565b600081519050919050565b600082825260208201905092915050565b60005b83811015610191578082015181840152602081019050610176565b838111156101a0576000848401525b50505050565b6000601f19601f8301169050919050565b60006101c282610157565b6101cc8185610162565b93506101dc818560208601610173565b6101e5816101a6565b840191505092915050565b6000602082019050818103600083015261020a81846101b7565b90509291505056fea264697066735822122071ed6b20b6b1de36a85a2e5a1bc3e0a7b8a1e3a7b7a7b8a1e3a7b7a7b8a1e3a764736f6c634300060c0033';
 
-      spinner.text = 'Initializing ChainSync SDK...';
+      spinner.text = 'Initializing Switchboard SDK...';
 
-      // Initialize ChainSync SDK
+      // Initialize Switchboard SDK
       const chains: { [chainName: string]: string } = {
         solana: process.env.SOLANA_RPC_URL || config.solana.rpcUrl
       };
@@ -86,7 +86,7 @@ export const deployCommand = new Command('deploy')
       if (process.env.POLYGON_RPC_URL) chains.polygon = process.env.POLYGON_RPC_URL;
       if (process.env.ARBITRUM_RPC_URL) chains.arbitrum = process.env.ARBITRUM_RPC_URL;
 
-      const chainSync = new ChainSync({
+      const switchboard = new Switchboard({
         solanaRpcUrl: process.env.SOLANA_RPC_URL || config.solana.rpcUrl,
         chains
       });
@@ -94,7 +94,7 @@ export const deployCommand = new Command('deploy')
       spinner.text = 'Deploying contracts...';
 
       // Deploy contract
-      const deployment = await chainSync.deployContract({
+      const deployment = await switchboard.deployContract({
         bytecode,
         chains: targetChains,
         value: 0
@@ -115,8 +115,8 @@ export const deployCommand = new Command('deploy')
       });
 
       console.log(chalk.blue('\n📊 Next steps:'));
-      console.log(chalk.gray('• Track deployment: chainsync track ' + deployment.id));
-      console.log(chalk.gray('• Check status: chainsync status'));
+      console.log(chalk.gray('• Track deployment: switchboard track ' + deployment.id));
+      console.log(chalk.gray('• Check status: switchboard status'));
 
     } catch (error) {
       console.error(chalk.red('Deployment failed:'), error);

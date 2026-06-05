@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    transpilePackages: ['@chainsync/services-shared']
+    transpilePackages: ['@switchboard/services-shared']
   },
   env: {
     API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:3000',

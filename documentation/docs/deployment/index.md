@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This section covers deploying ChainSync services in various environments.
+This section covers deploying Switchboard services in various environments.
 
 ## Deployment Options
 
@@ -16,8 +16,8 @@ This section covers deploying ChainSync services in various environments.
 
 ```bash
 # Clone repository
-git clone https://github.com/chainsync/chainsync
-cd chainsync
+git clone https://github.com/switchboard/switchboard
+cd switchboard
 
 # Copy environment config
 cp .env.example .env
@@ -38,7 +38,7 @@ curl http://localhost:3001/health
 
 ## Architecture Recap
 
-ChainSync uses a 2-service architecture:
+Switchboard uses a 2-service architecture:
 
 ```
 ┌─────────────────┐    ┌──────────────────┐
@@ -85,11 +85,11 @@ NODE_ENV=production
 
 # Database (choose one)
 DATABASE_TYPE=mongodb
-MONGODB_URL=mongodb://localhost:27017/chainsync
+MONGODB_URL=mongodb://localhost:27017/switchboard
 
 # Or PostgreSQL
 DATABASE_TYPE=postgresql
-POSTGRES_URL=postgres://localhost:5432/chainsync
+POSTGRES_URL=postgres://localhost:5432/switchboard
 
 # Solana
 SOLANA_RPC_URL=https://api.mainnet-beta.solana.com

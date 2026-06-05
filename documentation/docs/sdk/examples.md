@@ -1,17 +1,17 @@
 # SDK Examples
 
-Real-world examples of using the ChainSync SDK.
+Real-world examples of using the Switchboard SDK.
 
 ## Token Deployment
 
 Deploy an ERC20 token across multiple chains.
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { readFileSync } from 'fs';
 
 async function deployToken() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL! },
     networks: {
       ethereum: {
@@ -35,7 +35,7 @@ async function deployToken() {
   );
 
   // Deploy across chains
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     name: 'MyToken',
     bytecode: artifact.bytecode,
     abi: artifact.abi,
@@ -50,12 +50,12 @@ async function deployToken() {
   console.log('Deployment ID:', deployment.id);
 
   // Wait for completion
-  let status = await chainSync.trackDeployment(deployment.id);
+  let status = await switchboard.trackDeployment(deployment.id);
   while (status.status !== 'completed' && status.status !== 'failed') {
     console.log(`Status: ${status.status}`);
     console.log(`Completed: ${status.completedChains.join(', ')}`);
     await new Promise((r) => setTimeout(r, 5000));
-    status = await chainSync.trackDeployment(deployment.id);
+    status = await switchboard.trackDeployment(deployment.id);
   }
 
   console.log('Final addresses:', status.addresses);
@@ -69,10 +69,10 @@ deployToken();
 Monitor state changes across chains in real-time.
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function monitorState() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL! },
     networks: {
       ethereum: { rpcUrl: process.env.ETHEREUM_RPC_URL! },
@@ -83,7 +83,7 @@ async function monitorState() {
   const contractAddress = '0x...'; // Your deployed contract
 
   // Subscribe to state changes
-  const unsubscribe = chainSync.onStateChange(contractAddress, (event) => {
+  const unsubscribe = switchboard.onStateChange(contractAddress, (event) => {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log(`Chain: ${event.chain}`);
     console.log(`State Hash: ${event.stateHash}`);
@@ -93,13 +93,13 @@ async function monitorState() {
   });
 
   // Handle conflicts
-  chainSync.onConflict((conflict) => {
+  switchboard.onConflict((conflict) => {
     console.error('⚠️ STATE CONFLICT DETECTED');
     console.error(`Type: ${conflict.type}`);
     console.error(`Chains: ${conflict.chains.join(', ')}`);
 
     // Auto-resolve using source of truth
-    chainSync.resolveConflict(conflict.id, {
+    switchboard.resolveConflict(conflict.id, {
       strategy: 'use_source_of_truth',
       sourceChain: 'ethereum',
     });
@@ -121,10 +121,10 @@ monitorState();
 Estimate deployment costs before executing.
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function estimateCosts() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL! },
     networks: {
       ethereum: { rpcUrl: process.env.ETHEREUM_RPC_URL! },
@@ -135,7 +135,7 @@ async function estimateCosts() {
   });
 
   // Estimate fees for deployment
-  const fees = await chainSync.estimateFees({
+  const fees = await switchboard.estimateFees({
     bytecodeSize: 5000, // bytes
     chains: ['ethereum', 'polygon', 'arbitrum', 'optimism'],
   });
@@ -163,10 +163,10 @@ estimateCosts();
 Track transactions across multiple chains.
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function trackCrossChainTx() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL! },
     networks: {
       ethereum: { rpcUrl: process.env.ETHEREUM_RPC_URL! },
@@ -175,7 +175,7 @@ async function trackCrossChainTx() {
   });
 
   // Track a transaction
-  const txStatus = await chainSync.trackTransaction({
+  const txStatus = await switchboard.trackTransaction({
     hash: '0x...',
     chain: 'ethereum',
   });
@@ -183,7 +183,7 @@ async function trackCrossChainTx() {
   console.log('Transaction Status:', txStatus);
 
   // Get cross-chain history for an address
-  const history = await chainSync.getTransactionHistory({
+  const history = await switchboard.getTransactionHistory({
     address: '0x...',
     chains: ['ethereum', 'polygon', 'arbitrum'],
     limit: 10,
@@ -200,16 +200,16 @@ trackCrossChainTx();
 
 ## Express.js API Integration
 
-Build an API service with ChainSync.
+Build an API service with Switchboard.
 
 ```typescript
 import express from 'express';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 const app = express();
 app.use(express.json());
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: { rpcUrl: process.env.SOLANA_RPC_URL! },
   networks: {
     ethereum: {
@@ -228,7 +228,7 @@ app.post('/deploy', async (req, res) => {
   try {
     const { name, bytecode, abi, args, chains } = req.body;
 
-    const deployment = await chainSync.deployContract({
+    const deployment = await switchboard.deployContract({
       name,
       bytecode,
       abi,
@@ -245,7 +245,7 @@ app.post('/deploy', async (req, res) => {
 // Status endpoint
 app.get('/deploy/:id', async (req, res) => {
   try {
-    const status = await chainSync.trackDeployment(req.params.id);
+    const status = await switchboard.trackDeployment(req.params.id);
     res.json({ success: true, status });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -256,7 +256,7 @@ app.get('/deploy/:id', async (req, res) => {
 app.post('/estimate', async (req, res) => {
   try {
     const { bytecodeSize, chains } = req.body;
-    const fees = await chainSync.estimateFees({ bytecodeSize, chains });
+    const fees = await switchboard.estimateFees({ bytecodeSize, chains });
     res.json({ success: true, fees });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -264,7 +264,7 @@ app.post('/estimate', async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('ChainSync API running on port 3000');
+  console.log('Switchboard API running on port 3000');
 });
 ```
 
@@ -274,15 +274,15 @@ Robust error handling for production applications.
 
 ```typescript
 import {
-  ChainSync,
+  Switchboard,
   NetworkError,
   DeploymentError,
   ValidationError,
   TimeoutError,
-} from '@chainsync/sdk';
+} from '@switchboard/sdk';
 
 async function robustDeployment() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL! },
     networks: {
       ethereum: {
@@ -298,7 +298,7 @@ async function robustDeployment() {
   });
 
   try {
-    const deployment = await chainSync.deployContract({
+    const deployment = await switchboard.deployContract({
       name: 'MyContract',
       bytecode: '0x...',
       abi: [],

@@ -21,7 +21,7 @@ describe('API Service Integration Tests', () => {
     rateLimitMax: 100,
     jwtSecret: 'test-jwt-secret-key-for-testing',
     database: {
-      url: process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/chainsync-test',
+      url: process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/switchboard-test',
       options: {}
     }
   };

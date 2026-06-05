@@ -1,12 +1,12 @@
 # First Deployment
 
-This guide walks you through deploying your first cross-chain application with ChainSync.
+This guide walks you through deploying your first cross-chain application with Switchboard.
 
 ## Prerequisites
 
 Before starting, ensure you have:
 
-- [x] Installed ChainSync CLI (`npm install -g @chainsync/cli`)
+- [x] Installed Switchboard CLI (`npm install -g @switchboard/cli`)
 - [x] Node.js 18+ installed
 - [x] Test tokens for target networks (see [Quick Start](quickstart.md#step-4-get-test-tokens))
 
@@ -14,20 +14,20 @@ Before starting, ensure you have:
 
 ### Using a Template
 
-ChainSync provides templates for common use cases:
+Switchboard provides templates for common use cases:
 
 ```bash
 # Simple token deployment
-chainsync init my-token --template token --dev-mode
+switchboard init my-token --template token --dev-mode
 
 # DeFi protocol
-chainsync init my-defi --template defi --dev-mode
+switchboard init my-defi --template defi --dev-mode
 
 # NFT collection
-chainsync init my-nft --template nft --dev-mode
+switchboard init my-nft --template nft --dev-mode
 
 # Cross-chain bridge
-chainsync init my-bridge --template bridge --dev-mode
+switchboard init my-bridge --template bridge --dev-mode
 ```
 
 ### Interactive Initialization
@@ -35,7 +35,7 @@ chainsync init my-bridge --template bridge --dev-mode
 For more control, use interactive mode:
 
 ```bash
-chainsync init
+switchboard init
 # Follow the prompts to configure your project
 ```
 
@@ -64,9 +64,9 @@ ARBITRUM_RPC_URL=https://goerli-rollup.arbitrum.io/rpc
 PRIVATE_KEY=your_test_private_key
 ```
 
-### ChainSync Configuration
+### Switchboard Configuration
 
-Review `chainsync.config.js`:
+Review `switchboard.config.js`:
 
 ```javascript
 module.exports = {
@@ -140,33 +140,33 @@ npm run test:integration
 
 ```bash
 # Check configuration is valid
-chainsync validate
+switchboard validate
 
 # Verify network connectivity
-chainsync health
+switchboard health
 ```
 
 ### Deploy
 
 ```bash
 # Deploy to all configured testnets
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 
 # Or deploy to specific networks
-chainsync deploy --networks sepolia,mumbai
+switchboard deploy --networks sepolia,mumbai
 ```
 
 ### Monitor Deployment
 
 ```bash
 # Check status
-chainsync status
+switchboard status
 
 # Real-time monitoring
-chainsync status --watch
+switchboard status --watch
 
 # View logs
-chainsync logs --deployment-id <ID>
+switchboard logs --deployment-id <ID>
 ```
 
 ## Step 6: Verify Deployment
@@ -175,17 +175,17 @@ chainsync logs --deployment-id <ID>
 
 ```bash
 # List deployed contracts
-chainsync contracts list
+switchboard contracts list
 
 # Get contract details
-chainsync contracts info --contract MyToken
+switchboard contracts info --contract MyToken
 ```
 
 ### Verify on Block Explorers
 
 ```bash
 # Verify contract source code
-chainsync verify --contract MyToken --network sepolia
+switchboard verify --contract MyToken --network sepolia
 ```
 
 ## Step 7: Interact with Your Contracts
@@ -194,26 +194,26 @@ chainsync verify --contract MyToken --network sepolia
 
 ```bash
 # Call contract function
-chainsync call --contract MyToken --method balanceOf --args "0xYourAddress" --network sepolia
+switchboard call --contract MyToken --method balanceOf --args "0xYourAddress" --network sepolia
 ```
 
 ### Using the SDK
 
 ```javascript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: { rpcUrl: process.env.SOLANA_RPC_URL }
 });
 
 // Get token balance across chains
-const balances = await chainSync.getBalances('MyToken', '0xYourAddress');
+const balances = await switchboard.getBalances('MyToken', '0xYourAddress');
 console.log(balances);
 ```
 
 ## Understanding Cross-Chain Sync
 
-When you deploy with ChainSync, your contracts are synchronized across chains:
+When you deploy with Switchboard, your contracts are synchronized across chains:
 
 1. **Deployment** - Contracts deployed to each target chain
 2. **Registration** - Contract addresses registered on Solana coordination layer
@@ -236,7 +236,7 @@ When you deploy with ChainSync, your contracts are synchronized across chains:
 
 ## Next Steps
 
-- [Architecture Overview](../architecture/index.md) - Understand how ChainSync works
+- [Architecture Overview](../architecture/index.md) - Understand how Switchboard works
 - [SDK Documentation](../sdk/index.md) - Build applications with the SDK
 - [Examples](../examples/index.md) - See more deployment examples
 

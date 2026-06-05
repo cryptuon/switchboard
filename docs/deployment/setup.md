@@ -1,8 +1,8 @@
-# ChainSync Deployment Guide
+# Switchboard Deployment Guide
 
 ## Overview
 
-This guide covers deploying ChainSync infrastructure to production environments, including Solana programs, off-chain services, and monitoring setup.
+This guide covers deploying Switchboard infrastructure to production environments, including Solana programs, off-chain services, and monitoring setup.
 
 ## Prerequisites
 
@@ -46,8 +46,8 @@ npm install -g @coral-xyz/anchor-cli@latest
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/chainsync.git
-cd chainsync
+git clone https://github.com/your-org/switchboard.git
+cd switchboard
 
 # Install dependencies
 npm install
@@ -84,7 +84,7 @@ LOG_LEVEL=info
 METRICS_ENABLED=true
 
 # Database (if using persistent storage)
-DATABASE_URL=postgresql://user:password@localhost:5432/chainsync
+DATABASE_URL=postgresql://user:password@localhost:5432/switchboard
 
 # Redis (for caching)
 REDIS_URL=redis://localhost:6379
@@ -104,15 +104,15 @@ PROMETHEUS_PORT=9090
 
 ```bash
 # Generate new keypair (or use existing)
-solana-keygen new --outfile ~/chainsync-deployer.json
+solana-keygen new --outfile ~/switchboard-deployer.json
 
 # Fund the wallet (minimum 10 SOL recommended)
 # For mainnet, transfer SOL from your main wallet
 # For devnet/testnet:
-solana airdrop 10 ~/chainsync-deployer.json --url devnet
+solana airdrop 10 ~/switchboard-deployer.json --url devnet
 
 # Set as default keypair
-solana config set --keypair ~/chainsync-deployer.json
+solana config set --keypair ~/switchboard-deployer.json
 solana config set --url mainnet-beta
 ```
 
@@ -172,8 +172,8 @@ ls -la packages/*/dist/
 sudo apt-get install postgresql postgresql-contrib
 
 # Create database
-sudo -u postgres createdb chainsync
-sudo -u postgres createuser chainsync
+sudo -u postgres createdb switchboard
+sudo -u postgres createuser switchboard
 
 # Run migrations (if using database)
 npm run migrate
@@ -188,7 +188,7 @@ npm start
 
 # Or use PM2 for production
 npm install -g pm2
-pm2 start dist/index.js --name chainsync-oracle
+pm2 start dist/index.js --name switchboard-oracle
 ```
 
 ### 4. Deploy Sync Service
@@ -196,7 +196,7 @@ pm2 start dist/index.js --name chainsync-oracle
 ```bash
 # Start sync service
 cd packages/services/sync-service
-pm2 start dist/index.js --name chainsync-sync
+pm2 start dist/index.js --name switchboard-sync
 ```
 
 ### 5. Deploy API Service
@@ -204,7 +204,7 @@ pm2 start dist/index.js --name chainsync-sync
 ```bash
 # Start API service
 cd packages/services/api
-pm2 start dist/index.js --name chainsync-api
+pm2 start dist/index.js --name switchboard-api
 ```
 
 ### 6. Deploy Fee Oracle
@@ -212,7 +212,7 @@ pm2 start dist/index.js --name chainsync-api
 ```bash
 # Start fee oracle service
 cd packages/services/fee-oracle
-pm2 start dist/index.js --name chainsync-fee-oracle
+pm2 start dist/index.js --name switchboard-fee-oracle
 ```
 
 ## Load Balancer & Reverse Proxy
@@ -220,7 +220,7 @@ pm2 start dist/index.js --name chainsync-fee-oracle
 ### Nginx Configuration
 
 ```nginx
-# /etc/nginx/sites-available/chainsync
+# /etc/nginx/sites-available/switchboard
 upstream chainsync_api {
     server 127.0.0.1:3000;
     server 127.0.0.1:3001;
@@ -230,7 +230,7 @@ upstream chainsync_api {
 server {
     listen 80;
     listen 443 ssl;
-    server_name api.chainsync.org;
+    server_name api.switchboard.org;
 
     ssl_certificate /path/to/ssl/cert.pem;
     ssl_certificate_key /path/to/ssl/key.pem;
@@ -260,15 +260,15 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'chainsync-api'
+  - job_name: 'switchboard-api'
     static_configs:
       - targets: ['localhost:3000']
 
-  - job_name: 'chainsync-oracle'
+  - job_name: 'switchboard-oracle'
     static_configs:
       - targets: ['localhost:3001']
 
-  - job_name: 'chainsync-sync'
+  - job_name: 'switchboard-sync'
     static_configs:
       - targets: ['localhost:3002']
 ```
@@ -278,7 +278,7 @@ scrape_configs:
 ```json
 {
   "dashboard": {
-    "title": "ChainSync Monitoring",
+    "title": "Switchboard Monitoring",
     "panels": [
       {
         "title": "Transaction Throughput",
@@ -314,16 +314,16 @@ sudo apt-get install td-agent
 <source>
   @type tail
   path /var/log/switchboard/*.log
-  pos_file /var/log/td-agent/chainsync.log.pos
-  tag chainsync.*
+  pos_file /var/log/td-agent/switchboard.log.pos
+  tag switchboard.*
   format json
 </source>
 
-<match chainsync.**>
+<match switchboard.**>
   @type elasticsearch
   host elasticsearch.your-domain.com
   port 9200
-  index_name chainsync
+  index_name switchboard
 </match>
 ```
 
@@ -355,7 +355,7 @@ sudo ufw allow 3000:3010/tcp
 sudo apt-get install certbot python3-certbot-nginx
 
 # Obtain SSL certificate
-sudo certbot --nginx -d api.chainsync.org
+sudo certbot --nginx -d api.switchboard.org
 
 # Set up auto-renewal
 sudo crontab -e
@@ -404,9 +404,9 @@ app.get('/health', (req, res) => {
 # monitor.sh
 
 ENDPOINTS=(
-  "https://api.chainsync.org/health"
-  "https://oracle.chainsync.org/health"
-  "https://sync.chainsync.org/health"
+  "https://api.switchboard.org/health"
+  "https://oracle.switchboard.org/health"
+  "https://sync.switchboard.org/health"
 )
 
 for endpoint in "${ENDPOINTS[@]}"; do
@@ -446,22 +446,22 @@ const syncLatency = new promClient.Histogram({
 # backup.sh
 
 DATE=$(date +%Y%m%d_%H%M%S)
-BACKUP_DIR="/backup/chainsync"
+BACKUP_DIR="/backup/switchboard"
 
 # Create backup directory
 mkdir -p "$BACKUP_DIR"
 
 # Backup PostgreSQL
-pg_dump chainsync > "$BACKUP_DIR/db_backup_$DATE.sql"
+pg_dump switchboard > "$BACKUP_DIR/db_backup_$DATE.sql"
 
 # Backup configuration files
 tar -czf "$BACKUP_DIR/config_backup_$DATE.tar.gz" \
-  /etc/nginx/sites-available/chainsync \
+  /etc/nginx/sites-available/switchboard \
   /home/user/switchboard/.env \
   /home/user/switchboard/scripts/
 
 # Upload to S3 or similar
-aws s3 cp "$BACKUP_DIR/" s3://chainsync-backups/ --recursive
+aws s3 cp "$BACKUP_DIR/" s3://switchboard-backups/ --recursive
 ```
 
 ### 2. Disaster Recovery Plan
@@ -497,7 +497,7 @@ aws s3 cp "$BACKUP_DIR/" s3://chainsync-backups/ --recursive
 pm2 status
 
 # View service logs
-pm2 logs chainsync-api
+pm2 logs switchboard-api
 
 # Monitor system resources
 htop
@@ -542,7 +542,7 @@ pm2 reload all
 
 For deployment assistance:
 
-- **Documentation**: [docs.chainsync.org](https://docs.chainsync.org)
-- **GitHub Issues**: [github.com/your-org/chainsync/issues](https://github.com/your-org/chainsync/issues)
-- **Discord**: [discord.gg/chainsync](https://discord.gg/chainsync)
-- **Email**: support@chainsync.org
+- **Documentation**: [docs.switchboard.org](https://docs.switchboard.org)
+- **GitHub Issues**: [github.com/your-org/switchboard/issues](https://github.com/your-org/switchboard/issues)
+- **Discord**: [discord.gg/switchboard](https://discord.gg/switchboard)
+- **Email**: support@switchboard.org

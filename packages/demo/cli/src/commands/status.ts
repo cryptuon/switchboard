@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { table } from 'table';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { loadConfig } from '../utils/config';
 import { createSpinner } from '../utils/spinner';
 
@@ -10,20 +10,20 @@ export const statusCommand = new Command('status')
   .option('-v, --verbose', 'Show detailed status information')
   .option('-c, --chains', 'Show chain-specific status')
   .action(async (options) => {
-    console.log(chalk.blue('📊 ChainSync System Status\n'));
+    console.log(chalk.blue('📊 Switchboard System Status\n'));
 
     try {
       const config = await loadConfig();
       if (!config) {
-        console.log(chalk.red('❌ No configuration found. Run: chainsync init'));
+        console.log(chalk.red('❌ No configuration found. Run: switchboard init'));
         return;
       }
 
       const spinner = createSpinner('Checking system status...');
       spinner.start();
 
-      // Initialize ChainSync SDK
-      const chainSync = new ChainSync({
+      // Initialize Switchboard SDK
+      const switchboard = new Switchboard({
         solanaRpcUrl: process.env.SOLANA_RPC_URL!,
         ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
         polygonRpcUrl: process.env.POLYGON_RPC_URL,
@@ -34,8 +34,8 @@ export const statusCommand = new Command('status')
       });
 
       // Get system status
-      const systemStatus = await chainSync.getSystemStatus();
-      const deployments = await chainSync.listDeployments();
+      const systemStatus = await switchboard.getSystemStatus();
+      const deployments = await switchboard.listDeployments();
 
       spinner.stop();
 
@@ -142,7 +142,7 @@ export const statusCommand = new Command('status')
 
       // Recommendations
       if (completedDeployments === 0 && deployments.length === 0) {
-        recommendations.push('Start by deploying your first contract with: chainsync deploy');
+        recommendations.push('Start by deploying your first contract with: switchboard deploy');
       }
 
       if (config.chains.length === 1) {
@@ -177,10 +177,10 @@ export const statusCommand = new Command('status')
 
       // Quick actions
       console.log(chalk.blue('\n🔧 Quick Actions:'));
-      console.log(chalk.gray('• Deploy contract: chainsync deploy'));
-      console.log(chalk.gray('• Track deployment: chainsync track <id>'));
-      console.log(chalk.gray('• View analytics: chainsync analytics'));
-      console.log(chalk.gray('• Update config: chainsync config'));
+      console.log(chalk.gray('• Deploy contract: switchboard deploy'));
+      console.log(chalk.gray('• Track deployment: switchboard track <id>'));
+      console.log(chalk.gray('• View analytics: switchboard analytics'));
+      console.log(chalk.gray('• Update config: switchboard config'));
 
     } catch (error) {
       console.error(chalk.red('Failed to get system status:'), error);

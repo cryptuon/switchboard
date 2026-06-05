@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/fee-oracle",
+  "name": "@switchboard/fee-oracle",
   "version": "0.1.0",
-  "description": "ChainSync Fee Oracle Service",
+  "description": "Switchboard Fee Oracle Service",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@solana/web3.js": "^1.78.0",
-    "@chainsync/services-shared": "^0.1.0"
+    "@switchboard/services-shared": "^0.1.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
@@ -36,6 +36,6 @@
     "oracle",
     "cross-chain"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

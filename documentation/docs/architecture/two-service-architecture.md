@@ -1,6 +1,6 @@
 # 2-Service Architecture
 
-ChainSync uses a simplified 2-service architecture, consolidating what was previously 6+ microservices into two focused services.
+Switchboard uses a simplified 2-service architecture, consolidating what was previously 6+ microservices into two focused services.
 
 ## Architecture Comparison
 

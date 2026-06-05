@@ -1,5 +1,5 @@
 /**
- * ChainSync API Service Entry Point
+ * Switchboard API Service Entry Point
  *
  * Production-ready API service with comprehensive error handling and monitoring
  */
@@ -8,7 +8,7 @@ import { ApiService } from './api-service';
 
 async function main() {
   const service = new ApiService({
-    name: 'chainsync-api',
+    name: 'switchboard-api',
     version: process.env.npm_package_version || '0.1.0',
     port: parseInt(process.env.PORT || '3000'),
     enableMetrics: true,

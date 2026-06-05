@@ -1,6 +1,6 @@
-# ChainSync Deployment Guide
+# Switchboard Deployment Guide
 
-This guide covers deploying ChainSync services to production environments using various deployment strategies.
+This guide covers deploying Switchboard services to production environments using various deployment strategies.
 
 ## Prerequisites
 
@@ -37,14 +37,14 @@ LOG_LEVEL=info
 LOG_RETENTION_DAYS=30
 
 # Database Configuration
-DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/chainsync?retryWrites=true&w=majority
+DATABASE_URL=mongodb+srv://user:password@cluster.mongodb.net/switchboard?retryWrites=true&w=majority
 DB_MAX_CONNECTIONS=20
 DB_IDLE_TIMEOUT=30000
 DB_CONNECTION_TIMEOUT=5000
 
 # Security Configuration
 JWT_SECRET=your-very-secure-jwt-secret-minimum-32-characters
-CORS_ORIGINS=https://app.chainsync.com,https://dashboard.chainsync.com
+CORS_ORIGINS=https://app.switchboard.com,https://dashboard.switchboard.com
 
 # Rate Limiting
 RATE_LIMIT_WINDOW=900000
@@ -89,7 +89,7 @@ SOLANA_PRIVATE_KEY=base58-encoded-private-key
 **API Service** (`.env.api`):
 ```bash
 # API Service Specific
-SERVICE_NAME=chainsync-api
+SERVICE_NAME=switchboard-api
 SERVICE_VERSION=1.0.0
 
 # Additional API configuration
@@ -100,7 +100,7 @@ REQUEST_TIMEOUT=30000
 **Sync Service** (`.env.sync`):
 ```bash
 # Sync Service Specific
-SERVICE_NAME=chainsync-sync
+SERVICE_NAME=switchboard-sync
 SERVICE_VERSION=1.0.0
 
 # Processing Configuration
@@ -147,20 +147,20 @@ FROM node:18-alpine AS production
 WORKDIR /app
 
 # Create non-root user
-RUN addgroup -g 1001 -S chainsync && \
-    adduser -S chainsync -u 1001
+RUN addgroup -g 1001 -S switchboard && \
+    adduser -S switchboard -u 1001
 
 # Copy built application
-COPY --from=builder --chown=chainsync:chainsync /app/packages/services/api/dist ./dist
-COPY --from=builder --chown=chainsync:chainsync /app/packages/services/api/node_modules ./node_modules
-COPY --from=builder --chown=chainsync:chainsync /app/packages/services/api/package*.json ./
+COPY --from=builder --chown=switchboard:switchboard /app/packages/services/api/dist ./dist
+COPY --from=builder --chown=switchboard:switchboard /app/packages/services/api/node_modules ./node_modules
+COPY --from=builder --chown=switchboard:switchboard /app/packages/services/api/package*.json ./
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3000/health || exit 1
 
 # Switch to non-root user
-USER chainsync
+USER switchboard
 
 # Expose port
 EXPOSE 3000
@@ -199,16 +199,16 @@ FROM node:18-alpine AS production
 WORKDIR /app
 
 # Create non-root user
-RUN addgroup -g 1001 -S chainsync && \
-    adduser -S chainsync -u 1001
+RUN addgroup -g 1001 -S switchboard && \
+    adduser -S switchboard -u 1001
 
 # Copy built application
-COPY --from=builder --chown=chainsync:chainsync /app/packages/services/sync-service/dist ./dist
-COPY --from=builder --chown=chainsync:chainsync /app/packages/services/sync-service/node_modules ./node_modules
-COPY --from=builder --chown=chainsync:chainsync /app/packages/services/sync-service/package*.json ./
+COPY --from=builder --chown=switchboard:switchboard /app/packages/services/sync-service/dist ./dist
+COPY --from=builder --chown=switchboard:switchboard /app/packages/services/sync-service/node_modules ./node_modules
+COPY --from=builder --chown=switchboard:switchboard /app/packages/services/sync-service/package*.json ./
 
 # Switch to non-root user
-USER chainsync
+USER switchboard
 
 # Start application
 CMD ["node", "dist/index.js"]
@@ -225,24 +225,24 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:5.0
-    container_name: chainsync-mongodb
+    container_name: switchboard-mongodb
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: chainsync
+      MONGO_INITDB_DATABASE: switchboard
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
     networks:
-      - chainsync-network
+      - switchboard-network
 
   api-service:
     build:
       context: .
       dockerfile: packages/services/api/Dockerfile
-    container_name: chainsync-api
+    container_name: switchboard-api
     restart: unless-stopped
     env_file:
       - .env.shared
@@ -252,7 +252,7 @@ services:
     depends_on:
       - mongodb
     networks:
-      - chainsync-network
+      - switchboard-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s
@@ -264,7 +264,7 @@ services:
     build:
       context: .
       dockerfile: packages/services/sync-service/Dockerfile
-    container_name: chainsync-sync
+    container_name: switchboard-sync
     restart: unless-stopped
     env_file:
       - .env.shared
@@ -272,11 +272,11 @@ services:
     depends_on:
       - mongodb
     networks:
-      - chainsync-network
+      - switchboard-network
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: chainsync-prometheus
+    container_name: switchboard-prometheus
     restart: unless-stopped
     ports:
       - "9090:9090"
@@ -289,11 +289,11 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
     networks:
-      - chainsync-network
+      - switchboard-network
 
   grafana:
     image: grafana/grafana:latest
-    container_name: chainsync-grafana
+    container_name: switchboard-grafana
     restart: unless-stopped
     ports:
       - "3001:3000"
@@ -302,7 +302,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     networks:
-      - chainsync-network
+      - switchboard-network
 
 volumes:
   mongodb_data:
@@ -310,7 +310,7 @@ volumes:
   grafana_data:
 
 networks:
-  chainsync-network:
+  switchboard-network:
     driver: bridge
 ```
 
@@ -322,7 +322,7 @@ version: '3.8'
 
 services:
   api-service:
-    image: chainsync/api:${VERSION:-latest}
+    image: switchboard/api:${VERSION:-latest}
     deploy:
       replicas: 3
       resources:
@@ -344,7 +344,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - chainsync-network
+      - switchboard-network
     logging:
       driver: "json-file"
       options:
@@ -352,7 +352,7 @@ services:
         max-file: "3"
 
   sync-service:
-    image: chainsync/sync:${VERSION:-latest}
+    image: switchboard/sync:${VERSION:-latest}
     deploy:
       replicas: 2
       resources:
@@ -368,7 +368,7 @@ services:
     env_file:
       - .env.production
     networks:
-      - chainsync-network
+      - switchboard-network
     logging:
       driver: "json-file"
       options:
@@ -386,10 +386,10 @@ services:
     depends_on:
       - api-service
     networks:
-      - chainsync-network
+      - switchboard-network
 
 networks:
-  chainsync-network:
+  switchboard-network:
     external: true
 ```
 
@@ -402,16 +402,16 @@ networks:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: chainsync
+  name: switchboard
   labels:
-    name: chainsync
+    name: switchboard
 ---
 # k8s/configmap.yml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: chainsync-config
-  namespace: chainsync
+  name: switchboard-config
+  namespace: switchboard
 data:
   NODE_ENV: "production"
   LOG_LEVEL: "info"
@@ -428,8 +428,8 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: chainsync-secrets
-  namespace: chainsync
+  name: switchboard-secrets
+  namespace: switchboard
 type: Opaque
 data:
   DATABASE_URL: <base64-encoded-mongodb-url>
@@ -446,35 +446,35 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chainsync-api
-  namespace: chainsync
+  name: switchboard-api
+  namespace: switchboard
   labels:
-    app: chainsync-api
+    app: switchboard-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: chainsync-api
+      app: switchboard-api
   template:
     metadata:
       labels:
-        app: chainsync-api
+        app: switchboard-api
     spec:
       containers:
       - name: api
-        image: chainsync/api:v1.0.0
+        image: switchboard/api:v1.0.0
         ports:
         - containerPort: 3000
         env:
         - name: PORT
           value: "3000"
         - name: SERVICE_NAME
-          value: "chainsync-api"
+          value: "switchboard-api"
         envFrom:
         - configMapRef:
-            name: chainsync-config
+            name: switchboard-config
         - secretRef:
-            name: chainsync-secrets
+            name: switchboard-secrets
         resources:
           requests:
             memory: 512Mi
@@ -503,13 +503,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: chainsync-api-service
-  namespace: chainsync
+  name: switchboard-api-service
+  namespace: switchboard
   labels:
-    app: chainsync-api
+    app: switchboard-api
 spec:
   selector:
-    app: chainsync-api
+    app: switchboard-api
   ports:
   - port: 80
     targetPort: 3000
@@ -520,8 +520,8 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: chainsync-api-ingress
-  namespace: chainsync
+  name: switchboard-api-ingress
+  namespace: switchboard
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -530,17 +530,17 @@ metadata:
 spec:
   tls:
   - hosts:
-    - api.chainsync.com
-    secretName: chainsync-api-tls
+    - api.switchboard.com
+    secretName: switchboard-api-tls
   rules:
-  - host: api.chainsync.com
+  - host: api.switchboard.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: chainsync-api-service
+            name: switchboard-api-service
             port:
               number: 80
 ```
@@ -552,35 +552,35 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chainsync-sync
-  namespace: chainsync
+  name: switchboard-sync
+  namespace: switchboard
   labels:
-    app: chainsync-sync
+    app: switchboard-sync
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: chainsync-sync
+      app: switchboard-sync
   template:
     metadata:
       labels:
-        app: chainsync-sync
+        app: switchboard-sync
     spec:
       containers:
       - name: sync
-        image: chainsync/sync:v1.0.0
+        image: switchboard/sync:v1.0.0
         env:
         - name: SERVICE_NAME
-          value: "chainsync-sync"
+          value: "switchboard-sync"
         - name: MAX_CONCURRENT_DEPLOYMENTS
           value: "5"
         - name: MONITOR_INTERVAL_MS
           value: "10000"
         envFrom:
         - configMapRef:
-            name: chainsync-config
+            name: switchboard-config
         - secretRef:
-            name: chainsync-secrets
+            name: switchboard-secrets
         resources:
           requests:
             memory: 1Gi
@@ -605,13 +605,13 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: chainsync-api-hpa
-  namespace: chainsync
+  name: switchboard-api-hpa
+  namespace: switchboard
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: chainsync-api
+    name: switchboard-api
   minReplicas: 2
   maxReplicas: 10
   metrics:
@@ -631,13 +631,13 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: chainsync-sync-hpa
-  namespace: chainsync
+  name: switchboard-sync-hpa
+  namespace: switchboard
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: chainsync-sync
+    name: switchboard-sync
   minReplicas: 1
   maxReplicas: 5
   metrics:
@@ -666,16 +666,16 @@ global:
   evaluation_interval: 15s
 
 rule_files:
-  - "chainsync-rules.yml"
+  - "switchboard-rules.yml"
 
 scrape_configs:
-  - job_name: 'chainsync-api'
+  - job_name: 'switchboard-api'
     static_configs:
       - targets: ['api-service:3000']
     metrics_path: '/metrics'
     scrape_interval: 30s
 
-  - job_name: 'chainsync-sync'
+  - job_name: 'switchboard-sync'
     static_configs:
       - targets: ['sync-service:3000']
     metrics_path: '/metrics'
@@ -695,9 +695,9 @@ alerting:
 ### Alerting Rules
 
 ```yaml
-# monitoring/chainsync-rules.yml
+# monitoring/switchboard-rules.yml
 groups:
-  - name: chainsync-alerts
+  - name: switchboard-alerts
     rules:
       - alert: HighErrorRate
         expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
@@ -727,12 +727,12 @@ groups:
           description: "MongoDB is not responding"
 
       - alert: ServiceDown
-        expr: up{job=~"chainsync-.*"} == 0
+        expr: up{job=~"switchboard-.*"} == 0
         for: 1m
         labels:
           severity: critical
         annotations:
-          summary: "ChainSync service is down"
+          summary: "Switchboard service is down"
           description: "{{ $labels.job }} is not responding"
 ```
 
@@ -741,7 +741,7 @@ groups:
 ```json
 {
   "dashboard": {
-    "title": "ChainSync Dashboard",
+    "title": "Switchboard Dashboard",
     "panels": [
       {
         "title": "HTTP Request Rate",
@@ -803,16 +803,16 @@ upstream chainsync_api {
 
 server {
     listen 80;
-    server_name api.chainsync.com;
+    server_name api.switchboard.com;
     return 301 https://$server_name$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name api.chainsync.com;
+    server_name api.switchboard.com;
 
-    ssl_certificate /etc/nginx/ssl/chainsync.crt;
-    ssl_certificate_key /etc/nginx/ssl/chainsync.key;
+    ssl_certificate /etc/nginx/ssl/switchboard.crt;
+    ssl_certificate_key /etc/nginx/ssl/switchboard.key;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384;
 
@@ -900,7 +900,7 @@ volumes:
 
 ```javascript
 // scripts/create-indexes.js
-db = db.getSiblingDB('chainsync');
+db = db.getSiblingDB('switchboard');
 
 // Deployments collection indexes
 db.deployments.createIndex({ "deploymentId": 1 }, { unique: true });
@@ -965,7 +965,7 @@ tar -czf "$BACKUP_DIR/$BACKUP_NAME.tar.gz" -C "$BACKUP_DIR" "$BACKUP_NAME"
 rm -rf "$BACKUP_DIR/$BACKUP_NAME"
 
 # Upload to S3 (optional)
-aws s3 cp "$BACKUP_DIR/$BACKUP_NAME.tar.gz" s3://chainsync-backups/
+aws s3 cp "$BACKUP_DIR/$BACKUP_NAME.tar.gz" s3://switchboard-backups/
 
 # Cleanup old backups (keep last 7 days)
 find "$BACKUP_DIR" -name "*.tar.gz" -mtime +7 -delete
@@ -1046,4 +1046,4 @@ mongoose.connect(process.env.DATABASE_URL, {
 });
 ```
 
-This deployment guide provides comprehensive coverage of deploying ChainSync services in various environments with proper security, monitoring, and scalability considerations.
+This deployment guide provides comprehensive coverage of deploying Switchboard services in various environments with proper security, monitoring, and scalability considerations.

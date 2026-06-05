@@ -32,7 +32,7 @@
 % Header/Footer
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{ChainSync Protocol}
+\rhead{Switchboard Protocol}
 \lhead{Whitepaper v1.0}
 \rfoot{Page \thepage}
 
@@ -46,7 +46,7 @@
 \begin{titlepage}
 \centering
 \vspace*{2cm}
-{\Huge\bfseries\color{primary} ChainSync Protocol\par}
+{\Huge\bfseries\color{primary} Switchboard Protocol\par}
 \vspace{0.5cm}
 {\Large Sub-400ms Cross-Chain Coordination Platform\par}
 \vspace{2cm}
@@ -56,7 +56,7 @@
 \vspace{3cm}
 
 \begin{abstract}
-ChainSync introduces a revolutionary cross-chain coordination protocol achieving sub-400ms latency through novel state oracle architecture and optimistic execution mechanisms. This whitepaper presents the technical architecture, tokenomics model, and utility framework that enables trustless, high-performance multi-chain operations. The SYNC token serves as the coordination layer for staking, governance, and fee distribution across the ecosystem.
+Switchboard introduces a revolutionary cross-chain coordination protocol achieving sub-400ms latency through novel state oracle architecture and optimistic execution mechanisms. This whitepaper presents the technical architecture, tokenomics model, and utility framework that enables trustless, high-performance multi-chain operations. The SYNC token serves as the coordination layer for staking, governance, and fee distribution across the ecosystem.
 \end{abstract}
 
 \vfill
@@ -83,7 +83,7 @@ Cross-chain infrastructure is the most undervalued sector in crypto:
     \item \textbf{Competitor valuations:} LayerZero \$3B, Wormhole \$2.5B FDV
 \end{itemize}
 
-\textbf{ChainSync target:} Capture 10\% of cross-chain volume = \$5B+ monthly throughput.
+\textbf{Switchboard target:} Capture 10\% of cross-chain volume = \$5B+ monthly throughput.
 
 \subsection{Token Value Accrual}
 
@@ -121,13 +121,13 @@ Bull Case & \$10B & \$120M & 60M SYNC \\
 LayerZero & \$3.0B & \$800M & 3.75x \\
 Wormhole & \$2.5B & \$600M & 4.17x \\
 Axelar & \$800M & \$200M & 4.00x \\
-\textbf{ChainSync (Target)} & \textbf{\$2.0B} & \textbf{\$2B} & \textbf{1.00x} \\
+\textbf{Switchboard (Target)} & \textbf{\$2.0B} & \textbf{\$2B} & \textbf{1.00x} \\
 \bottomrule
 \end{tabular}
-\caption{ChainSync targets superior capital efficiency}
+\caption{Switchboard targets superior capital efficiency}
 \end{table}
 
-\textit{At competitor multiples, ChainSync reaching \$2B volume implies \$8B+ FDV potential.}
+\textit{At competitor multiples, Switchboard reaching \$2B volume implies \$8B+ FDV potential.}
 
 \subsection{Early Adopter Advantages}
 
@@ -172,7 +172,7 @@ Modern blockchain ecosystems face a fundamental coordination challenge: achievin
     \item Poor capital efficiency
 \end{itemize}
 
-\textbf{Novelty:} ChainSync introduces a paradigm shift through \textit{optimistic state coordination}---a mechanism that achieves consensus before finality by leveraging cryptographic proofs and economic security guarantees.
+\textbf{Novelty:} Switchboard introduces a paradigm shift through \textit{optimistic state coordination}---a mechanism that achieves consensus before finality by leveraging cryptographic proofs and economic security guarantees.
 
 \textbf{Tokenomics Integration:} The SYNC token creates aligned incentives between validators, coordinators, and users, ensuring protocol security through stake-weighted participation.
 
@@ -180,7 +180,7 @@ Modern blockchain ecosystems face a fundamental coordination challenge: achievin
 
 \subsection{Vision and Mission}
 
-ChainSync envisions a future where blockchain boundaries become implementation details rather than user-facing barriers. Our mission is to provide the coordination layer that enables truly composable multi-chain applications.
+Switchboard envisions a future where blockchain boundaries become implementation details rather than user-facing barriers. Our mission is to provide the coordination layer that enables truly composable multi-chain applications.
 
 % ============================================================================
 \section{Technical Architecture}
@@ -230,7 +230,7 @@ The Coordinator Protocol orchestrates cross-chain transactions through a three-p
 
 \subsection{Consensus Mechanism}
 
-\textbf{Novelty:} ChainSync employs \textit{Weighted Attestation Consensus} (WAC), a novel BFT variant optimized for cross-chain state agreement.
+\textbf{Novelty:} Switchboard employs \textit{Weighted Attestation Consensus} (WAC), a novel BFT variant optimized for cross-chain state agreement.
 
 \begin{equation}
 \text{Consensus}(S) = \sum_{v \in V} w_v \cdot \text{Attest}_v(S) > \frac{2}{3} \sum_{v \in V} w_v
@@ -259,7 +259,7 @@ Where $w_v$ represents the stake-weighted voting power of validator $v$.
 \toprule
 \textbf{Property} & \textbf{Value} \\
 \midrule
-Token Name & ChainSync Token \\
+Token Name & Switchboard Token \\
 Symbol & SYNC \\
 Total Supply & 1,000,000,000 SYNC \\
 Token Standard & Multi-chain (ERC-20, SPL, Native) \\
@@ -371,7 +371,7 @@ Fee distribution:
 \textbf{Novelty:} Single SDK for all supported chains with automatic routing optimization:
 
 \begin{verbatim}
-const result = await chainsync.execute({
+const result = await switchboard.execute({
   operations: [
     { chain: 'ethereum', action: 'swap', ... },
     { chain: 'solana', action: 'stake', ... }
@@ -395,7 +395,7 @@ const result = await chainsync.execute({
     \item Cross-chain liquidation protection
 \end{itemize}
 
-\textbf{Tokenomics:} DeFi protocols integrating ChainSync stake SYNC for priority access and reduced fees.
+\textbf{Tokenomics:} DeFi protocols integrating Switchboard stake SYNC for priority access and reduced fees.
 
 \textbf{Utility:} Users access best rates across all chains without manual bridging.
 
@@ -609,7 +609,7 @@ Monthly Volume & \$50M & \$200M & \$500M & \$2B+ \\
 \section{Team and Advisors}
 % ============================================================================
 
-The ChainSync team combines deep expertise in distributed systems, cryptography, and blockchain infrastructure. Key backgrounds include:
+The Switchboard team combines deep expertise in distributed systems, cryptography, and blockchain infrastructure. Key backgrounds include:
 
 \begin{itemize}
     \item Former core developers from Ethereum, Solana, and Cosmos ecosystems
@@ -623,7 +623,7 @@ Advisory board includes leaders from major DeFi protocols, traditional finance i
 \section{Conclusion}
 % ============================================================================
 
-ChainSync represents a fundamental advancement in cross-chain infrastructure. By combining novel technical innovations with carefully designed tokenomics and broad utility, we create a sustainable ecosystem that benefits all participants.
+Switchboard represents a fundamental advancement in cross-chain infrastructure. By combining novel technical innovations with carefully designed tokenomics and broad utility, we create a sustainable ecosystem that benefits all participants.
 
 \textbf{Key Differentiators:}
 \begin{itemize}
@@ -632,7 +632,7 @@ ChainSync represents a fundamental advancement in cross-chain infrastructure. By
     \item \textbf{Utility:} Production-ready SDK for immediate developer adoption
 \end{itemize}
 
-The future is multi-chain. ChainSync provides the coordination layer to make it seamless.
+The future is multi-chain. Switchboard provides the coordination layer to make it seamless.
 
 % ============================================================================
 \section{References}
@@ -711,10 +711,10 @@ This whitepaper is for informational purposes only. It does not constitute inves
 \vspace{1cm}
 \begin{center}
 \textbf{Contact}\\
-Website: https://chainsync.io\\
-Email: team@chainsync.io\\
-Twitter: @ChainSyncHQ\\
-Discord: discord.gg/chainsync
+Website: https://switchboard.io\\
+Email: team@switchboard.io\\
+Twitter: @SwitchboardHQ\\
+Discord: discord.gg/switchboard
 \end{center}
 
 \end{document}

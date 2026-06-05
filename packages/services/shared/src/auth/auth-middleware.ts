@@ -1,5 +1,5 @@
 /**
- * ChainSync Authentication Middleware
+ * Switchboard Authentication Middleware
  *
  * Express middleware for JWT and API key authentication
  */

@@ -1,5 +1,5 @@
 /**
- * User service for ChainSync Billing Service
+ * User service for Switchboard Billing Service
  */
 
 import { User, UsageRecord, Subscription, Invoice } from '../models/user';

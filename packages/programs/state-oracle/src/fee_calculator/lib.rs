@@ -1,4 +1,4 @@
-//! Fee calculation logic for ChainSync programs
+//! Fee calculation logic for Switchboard programs
 
 use anchor_lang::prelude::*;
 

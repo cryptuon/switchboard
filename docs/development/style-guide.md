@@ -1,6 +1,6 @@
-# ChainSync Style Guide
+# Switchboard Style Guide
 
-This document outlines the coding standards and conventions for the ChainSync project.
+This document outlines the coding standards and conventions for the Switchboard project.
 
 ## General Principles
 

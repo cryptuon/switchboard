@@ -1,6 +1,6 @@
 # Environment Variables
 
-Complete reference for all ChainSync environment variables.
+Complete reference for all Switchboard environment variables.
 
 ## Service Configuration
 
@@ -47,7 +47,7 @@ CORE_ENGINE_URL=http://localhost:3001
 
 ```bash
 DATABASE_TYPE=mongodb
-MONGODB_URL=mongodb://chainsync:password@localhost:27017/chainsync
+MONGODB_URL=mongodb://switchboard:password@localhost:27017/switchboard
 ```
 
 ### PostgreSQL
@@ -59,7 +59,7 @@ MONGODB_URL=mongodb://chainsync:password@localhost:27017/chainsync
 
 ```bash
 DATABASE_TYPE=postgresql
-POSTGRES_URL=postgres://chainsync:password@localhost:5432/chainsync
+POSTGRES_URL=postgres://switchboard:password@localhost:5432/switchboard
 ```
 
 ### Analytics (ClickHouse)
@@ -70,7 +70,7 @@ POSTGRES_URL=postgres://chainsync:password@localhost:5432/chainsync
 | `CLICKHOUSE_PASSWORD` | ClickHouse password | For Docker |
 
 ```bash
-CLICKHOUSE_URL=http://chainsync:password@localhost:8123/chainsync_analytics
+CLICKHOUSE_URL=http://switchboard:password@localhost:8123/chainsync_analytics
 ```
 
 ### Cache (Redis)
@@ -172,7 +172,7 @@ API_RATE_LIMIT=100
 | Variable | Description |
 |----------|-------------|
 | `ALCHEMY_API_KEY` | Alchemy API key |
-| `CHAINSYNC_API_KEY` | ChainSync API key |
+| `CHAINSYNC_API_KEY` | Switchboard API key |
 
 ```bash
 ALCHEMY_API_KEY=your-alchemy-key
@@ -231,13 +231,13 @@ METRICS_ENABLED=true
 
 # Database
 DATABASE_TYPE=mongodb
-MONGODB_URL=mongodb://chainsync:password@mongodb:27017/chainsync
+MONGODB_URL=mongodb://switchboard:password@mongodb:27017/switchboard
 
 # Redis Cache
 REDIS_URL=redis://redis:6379
 
 # ClickHouse Analytics
-CLICKHOUSE_URL=http://chainsync:password@clickhouse:8123/chainsync_analytics
+CLICKHOUSE_URL=http://switchboard:password@clickhouse:8123/chainsync_analytics
 
 # Solana
 SOLANA_NETWORK=mainnet-beta

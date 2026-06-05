@@ -1,6 +1,6 @@
 # Supported Networks and Chains
 
-ChainSync supports a comprehensive list of blockchain networks for maximum reach and interoperability. This document provides a complete reference of all supported chains.
+Switchboard supports a comprehensive list of blockchain networks for maximum reach and interoperability. This document provides a complete reference of all supported chains.
 
 ## Network Categories
 
@@ -89,44 +89,44 @@ ChainSync supports a comprehensive list of blockchain networks for maximum reach
 
 ```bash
 # Initialize with popular Layer 1s
-chainsync init --chains ethereum,polygon,bsc,avalanche
+switchboard init --chains ethereum,polygon,bsc,avalanche
 
 # Initialize with Layer 2 solutions
-chainsync init --chains base,arbitrum,optimism,zksync
+switchboard init --chains base,arbitrum,optimism,zksync
 
 # Initialize with alternative Layer 1s
-chainsync init --chains near,cosmos,sui,aptos
+switchboard init --chains near,cosmos,sui,aptos
 
 # Initialize with emerging networks
-chainsync init --chains celestia,starknet,flow
+switchboard init --chains celestia,starknet,flow
 ```
 
 ### Deploy Across Network Categories
 
 ```bash
 # Deploy to major EVM chains
-chainsync deploy --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche
+switchboard deploy --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche
 
 # Deploy to Layer 2 ecosystem
-chainsync deploy --chains base,zksync,polygonzkevm,linea,mantle,scroll
+switchboard deploy --chains base,zksync,polygonzkevm,linea,mantle,scroll
 
 # Deploy to alternative platforms
-chainsync deploy --chains near,cosmos,terra,sui,aptos
+switchboard deploy --chains near,cosmos,terra,sui,aptos
 ```
 
 ### Configure RPC URLs
 
 ```bash
 # Set Ethereum RPC
-chainsync config set rpcs.ethereum https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
+switchboard config set rpcs.ethereum https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
 
 # Set Layer 2 RPCs
-chainsync config set rpcs.base https://base-mainnet.g.alchemy.com/v2/YOUR_KEY
-chainsync config set rpcs.arbitrum https://arb-mainnet.g.alchemy.com/v2/YOUR_KEY
+switchboard config set rpcs.base https://base-mainnet.g.alchemy.com/v2/YOUR_KEY
+switchboard config set rpcs.arbitrum https://arb-mainnet.g.alchemy.com/v2/YOUR_KEY
 
 # Set Alternative Layer 1 RPCs
-chainsync config set rpcs.near https://rpc.mainnet.near.org
-chainsync config set rpcs.sui https://fullnode.mainnet.sui.io:443
+switchboard config set rpcs.near https://rpc.mainnet.near.org
+switchboard config set rpcs.sui https://fullnode.mainnet.sui.io:443
 ```
 
 ## Network-Specific Considerations
@@ -185,7 +185,7 @@ FUJI_RPC_URL=https://api.avax-test.network/ext/bc/C/rpc
 
 ## Adding New Networks
 
-ChainSync is designed to be extensible. To add support for a new network:
+Switchboard is designed to be extensible. To add support for a new network:
 
 1. **Update SDK Configuration** in `packages/sdk/src/index.ts`
 2. **Add Chain ID Mapping** in the `getChainId()` function
@@ -198,13 +198,13 @@ ChainSync is designed to be extensible. To add support for a new network:
 Check the current status of all supported networks:
 
 ```bash
-chainsync status --chains
+switchboard status --chains
 ```
 
 Validate your configuration across all networks:
 
 ```bash
-chainsync validate --all
+switchboard validate --all
 ```
 
 ## Best Practices
@@ -230,12 +230,12 @@ chainsync validate --all
 ## Support and Updates
 
 For the latest network additions and updates:
-- Check the [ChainSync Changelog](../CHANGELOG.md)
+- Check the [Switchboard Changelog](../CHANGELOG.md)
 - Follow [Network Status Updates](../network-status.md)
-- Submit [Network Addition Requests](https://github.com/chainsync/issues)
+- Submit [Network Addition Requests](https://github.com/switchboard/issues)
 
 ---
 
 **Total Supported Networks**: 50+ chains across all major blockchain ecosystems
 
-This comprehensive network support enables ChainSync to provide truly universal cross-chain deployment capabilities, giving developers access to the entire blockchain ecosystem from a single, unified interface.
+This comprehensive network support enables Switchboard to provide truly universal cross-chain deployment capabilities, giving developers access to the entire blockchain ecosystem from a single, unified interface.

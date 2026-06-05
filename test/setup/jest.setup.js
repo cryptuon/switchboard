@@ -63,7 +63,7 @@ global.testUtils = {
 // Environment variable defaults for testing
 process.env.NODE_ENV = process.env.NODE_ENV || 'test';
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-jwt-secret-key';
-process.env.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/chainsync-test';
+process.env.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/switchboard-test';
 
 // Handle unhandled promise rejections in tests
 process.on('unhandledRejection', (reason, promise) => {

@@ -1,5 +1,5 @@
 /**
- * Subscription management service for ChainSync Billing Service
+ * Subscription management service for Switchboard Billing Service
  */
 
 import { Subscription } from '../models/user';

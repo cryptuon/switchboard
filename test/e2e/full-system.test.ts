@@ -1,5 +1,5 @@
 /**
- * End-to-End Tests for Complete ChainSync System
+ * End-to-End Tests for Complete Switchboard System
  *
  * Tests the full user journey from authentication to deployment
  */
@@ -7,7 +7,7 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
 import axios, { AxiosInstance } from 'axios';
 
-describe('ChainSync End-to-End Tests', () => {
+describe('Switchboard End-to-End Tests', () => {
   let apiClient: AxiosInstance;
   let billingClient: AxiosInstance;
   let testUser: {
@@ -338,7 +338,7 @@ contract E2ETestContract {
       const metricsResponse = await apiClient.get('/api/v1/metrics/streaming');
       const avgLatency = metricsResponse.data.data.performance.averageLatency;
 
-      // Latency should meet ChainSync's sub-400ms target (allowing some buffer)
+      // Latency should meet Switchboard's sub-400ms target (allowing some buffer)
       expect(avgLatency).toBeLessThan(600); // < 600ms with buffer
 
       console.log(`✅ Cross-chain coordination latency: ${avgLatency}ms (target: <400ms)`);

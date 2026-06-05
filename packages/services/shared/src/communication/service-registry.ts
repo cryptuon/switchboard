@@ -1,5 +1,5 @@
 /**
- * ChainSync Service Registry
+ * Switchboard Service Registry
  *
  * Service discovery and registration
  */

@@ -1,5 +1,5 @@
 /**
- * ChainSync Health Module
+ * Switchboard Health Module
  *
  * Exports all health-related functionality
  */

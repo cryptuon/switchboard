@@ -1,6 +1,6 @@
 # SDK Documentation
 
-The ChainSync SDK provides a unified TypeScript/JavaScript interface for cross-chain development.
+The Switchboard SDK provides a unified TypeScript/JavaScript interface for cross-chain development.
 
 ## Overview
 
@@ -25,10 +25,10 @@ The SDK enables you to:
 ## Quick Example
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 // Initialize the SDK
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: 'https://api.devnet.solana.com',
   },
@@ -39,7 +39,7 @@ const chainSync = new ChainSync({
 });
 
 // Deploy contract across chains
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   name: 'MyToken',
   bytecode: '0x...',
   abi: [...],
@@ -48,11 +48,11 @@ const deployment = await chainSync.deployContract({
 });
 
 // Track deployment status
-const status = await chainSync.trackDeployment(deployment.id);
+const status = await switchboard.trackDeployment(deployment.id);
 console.log(`Deployed to ${status.completedChains.length} chains`);
 
 // Subscribe to state changes
-chainSync.onStateChange(deployment.contractAddress, (event) => {
+switchboard.onStateChange(deployment.contractAddress, (event) => {
   console.log(`State updated on ${event.chain}`);
 });
 ```
@@ -60,13 +60,13 @@ chainSync.onStateChange(deployment.contractAddress, (event) => {
 ## Installation
 
 ```bash
-npm install @chainsync/sdk
+npm install @switchboard/sdk
 ```
 
 Or with yarn:
 
 ```bash
-yarn add @chainsync/sdk
+yarn add @switchboard/sdk
 ```
 
 ## Documentation Sections

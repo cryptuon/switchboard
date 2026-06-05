@@ -1,6 +1,6 @@
 # Authentication
 
-ChainSync supports two authentication methods: JWT tokens and API keys.
+Switchboard supports two authentication methods: JWT tokens and API keys.
 
 ## JWT Authentication
 
@@ -75,7 +75,7 @@ Include the token in the Authorization header:
 
 ```bash
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
-  https://api.chainsync.dev/api/v1/deployments
+  https://api.switchboard.dev/api/v1/deployments
 ```
 
 ### Refresh Token
@@ -149,7 +149,7 @@ Include the API key in the X-API-Key header:
 
 ```bash
 curl -H "X-API-Key: cs_live_abc123..." \
-  https://api.chainsync.dev/api/v1/deployments
+  https://api.switchboard.dev/api/v1/deployments
 ```
 
 ### List API Keys
@@ -242,16 +242,16 @@ API keys can have specific permissions:
 When using the SDK, authentication is handled automatically:
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 // Using API key
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   apiKey: process.env.CHAINSYNC_API_KEY,
   // ...
 });
 
 // Using JWT
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   auth: {
     email: 'user@example.com',
     password: 'password',

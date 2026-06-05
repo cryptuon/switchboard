@@ -1,4 +1,4 @@
-# ChainSync Documentation
+# Switchboard Documentation
 
 User-facing documentation built with MkDocs Material.
 

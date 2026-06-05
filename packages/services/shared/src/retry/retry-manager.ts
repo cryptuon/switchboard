@@ -1,5 +1,5 @@
 /**
- * ChainSync Retry Management
+ * Switchboard Retry Management
  *
  * Provides configurable retry logic with exponential backoff
  */

@@ -1,6 +1,6 @@
 # Docker Deployment
 
-Deploy ChainSync locally using Docker Compose.
+Deploy Switchboard locally using Docker Compose.
 
 ## Prerequisites
 
@@ -13,8 +13,8 @@ Deploy ChainSync locally using Docker Compose.
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/chainsync/chainsync
-cd chainsync
+git clone https://github.com/switchboard/switchboard
+cd switchboard
 ```
 
 ### 2. Configure Environment
@@ -28,7 +28,7 @@ Edit `.env` with your configuration:
 ```bash
 # Database (MongoDB by default)
 DATABASE_TYPE=mongodb
-MONGODB_PASSWORD=chainsync123
+MONGODB_PASSWORD=switchboard123
 
 # Solana
 SOLANA_RPC_URL=https://api.devnet.solana.com
@@ -134,9 +134,9 @@ postgres:
   ports:
     - "5432:5432"
   environment:
-    - POSTGRES_USER=chainsync
+    - POSTGRES_USER=switchboard
     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    - POSTGRES_DB=chainsync
+    - POSTGRES_DB=switchboard
   volumes:
     - postgres_data:/var/lib/postgresql/data
 ```

@@ -1,8 +1,8 @@
-# ChainSync Architecture Documentation
+# Switchboard Architecture Documentation
 
 ## System Overview
 
-ChainSync is a production-ready off-chain infrastructure for managing cross-chain smart contract deployments. The system is built using a microservices architecture with shared utilities, comprehensive monitoring, and robust error handling.
+Switchboard is a production-ready off-chain infrastructure for managing cross-chain smart contract deployments. The system is built using a microservices architecture with shared utilities, comprehensive monitoring, and robust error handling.
 
 ## Service Architecture
 
@@ -465,7 +465,7 @@ chainsync_transactions_total{service, network, status}
 {
   "timestamp": "2024-01-01T00:00:00.000Z",
   "level": "info",
-  "service": "chainsync-api",
+  "service": "switchboard-api",
   "message": "HTTP Request",
   "context": {
     "method": "POST",
@@ -574,4 +574,4 @@ CMD ["node", "dist/index.js"]
 - **Health Checks**: Container health monitoring
 - **Rolling Updates**: Zero-downtime deployments
 
-This architecture provides a robust, scalable, and maintainable foundation for the ChainSync platform, with proper separation of concerns, comprehensive monitoring, and production-ready reliability patterns.
+This architecture provides a robust, scalable, and maintainable foundation for the Switchboard platform, with proper separation of concerns, comprehensive monitoring, and production-ready reliability patterns.

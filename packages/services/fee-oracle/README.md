@@ -1,6 +1,6 @@
-# ChainSync Fee Oracle Service
+# Switchboard Fee Oracle Service
 
-The Fee Oracle Service monitors on-chain fee collection and provides reporting and analytics for ChainSync's fee collection system.
+The Fee Oracle Service monitors on-chain fee collection and provides reporting and analytics for Switchboard's fee collection system.
 
 ## Features
 

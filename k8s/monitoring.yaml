@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: prometheus
 spec:
@@ -64,7 +64,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: prometheus
 spec:
@@ -78,7 +78,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: prometheus-pvc
-  namespace: chainsync
+  namespace: switchboard
 spec:
   accessModes:
   - ReadWriteOnce
@@ -90,7 +90,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-config
-  namespace: chainsync
+  namespace: switchboard
 data:
   prometheus.yml: |
     global:
@@ -98,19 +98,19 @@ data:
       evaluation_interval: 15s
 
     scrape_configs:
-      - job_name: 'chainsync-oracle'
+      - job_name: 'switchboard-oracle'
         static_configs:
           - targets: ['oracle-service:9090']
         metrics_path: /metrics
         scrape_interval: 5s
 
-      - job_name: 'chainsync-api'
+      - job_name: 'switchboard-api'
         static_configs:
           - targets: ['api-service:3000']
         metrics_path: /metrics
         scrape_interval: 15s
 
-      - job_name: 'chainsync-sync'
+      - job_name: 'switchboard-sync'
         static_configs:
           - targets: ['sync-service:3002']
         metrics_path: /metrics
@@ -136,7 +136,7 @@ data:
 
   chainsync_rules.yml: |
     groups:
-      - name: chainsync.rules
+      - name: switchboard.rules
         rules:
           - alert: ChainSyncHighLatency
             expr: chainsync_coordination_latency_ms > 1000
@@ -144,16 +144,16 @@ data:
             labels:
               severity: warning
             annotations:
-              summary: "ChainSync coordination latency is high"
+              summary: "Switchboard coordination latency is high"
               description: "Coordination latency is {{ $value }}ms, above 1000ms threshold"
 
           - alert: ChainSyncServiceDown
-            expr: up{job=~"chainsync-.*"} == 0
+            expr: up{job=~"switchboard-.*"} == 0
             for: 1m
             labels:
               severity: critical
             annotations:
-              summary: "ChainSync service is down"
+              summary: "Switchboard service is down"
               description: "Service {{ $labels.job }} has been down for more than 1 minute"
 
           - alert: ChainSyncLowSuccessRate
@@ -162,7 +162,7 @@ data:
             labels:
               severity: warning
             annotations:
-              summary: "ChainSync success rate is low"
+              summary: "Switchboard success rate is low"
               description: "Success rate is {{ $value }}, below 95% threshold"
 
           - alert: ChainSyncQueueBacklog
@@ -171,7 +171,7 @@ data:
             labels:
               severity: warning
             annotations:
-              summary: "ChainSync coordination queue has backlog"
+              summary: "Switchboard coordination queue has backlog"
               description: "Queue size is {{ $value }}, above 100 threshold"
 ---
 # Grafana Deployment
@@ -179,7 +179,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: grafana
 spec:
@@ -201,7 +201,7 @@ spec:
         - name: GF_SECURITY_ADMIN_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: grafana-password
         - name: GF_INSTALL_PLUGINS
           value: "grafana-clickhouse-datasource"
@@ -241,7 +241,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: grafana
 spec:
@@ -255,7 +255,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: grafana-pvc
-  namespace: chainsync
+  namespace: switchboard
 spec:
   accessModes:
   - ReadWriteOnce
@@ -267,7 +267,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-provisioning
-  namespace: chainsync
+  namespace: switchboard
 data:
   datasources.yml: |
     apiVersion: 1
@@ -281,10 +281,10 @@ data:
         type: clickhouse
         access: proxy
         url: http://clickhouse:8123
-        user: chainsync
+        user: switchboard
         database: chainsync_analytics
         basicAuth: true
-        basicAuthUser: chainsync
+        basicAuthUser: switchboard
 
   dashboards.yml: |
     apiVersion: 1

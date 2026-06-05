@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { table } from 'table';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { createSpinner } from '../utils/spinner';
 
 export const trackCommand = new Command('track')
@@ -14,8 +14,8 @@ export const trackCommand = new Command('track')
     console.log(chalk.blue('🔍 Tracking deployment status...\n'));
 
     try {
-      // Initialize ChainSync SDK
-      const chainSync = new ChainSync({
+      // Initialize Switchboard SDK
+      const switchboard = new Switchboard({
         solanaRpcUrl: process.env.SOLANA_RPC_URL!,
         ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
         polygonRpcUrl: process.env.POLYGON_RPC_URL,
@@ -27,14 +27,14 @@ export const trackCommand = new Command('track')
 
       if (!deploymentId) {
         // Show all recent deployments
-        await showAllDeployments(chainSync);
+        await showAllDeployments(switchboard);
         return;
       }
 
       if (options.watch) {
-        await watchDeployment(chainSync, deploymentId, parseInt(options.interval), options.verbose);
+        await watchDeployment(switchboard, deploymentId, parseInt(options.interval), options.verbose);
       } else {
-        await showDeploymentStatus(chainSync, deploymentId, options.verbose);
+        await showDeploymentStatus(switchboard, deploymentId, options.verbose);
       }
 
     } catch (error) {
@@ -42,12 +42,12 @@ export const trackCommand = new Command('track')
     }
   });
 
-async function showAllDeployments(chainSync: ChainSync): Promise<void> {
+async function showAllDeployments(switchboard: Switchboard): Promise<void> {
   const spinner = createSpinner('Fetching recent deployments...');
   spinner.start();
 
   try {
-    const deployments = await chainSync.listDeployments();
+    const deployments = await switchboard.listDeployments();
     spinner.stop();
 
     if (deployments.length === 0) {
@@ -82,7 +82,7 @@ async function showAllDeployments(chainSync: ChainSync): Promise<void> {
       }
     }));
 
-    console.log(chalk.gray('\n💡 Use "chainsync track <deployment-id>" for detailed status'));
+    console.log(chalk.gray('\n💡 Use "switchboard track <deployment-id>" for detailed status'));
 
   } catch (error) {
     spinner.stop();
@@ -90,12 +90,12 @@ async function showAllDeployments(chainSync: ChainSync): Promise<void> {
   }
 }
 
-async function showDeploymentStatus(chainSync: ChainSync, deploymentId: string, verbose: boolean): Promise<void> {
+async function showDeploymentStatus(switchboard: Switchboard, deploymentId: string, verbose: boolean): Promise<void> {
   const spinner = createSpinner('Fetching deployment status...');
   spinner.start();
 
   try {
-    const status = await chainSync.getDeploymentStatus(deploymentId);
+    const status = await switchboard.getDeploymentStatus(deploymentId);
     spinner.stop();
 
     console.log(chalk.blue(`📊 Deployment Status: ${deploymentId}\n`));
@@ -165,7 +165,7 @@ async function showDeploymentStatus(chainSync: ChainSync, deploymentId: string, 
   }
 }
 
-async function watchDeployment(chainSync: ChainSync, deploymentId: string, interval: number, verbose: boolean): Promise<void> {
+async function watchDeployment(switchboard: Switchboard, deploymentId: string, interval: number, verbose: boolean): Promise<void> {
   console.log(chalk.blue(`👀 Watching deployment ${deploymentId} (updating every ${interval}s)`));
   console.log(chalk.gray('Press Ctrl+C to stop watching\n'));
 
@@ -174,7 +174,7 @@ async function watchDeployment(chainSync: ChainSync, deploymentId: string, inter
 
   const watchInterval = setInterval(async () => {
     try {
-      const status = await chainSync.getDeploymentStatus(deploymentId);
+      const status = await switchboard.getDeploymentStatus(deploymentId);
 
       // Clear previous output
       process.stdout.write('\x1b[2J\x1b[0f');
@@ -183,7 +183,7 @@ async function watchDeployment(chainSync: ChainSync, deploymentId: string, inter
       const elapsed = Math.floor((Date.now() - startTime) / 1000);
       console.log(chalk.gray(`⏱️  Watching for ${elapsed}s | Last update: ${new Date().toLocaleTimeString()}\n`));
 
-      await showDeploymentStatus(chainSync, deploymentId, verbose);
+      await showDeploymentStatus(switchboard, deploymentId, verbose);
 
       // Check if deployment is complete
       if (status.status === 'completed' || status.status === 'failed') {
@@ -192,8 +192,8 @@ async function watchDeployment(chainSync: ChainSync, deploymentId: string, inter
 
         if (status.status === 'completed') {
           console.log(chalk.blue('\n🎉 All deployments successful!'));
-          console.log(chalk.gray('• View analytics: chainsync analytics'));
-          console.log(chalk.gray('• Check contracts: chainsync status'));
+          console.log(chalk.gray('• View analytics: switchboard analytics'));
+          console.log(chalk.gray('• Check contracts: switchboard status'));
         }
       }
 

@@ -1,5 +1,5 @@
 /**
- * ChainSync Transaction Model
+ * Switchboard Transaction Model
  *
  * Database model for tracking cross-chain transactions
  */

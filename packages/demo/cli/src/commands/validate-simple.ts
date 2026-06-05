@@ -11,7 +11,7 @@ export const validateCommand = new Command('validate')
   .option('-a, --all', 'Validate all contracts in contracts/ directory')
   .option('--config', 'Validate configuration only')
   .action(async (options) => {
-    console.log(chalk.blue('🔍 ChainSync Validation\n'));
+    console.log(chalk.blue('🔍 Switchboard Validation\n'));
 
     try {
       if (options.config) {
@@ -44,7 +44,7 @@ async function validateConfiguration(): Promise<void> {
     const config = await loadConfig();
     if (!config) {
       spinner.fail(chalk.red('No configuration found'));
-      console.log(chalk.yellow('💡 Run "chainsync init" to create a configuration'));
+      console.log(chalk.yellow('💡 Run "switchboard init" to create a configuration'));
       return;
     }
 
@@ -137,7 +137,7 @@ async function validateConfiguration(): Promise<void> {
 
       console.log(chalk.blue('\n💡 Quick Fixes:'));
       console.log(chalk.gray('• Set environment variables in .env file'));
-      console.log(chalk.gray('• Review configuration: chainsync config show'));
+      console.log(chalk.gray('• Review configuration: switchboard config show'));
     }
 
   } catch (error) {
@@ -287,5 +287,5 @@ async function validateAllContracts(): Promise<void> {
   console.log(chalk.blue('🎯 Validation Summary:'));
   console.log(chalk.gray(`• Validated ${contractFiles.length} contract(s)`));
   console.log(chalk.gray('• Review any issues above before deployment'));
-  console.log(chalk.gray('• Use "chainsync deploy" when ready'));
+  console.log(chalk.gray('• Use "switchboard deploy" when ready'));
 }

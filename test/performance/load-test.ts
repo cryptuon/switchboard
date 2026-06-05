@@ -1,5 +1,5 @@
 /**
- * Load Testing for ChainSync Services
+ * Load Testing for Switchboard Services
  *
  * Tests system performance under various load conditions
  */
@@ -19,7 +19,7 @@ interface LoadTestResult {
   errors: string[];
 }
 
-describe('ChainSync Load Testing', () => {
+describe('Switchboard Load Testing', () => {
   let apiClient: AxiosInstance;
 
   const TEST_CONFIG = {

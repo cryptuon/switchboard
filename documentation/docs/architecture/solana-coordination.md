@@ -1,6 +1,6 @@
 # Solana Coordination Layer
 
-ChainSync uses Solana as the high-performance coordination layer for cross-chain state synchronization, enabling sub-400ms latency across 50+ blockchains.
+Switchboard uses Solana as the high-performance coordination layer for cross-chain state synchronization, enabling sub-400ms latency across 50+ blockchains.
 
 ## Why Solana?
 
@@ -204,9 +204,9 @@ MAX_CONCURRENT_CHAINS=100
 ### Registering State
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL,
     keypairPath: process.env.SOLANA_KEYPAIR_PATH,
@@ -214,7 +214,7 @@ const chainSync = new ChainSync({
 });
 
 // Register contract state on Solana
-await chainSync.registerState({
+await switchboard.registerState({
   chainId: 1, // Ethereum
   contractAddress: '0x...',
   stateHash: '0x...',
@@ -225,14 +225,14 @@ await chainSync.registerState({
 
 ```typescript
 // Verify state consistency
-const isConsistent = await chainSync.verifyState({
+const isConsistent = await switchboard.verifyState({
   contractAddress: '0x...',
   chains: ['ethereum', 'polygon', 'arbitrum'],
 });
 
 if (!isConsistent) {
   console.log('State mismatch detected!');
-  const details = await chainSync.getStateDiscrepancies();
+  const details = await switchboard.getStateDiscrepancies();
 }
 ```
 
@@ -240,7 +240,7 @@ if (!isConsistent) {
 
 ```typescript
 // Subscribe to state changes
-chainSync.onStateChange('0xContractAddress', (event) => {
+switchboard.onStateChange('0xContractAddress', (event) => {
   console.log(`State changed on ${event.chain}`);
   console.log(`New hash: ${event.stateHash}`);
   console.log(`Latency: ${event.latency}ms`);
@@ -260,11 +260,11 @@ When state conflicts are detected:
 
 ```typescript
 // Handle conflicts
-chainSync.onConflict((conflict) => {
+switchboard.onConflict((conflict) => {
   console.log(`Conflict detected: ${conflict.type}`);
 
   // Auto-resolve using source of truth
-  await chainSync.resolveConflict(conflict.id, {
+  await switchboard.resolveConflict(conflict.id, {
     strategy: 'use_source_of_truth',
     sourceChain: 'ethereum',
   });
@@ -275,7 +275,7 @@ chainSync.onConflict((conflict) => {
 
 ```typescript
 // Configure retry behavior
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL,
     retries: 3,
@@ -291,10 +291,10 @@ const chainSync = new ChainSync({
 
 ```bash
 # Check Solana coordination status
-chainsync status:solana
+switchboard status:solana
 
 # View coordination metrics
-chainsync metrics --solana
+switchboard metrics --solana
 ```
 
 ### Metrics

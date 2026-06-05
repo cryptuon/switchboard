@@ -1,6 +1,6 @@
-# ChainSync SDK
+# Switchboard SDK
 
-The ChainSync SDK provides developers with a unified interface for building cross-chain applications. With the SDK, you can write code once and deploy everywhere, achieving 90% code reuse across all supported chains.
+The Switchboard SDK provides developers with a unified interface for building cross-chain applications. With the SDK, you can write code once and deploy everywhere, achieving 90% code reuse across all supported chains.
 
 ## Features
 
@@ -13,37 +13,37 @@ The ChainSync SDK provides developers with a unified interface for building cros
 ## Installation
 
 ```bash
-npm install @chainsync/sdk
+npm install @switchboard/sdk
 ```
 
 ## CLI Tool
 
-ChainSync includes a powerful CLI for quick project setup and management:
+Switchboard includes a powerful CLI for quick project setup and management:
 
 ```bash
 # Install globally
-npm install -g @chainsync/cli
+npm install -g @switchboard/cli
 
 # Initialize a new cross-chain project
-chainsync init my-project
+switchboard init my-project
 
 # Deploy to multiple networks
-chainsync deploy --networks ethereum,polygon,arbitrum
+switchboard deploy --networks ethereum,polygon,arbitrum
 
 # Check system status
-chainsync status
+switchboard status
 
 # Explore supported networks
-chainsync networks --category evm
+switchboard networks --category evm
 ```
 
 ## Quick Start with SDK
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 // Initialize with 50+ network support
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solanaRpcUrl: 'https://api.mainnet-beta.solana.com',
   ethereumRpcUrl: 'https://eth-mainnet.g.alchemy.com/v2/your-key',
   polygonRpcUrl: 'https://polygon-mainnet.g.alchemy.com/v2/your-key',
@@ -54,7 +54,7 @@ const chainSync = new ChainSync({
 });
 
 // Deploy across multiple blockchain ecosystems
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   bytecode: contractBytecode,
   chains: ['ethereum', 'polygon', 'near', 'sui', 'cosmos'],
   options: {
@@ -67,14 +67,14 @@ console.log('Universal Deployment ID:', deployment.id);
 console.log('Network Deployments:', deployment.networkDeployments);
 
 // Real-time cross-chain tracking
-const transaction = await chainSync.trackTransaction(deployment.id);
+const transaction = await switchboard.trackTransaction(deployment.id);
 console.log('Cross-chain status:', transaction.status);
 console.log('Verification proofs:', transaction.proofs);
 ```
 
 ## Network Categories
 
-ChainSync supports networks across all major blockchain ecosystems:
+Switchboard supports networks across all major blockchain ecosystems:
 
 ### EVM Compatible (40+ networks)
 ```typescript
@@ -117,7 +117,7 @@ const config = {
 ### Project Initialization
 ```bash
 # Create new project with multiple networks
-chainsync init my-dapp
+switchboard init my-dapp
 cd my-dapp
 
 # The CLI will generate:
@@ -130,39 +130,39 @@ cd my-dapp
 ### Cross-Chain Deployment
 ```bash
 # Deploy to specific networks
-chainsync deploy --networks ethereum,polygon,arbitrum
+switchboard deploy --networks ethereum,polygon,arbitrum
 
 # Deploy to network categories
-chainsync deploy --category evm --exclude mainnet
+switchboard deploy --category evm --exclude mainnet
 
 # Deploy with custom configuration
-chainsync deploy --config custom-networks.json
+switchboard deploy --config custom-networks.json
 ```
 
 ### Network Management
 ```bash
 # List all supported networks
-chainsync networks
+switchboard networks
 
 # Filter by ecosystem
-chainsync networks --type evm
-chainsync networks --type alt-l1
+switchboard networks --type evm
+switchboard networks --type alt-l1
 
 # Get network details
-chainsync networks --info ethereum
-chainsync networks --info near
+switchboard networks --info ethereum
+switchboard networks --info near
 ```
 
 ### System Monitoring
 ```bash
 # Check overall system health
-chainsync status
+switchboard status
 
 # Monitor specific chains
-chainsync status --chains ethereum,polygon,near
+switchboard status --chains ethereum,polygon,near
 
 # Real-time monitoring
-chainsync monitor --interval 30
+switchboard monitor --interval 30
 ```
 
 ## Advanced Features
@@ -170,7 +170,7 @@ chainsync monitor --interval 30
 ### Cryptographic Verification
 ```typescript
 // Enable cross-chain verification
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   bytecode: contractBytecode,
   chains: ['ethereum', 'polygon'],
   verification: {
@@ -181,7 +181,7 @@ const deployment = await chainSync.deployContract({
 });
 
 // Verify cross-chain state consistency
-const verification = await chainSync.verifyState(deployment.id);
+const verification = await switchboard.verifyState(deployment.id);
 console.log('State consistency:', verification.isConsistent);
 console.log('Merkle proof:', verification.merkleProof);
 ```
@@ -189,7 +189,7 @@ console.log('Merkle proof:', verification.merkleProof);
 ### Fee Optimization
 ```typescript
 // Optimize deployment costs across networks
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   bytecode: contractBytecode,
   chains: ['ethereum', 'polygon', 'arbitrum'],
   feeOptimization: {
@@ -206,7 +206,7 @@ const deployment = await chainSync.deployContract({
 ### Real-time Analytics
 ```typescript
 // Monitor cross-chain activity
-const analytics = chainSync.getAnalytics();
+const analytics = switchboard.getAnalytics();
 
 analytics.on('deployment', (event) => {
   console.log('New deployment:', event.id);

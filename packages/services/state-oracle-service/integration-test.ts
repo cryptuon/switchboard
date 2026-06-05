@@ -1,11 +1,11 @@
 /**
- * Integration test for ChainSync State Oracle
+ * Integration test for Switchboard State Oracle
  */
 
 import { StateOracle } from './src/index';
 
 async function main() {
-  console.log('Testing ChainSync State Oracle Integration...');
+  console.log('Testing Switchboard State Oracle Integration...');
   
   // Create state oracle instance
   const stateOracle = new StateOracle();

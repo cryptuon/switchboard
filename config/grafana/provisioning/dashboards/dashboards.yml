@@ -1,13 +1,13 @@
 # Grafana Dashboard Provisioning Configuration
-# Automatically loads ChainSync monitoring dashboards
+# Automatically loads Switchboard monitoring dashboards
 
 apiVersion: 1
 
 providers:
-  # ChainSync dashboard provider
-  - name: 'chainsync-dashboards'
+  # Switchboard dashboard provider
+  - name: 'switchboard-dashboards'
     orgId: 1
-    folder: 'ChainSync'
+    folder: 'Switchboard'
     type: file
     disableDeletion: false
     updateIntervalSeconds: 10

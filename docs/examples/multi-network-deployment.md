@@ -1,6 +1,6 @@
 # Multi-Network Deployment Guide
 
-This guide demonstrates ChainSync's powerful multi-network deployment capabilities across 50+ supported blockchains.
+This guide demonstrates Switchboard's powerful multi-network deployment capabilities across 50+ supported blockchains.
 
 ## Quick Start: Multi-Chain Deployment
 
@@ -8,32 +8,32 @@ This guide demonstrates ChainSync's powerful multi-network deployment capabiliti
 
 ```bash
 # Initialize with major EVM chains
-chainsync init --name "my-defi-app" --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche
+switchboard init --name "my-defi-app" --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche
 
 # Initialize with Layer 2 ecosystem
-chainsync init --name "my-l2-app" --chains base,zksync,polygonzkevm,linea,mantle,scroll
+switchboard init --name "my-l2-app" --chains base,zksync,polygonzkevm,linea,mantle,scroll
 
 # Initialize with alternative Layer 1s
-chainsync init --name "my-alt-l1-app" --chains near,cosmos,sui,aptos,terra
+switchboard init --name "my-alt-l1-app" --chains near,cosmos,sui,aptos,terra
 
 # Initialize with emerging networks
-chainsync init --name "my-edge-app" --chains celestia,starknet,flow,kroma
+switchboard init --name "my-edge-app" --chains celestia,starknet,flow,kroma
 ```
 
 ### Deploy Across Network Categories
 
 ```bash
 # Deploy to Ethereum ecosystem (L1 + L2s)
-chainsync deploy --chains ethereum,polygon,arbitrum,optimism,base,zksync
+switchboard deploy --chains ethereum,polygon,arbitrum,optimism,base,zksync
 
 # Deploy to multi-chain DeFi networks
-chainsync deploy --chains ethereum,bsc,avalanche,fantom,polygon,arbitrum
+switchboard deploy --chains ethereum,bsc,avalanche,fantom,polygon,arbitrum
 
 # Deploy to alternative blockchain platforms
-chainsync deploy --chains near,cosmos,terra,sui,aptos
+switchboard deploy --chains near,cosmos,terra,sui,aptos
 
 # Deploy to emerging/next-gen networks
-chainsync deploy --chains celestia,starknet,flow,linea,mantle,scroll
+switchboard deploy --chains celestia,starknet,flow,linea,mantle,scroll
 ```
 
 ## Network-Specific Examples
@@ -44,16 +44,16 @@ Deploy to all major EVM-compatible chains:
 
 ```bash
 # Full EVM ecosystem deployment
-chainsync init --name "evm-universal-app" \
+switchboard init --name "evm-universal-app" \
   --chains ethereum,polygon,arbitrum,optimism,bsc,avalanche,fantom,celo,gnosis,moonbeam
 
 # Configure with Alchemy endpoints
-chainsync config set rpcs.ethereum "https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY"
-chainsync config set rpcs.polygon "https://polygon-mainnet.g.alchemy.com/v2/YOUR_KEY"
-chainsync config set rpcs.arbitrum "https://arb-mainnet.g.alchemy.com/v2/YOUR_KEY"
+switchboard config set rpcs.ethereum "https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY"
+switchboard config set rpcs.polygon "https://polygon-mainnet.g.alchemy.com/v2/YOUR_KEY"
+switchboard config set rpcs.arbitrum "https://arb-mainnet.g.alchemy.com/v2/YOUR_KEY"
 
 # Deploy with fee optimization
-chainsync deploy --contract contracts/UniversalToken.sol
+switchboard deploy --contract contracts/UniversalToken.sol
 ```
 
 ### ⚡ Layer 2 Focused Deployment
@@ -62,11 +62,11 @@ Optimize for low fees and fast transactions:
 
 ```bash
 # Layer 2 optimized deployment
-chainsync init --name "l2-optimized-app" \
+switchboard init --name "l2-optimized-app" \
   --chains base,zksync,polygonzkevm,linea,mantle,scroll,arbitrum,optimism
 
 # Deploy with L2 configuration
-chainsync deploy --chains base,zksync,polygonzkevm,linea,mantle,scroll
+switchboard deploy --chains base,zksync,polygonzkevm,linea,mantle,scroll
 ```
 
 ### 🚀 Alternative Layer 1 Strategy
@@ -75,15 +75,15 @@ Leverage unique blockchain capabilities:
 
 ```bash
 # Alternative L1 deployment
-chainsync init --name "alt-l1-app" --chains near,cosmos,terra,sui,aptos
+switchboard init --name "alt-l1-app" --chains near,cosmos,terra,sui,aptos
 
 # Configure non-EVM endpoints
-chainsync config set rpcs.near "https://rpc.mainnet.near.org"
-chainsync config set rpcs.sui "https://fullnode.mainnet.sui.io:443"
-chainsync config set rpcs.aptos "https://fullnode.mainnet.aptoslabs.com/v1"
+switchboard config set rpcs.near "https://rpc.mainnet.near.org"
+switchboard config set rpcs.sui "https://fullnode.mainnet.sui.io:443"
+switchboard config set rpcs.aptos "https://fullnode.mainnet.aptoslabs.com/v1"
 
 # Deploy to alternative platforms
-chainsync deploy --chains near,cosmos,sui,aptos
+switchboard deploy --chains near,cosmos,sui,aptos
 ```
 
 ### 🌟 Emerging Networks Early Access
@@ -92,11 +92,11 @@ Get early ecosystem advantages:
 
 ```bash
 # Emerging networks deployment
-chainsync init --name "emerging-networks-app" \
+switchboard init --name "emerging-networks-app" \
   --chains celestia,starknet,flow,kroma,scroll,linea
 
 # Deploy to emerging ecosystems
-chainsync deploy --chains celestia,starknet,flow,kroma
+switchboard deploy --chains celestia,starknet,flow,kroma
 ```
 
 ## Advanced Multi-Network Strategies
@@ -105,45 +105,45 @@ chainsync deploy --chains celestia,starknet,flow,kroma
 
 ```bash
 # Phase 1: Core networks
-chainsync deploy --chains ethereum,polygon,bsc
+switchboard deploy --chains ethereum,polygon,bsc
 
 # Phase 2: Layer 2 expansion
-chainsync deploy --chains arbitrum,optimism,base
+switchboard deploy --chains arbitrum,optimism,base
 
 # Phase 3: Alternative platforms
-chainsync deploy --chains near,sui,aptos
+switchboard deploy --chains near,sui,aptos
 
 # Phase 4: Emerging networks
-chainsync deploy --chains celestia,starknet,flow
+switchboard deploy --chains celestia,starknet,flow
 ```
 
 ### Geographic Strategy
 
 ```bash
 # Western markets focus
-chainsync deploy --chains ethereum,polygon,arbitrum,optimism,base
+switchboard deploy --chains ethereum,polygon,arbitrum,optimism,base
 
 # Asian markets focus
-chainsync deploy --chains bsc,polygon,avalanche,fantom
+switchboard deploy --chains bsc,polygon,avalanche,fantom
 
 # Global alternative platforms
-chainsync deploy --chains near,cosmos,sui,aptos,terra
+switchboard deploy --chains near,cosmos,sui,aptos,terra
 ```
 
 ### Use Case Specific Deployments
 
 ```bash
 # DeFi focused networks
-chainsync deploy --chains ethereum,bsc,avalanche,polygon,arbitrum,fantom
+switchboard deploy --chains ethereum,bsc,avalanche,polygon,arbitrum,fantom
 
 # Gaming/NFT focused networks
-chainsync deploy --chains polygon,flow,ronin,immutable,starknet
+switchboard deploy --chains polygon,flow,ronin,immutable,starknet
 
 # Enterprise/institutional networks
-chainsync deploy --chains ethereum,polygon,avalanche,celo,gnosis
+switchboard deploy --chains ethereum,polygon,avalanche,celo,gnosis
 
 # Mobile/payments focused
-chainsync deploy --chains celo,polygon,bsc,near
+switchboard deploy --chains celo,polygon,bsc,near
 ```
 
 ## Network Comparison by Metrics
@@ -152,39 +152,39 @@ chainsync deploy --chains celo,polygon,bsc,near
 
 ```bash
 # Low gas networks
-chainsync deploy --chains polygon,bsc,avalanche,fantom,harmony
+switchboard deploy --chains polygon,bsc,avalanche,fantom,harmony
 
 # Medium gas networks
-chainsync deploy --chains arbitrum,optimism,base,mantle
+switchboard deploy --chains arbitrum,optimism,base,mantle
 
 # Premium networks (high gas, high security)
-chainsync deploy --chains ethereum
+switchboard deploy --chains ethereum
 ```
 
 ### Block Time Comparison
 
 ```bash
 # Ultra-fast networks (< 2s)
-chainsync deploy --chains polygon,bsc,avalanche,fantom,near
+switchboard deploy --chains polygon,bsc,avalanche,fantom,near
 
 # Fast networks (2-5s)
-chainsync deploy --chains arbitrum,optimism,base,sui
+switchboard deploy --chains arbitrum,optimism,base,sui
 
 # Standard networks (10-15s)
-chainsync deploy --chains ethereum
+switchboard deploy --chains ethereum
 ```
 
 ### TVL/Ecosystem Size Strategy
 
 ```bash
 # Large ecosystem networks
-chainsync deploy --chains ethereum,bsc,polygon,avalanche,arbitrum
+switchboard deploy --chains ethereum,bsc,polygon,avalanche,arbitrum
 
 # Growing ecosystem networks
-chainsync deploy --chains optimism,fantom,near,sui,aptos
+switchboard deploy --chains optimism,fantom,near,sui,aptos
 
 # Emerging ecosystem networks
-chainsync deploy --chains base,linea,mantle,scroll,celestia
+switchboard deploy --chains base,linea,mantle,scroll,celestia
 ```
 
 ## Environment Configuration Examples
@@ -235,22 +235,22 @@ ZKSYNC_TESTNET_RPC_URL=https://testnet.era.zksync.dev
 
 ```bash
 # Monitor deployment across all networks
-chainsync track <deployment-id> --verbose
+switchboard track <deployment-id> --verbose
 
 # Check status of all configured networks
-chainsync status --chains
+switchboard status --chains
 
 # Validate multi-network configuration
-chainsync validate --all
+switchboard validate --all
 ```
 
 ### Network-Specific Monitoring
 
 ```bash
 # Monitor specific network categories
-chainsync status --verbose --chains ethereum,polygon,arbitrum
-chainsync status --verbose --chains base,optimism,zksync
-chainsync status --verbose --chains near,sui,aptos
+switchboard status --verbose --chains ethereum,polygon,arbitrum
+switchboard status --verbose --chains base,optimism,zksync
+switchboard status --verbose --chains near,sui,aptos
 ```
 
 ## Best Practices for Multi-Network Deployment
@@ -259,42 +259,42 @@ chainsync status --verbose --chains near,sui,aptos
 
 ```bash
 # Start with battle-tested networks
-chainsync init --chains ethereum,polygon,bsc
+switchboard init --chains ethereum,polygon,bsc
 
 # Add Layer 2s for scalability
-chainsync config set chains "ethereum,polygon,bsc,arbitrum,optimism"
+switchboard config set chains "ethereum,polygon,bsc,arbitrum,optimism"
 
 # Expand to alternative platforms for innovation
-chainsync config set chains "ethereum,polygon,bsc,arbitrum,optimism,near,sui"
+switchboard config set chains "ethereum,polygon,bsc,arbitrum,optimism,near,sui"
 ```
 
 ### 2. Staged Rollout
 
 ```bash
 # Phase 1: Core networks (proven, stable)
-chainsync deploy --chains ethereum,polygon,bsc
+switchboard deploy --chains ethereum,polygon,bsc
 
 # Monitor and validate
-chainsync track <deployment-id> --watch
+switchboard track <deployment-id> --watch
 
 # Phase 2: Add Layer 2s (lower cost)
-chainsync deploy --chains arbitrum,optimism,base
+switchboard deploy --chains arbitrum,optimism,base
 
 # Phase 3: Alternative platforms (unique features)
-chainsync deploy --chains near,sui,aptos
+switchboard deploy --chains near,sui,aptos
 ```
 
 ### 3. Risk Management
 
 ```bash
 # High-value deployments: Stick to established networks
-chainsync deploy --chains ethereum,polygon,arbitrum,optimism
+switchboard deploy --chains ethereum,polygon,arbitrum,optimism
 
 # Experimental features: Use emerging networks
-chainsync deploy --chains starknet,celestia,flow,sui
+switchboard deploy --chains starknet,celestia,flow,sui
 
 # Balanced approach: Mix of established and emerging
-chainsync deploy --chains ethereum,polygon,arbitrum,base,near,sui
+switchboard deploy --chains ethereum,polygon,arbitrum,base,near,sui
 ```
 
 ## Network Ecosystem Advantages
@@ -306,7 +306,7 @@ chainsync deploy --chains ethereum,polygon,arbitrum,base,near,sui
 - **Best developer tools**
 
 ```bash
-chainsync deploy --chains ethereum,polygon,arbitrum,optimism,base
+switchboard deploy --chains ethereum,polygon,arbitrum,optimism,base
 ```
 
 ### BNB Smart Chain Ecosystem
@@ -316,7 +316,7 @@ chainsync deploy --chains ethereum,polygon,arbitrum,optimism,base
 - **Gaming/NFT focus**
 
 ```bash
-chainsync deploy --chains bsc,polygon,avalanche
+switchboard deploy --chains bsc,polygon,avalanche
 ```
 
 ### Alternative Layer 1 Advantages
@@ -326,7 +326,7 @@ chainsync deploy --chains bsc,polygon,avalanche
 - **Early ecosystem opportunities**
 
 ```bash
-chainsync deploy --chains near,cosmos,sui,aptos,terra
+switchboard deploy --chains near,cosmos,sui,aptos,terra
 ```
 
 ### Emerging Network Benefits
@@ -336,7 +336,7 @@ chainsync deploy --chains near,cosmos,sui,aptos,terra
 - **Innovation opportunities**
 
 ```bash
-chainsync deploy --chains celestia,starknet,flow,linea,scroll
+switchboard deploy --chains celestia,starknet,flow,linea,scroll
 ```
 
 ## Success Metrics Across Networks
@@ -345,29 +345,29 @@ chainsync deploy --chains celestia,starknet,flow,linea,scroll
 
 ```bash
 # View success rates by network category
-chainsync analytics --period 30d
+switchboard analytics --period 30d
 
 # Compare performance across all networks
-chainsync analytics --export csv
+switchboard analytics --export csv
 
 # Monitor specific network performance
-chainsync analytics --chain ethereum --period 7d
+switchboard analytics --chain ethereum --period 7d
 ```
 
 ### Cost Optimization
 
 ```bash
 # Compare deployment costs across networks
-chainsync analytics --period 30d --verbose
+switchboard analytics --period 30d --verbose
 
 # Find most cost-effective networks for your use case
-chainsync networks --category layer2
-chainsync networks --category evm
+switchboard networks --category layer2
+switchboard networks --category evm
 ```
 
 ## Conclusion
 
-ChainSync's support for 50+ networks provides unparalleled reach across the entire blockchain ecosystem. Whether you're building for:
+Switchboard's support for 50+ networks provides unparalleled reach across the entire blockchain ecosystem. Whether you're building for:
 
 - **Maximum Security**: Deploy to Ethereum and established networks
 - **Cost Optimization**: Focus on Layer 2s and alternative platforms

@@ -1,8 +1,8 @@
-# ChainSync Architecture
+# Switchboard Architecture
 
 ## Overview
 
-ChainSync provides unified cross-chain state synchronization by leveraging Solana as a high-performance coordination layer. The architecture consists of three primary components:
+Switchboard provides unified cross-chain state synchronization by leveraging Solana as a high-performance coordination layer. The architecture consists of three primary components:
 
 1. **Universal State Oracle** - Real-time verification across all supported chains
 2. **Solana Coordination Layer** - Sub-second consensus using Solana's performance
@@ -67,7 +67,7 @@ Key components:
 
 ## Security Model
 
-ChainSync implements a comprehensive security model:
+Switchboard implements a comprehensive security model:
 
 - **Data Verification** - All state data is cryptographically verified
 - **Proof Generation** - Zero-knowledge proofs ensure cross-chain consistency

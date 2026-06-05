@@ -1,5 +1,5 @@
 /**
- * ChainSync Database Connection Manager
+ * Switchboard Database Connection Manager
  *
  * Provides database connection pooling, transaction management, and query optimization
  */

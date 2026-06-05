@@ -1,5 +1,5 @@
 /**
- * ChainSync Service Error Classes
+ * Switchboard Service Error Classes
  *
  * Provides structured error handling across all services
  */

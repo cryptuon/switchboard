@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: oracle-service
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: oracle-service
     version: v1
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: oracle-service
-        image: chainsync/oracle-service:latest
+        image: switchboard/oracle-service:latest
         ports:
         - containerPort: 3001
         - containerPort: 9090  # Metrics port
@@ -28,7 +28,7 @@ spec:
         - name: NODE_ENV
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: NODE_ENV
         - name: PORT
           value: "3001"
@@ -37,17 +37,17 @@ spec:
         - name: LOG_LEVEL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: LOG_LEVEL
         - name: SOLANA_RPC_URL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: SOLANA_RPC_URL
         - name: SOLANA_PRIVATE_KEY
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: solana-private-key
         - name: ETHEREUM_RPC_URL
           value: "https://eth-mainnet.g.alchemy.com/v2/$(ALCHEMY_API_KEY)"
@@ -60,58 +60,58 @@ spec:
         - name: ALCHEMY_API_KEY
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: alchemy-api-key
         - name: BSC_RPC_URL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: BSC_RPC_URL
         - name: AVALANCHE_RPC_URL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: AVALANCHE_RPC_URL
         - name: COORDINATION_LATENCY_TARGET
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: COORDINATION_LATENCY_TARGET
         - name: BATCH_PROCESSING_SIZE
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: BATCH_PROCESSING_SIZE
         - name: MAX_CONCURRENT_CHAINS
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: MAX_CONCURRENT_CHAINS
         - name: MONGODB_URL
-          value: "mongodb://chainsync:$(MONGODB_PASSWORD)@mongodb:27017/chainsync"
+          value: "mongodb://switchboard:$(MONGODB_PASSWORD)@mongodb:27017/switchboard"
         - name: CLICKHOUSE_URL
-          value: "http://chainsync:$(CLICKHOUSE_PASSWORD)@clickhouse:8123/chainsync_analytics"
+          value: "http://switchboard:$(CLICKHOUSE_PASSWORD)@clickhouse:8123/chainsync_analytics"
         - name: REDIS_URL
           value: "redis://:$(REDIS_PASSWORD)@redis:6379"
         - name: MONGODB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: mongodb-password
         - name: CLICKHOUSE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: clickhouse-password
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: redis-password
         - name: PROMETHEUS_ENABLED
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: PROMETHEUS_ENABLED
         - name: METRICS_PORT
           value: "9090"
@@ -141,7 +141,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: oracle-service
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: oracle-service
 spec:
@@ -160,7 +160,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sync-service
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: sync-service
     version: v1
@@ -177,14 +177,14 @@ spec:
     spec:
       containers:
       - name: sync-service
-        image: chainsync/sync-service:latest
+        image: switchboard/sync-service:latest
         ports:
         - containerPort: 3002
         env:
         - name: NODE_ENV
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: NODE_ENV
         - name: PORT
           value: "3002"
@@ -193,45 +193,45 @@ spec:
         - name: LOG_LEVEL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: LOG_LEVEL
         - name: ORACLE_SERVICE_URL
           value: "http://oracle-service:3001"
         - name: SOLANA_RPC_URL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: SOLANA_RPC_URL
         - name: MONGODB_URL
-          value: "mongodb://chainsync:$(MONGODB_PASSWORD)@mongodb:27017/chainsync"
+          value: "mongodb://switchboard:$(MONGODB_PASSWORD)@mongodb:27017/switchboard"
         - name: CLICKHOUSE_URL
-          value: "http://chainsync:$(CLICKHOUSE_PASSWORD)@clickhouse:8123/chainsync_analytics"
+          value: "http://switchboard:$(CLICKHOUSE_PASSWORD)@clickhouse:8123/chainsync_analytics"
         - name: REDIS_URL
           value: "redis://:$(REDIS_PASSWORD)@redis:6379"
         - name: MONGODB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: mongodb-password
         - name: CLICKHOUSE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: clickhouse-password
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: redis-password
         - name: MAX_CONCURRENT_DEPLOYMENTS
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: MAX_CONCURRENT_DEPLOYMENTS
         - name: MONITOR_INTERVAL_MS
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: MONITOR_INTERVAL_MS
         resources:
           requests:
@@ -257,7 +257,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sync-service
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: sync-service
 spec:
@@ -273,7 +273,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-service
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: api-service
     version: v1
@@ -290,14 +290,14 @@ spec:
     spec:
       containers:
       - name: api-service
-        image: chainsync/api-service:latest
+        image: switchboard/api-service:latest
         ports:
         - containerPort: 3000
         env:
         - name: NODE_ENV
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: NODE_ENV
         - name: PORT
           value: "3000"
@@ -306,7 +306,7 @@ spec:
         - name: LOG_LEVEL
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: LOG_LEVEL
         - name: ORACLE_SERVICE_URL
           value: "http://oracle-service:3001"
@@ -315,28 +315,28 @@ spec:
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: jwt-secret
         - name: API_RATE_LIMIT
           valueFrom:
             configMapKeyRef:
-              name: chainsync-config
+              name: switchboard-config
               key: API_RATE_LIMIT
         - name: CORS_ORIGINS
-          value: "https://app.chainsync.dev,https://chainsync.dev"
+          value: "https://app.switchboard.dev,https://switchboard.dev"
         - name: MONGODB_URL
-          value: "mongodb://chainsync:$(MONGODB_PASSWORD)@mongodb:27017/chainsync"
+          value: "mongodb://switchboard:$(MONGODB_PASSWORD)@mongodb:27017/switchboard"
         - name: REDIS_URL
           value: "redis://:$(REDIS_PASSWORD)@redis:6379"
         - name: MONGODB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: mongodb-password
         - name: REDIS_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: chainsync-secrets
+              name: switchboard-secrets
               key: redis-password
         resources:
           requests:
@@ -362,7 +362,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: api-service
-  namespace: chainsync
+  namespace: switchboard
   labels:
     app: api-service
 spec:

@@ -1,5 +1,5 @@
 /**
- * ChainSync Streaming State Oracle
+ * Switchboard Streaming State Oracle
  *
  * Real-time cross-chain state verification with sub-400ms latency
  * Replaces polling-based approach with WebSocket event streams

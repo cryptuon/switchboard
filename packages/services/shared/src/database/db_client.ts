@@ -1,5 +1,5 @@
 /**
- * Database client for ChainSync services
+ * Database client for Switchboard services
  */
 
 import mongoose from 'mongoose';

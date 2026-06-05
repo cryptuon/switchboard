@@ -1,5 +1,5 @@
 /**
- * ChainSync Synchronization Service Entry Point
+ * Switchboard Synchronization Service Entry Point
  *
  * Production-ready sync service with comprehensive blockchain monitoring
  */
@@ -10,7 +10,7 @@ async function main() {
   // Type assertion to bypass interface issues - same approach used in tests
   const config = {
     database: {
-      url: process.env.DATABASE_URL || 'mongodb://localhost:27017/chainsync',
+      url: process.env.DATABASE_URL || 'mongodb://localhost:27017/switchboard',
       maxConnections: parseInt(process.env.DB_MAX_CONNECTIONS || '20')
     },
     chains: [

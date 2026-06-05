@@ -1,12 +1,12 @@
 /**
- * ChainSync Transaction Repository
+ * Switchboard Transaction Repository
  *
  * Repository for transaction data operations
  */
 
-import { RepositoryBase, DatabaseConnectionManager, PaginatedResult, PaginationOptions } from '@chainsync/services-shared';
-import { Logger } from '@chainsync/services-shared';
-import { MetricsCollector } from '@chainsync/services-shared';
+import { RepositoryBase, DatabaseConnectionManager, PaginatedResult, PaginationOptions } from '@switchboard/services-shared';
+import { Logger } from '@switchboard/services-shared';
+import { MetricsCollector } from '@switchboard/services-shared';
 import { ITransaction, Transaction } from '../models/transaction';
 
 export interface TransactionFilters {

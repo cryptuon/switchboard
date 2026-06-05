@@ -1,5 +1,5 @@
 /**
- * ChainSync API Service
+ * Switchboard API Service
  *
  * Production-ready API service with comprehensive error handling, validation, and monitoring
  */
@@ -11,7 +11,7 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import Joi from 'joi';
 
-import { StreamingStateOracle } from '@chainsync/oracle-service';
+import { StreamingStateOracle } from '@switchboard/oracle-service';
 import {
   BaseService,
   ServiceConfig,
@@ -24,7 +24,7 @@ import {
   AuthMiddleware,
   UserRepository,
   DatabaseConnectionManager
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
 export interface ApiServiceConfig extends ServiceConfig {
   corsOrigins?: string[];
@@ -156,7 +156,7 @@ export class ApiService extends BaseService {
       this.jwtManager = new JWTManager({
         secretKey: config.jwtSecret || process.env.JWT_SECRET || 'default-secret',
         issuer: config.name,
-        audience: 'chainsync-api',
+        audience: 'switchboard-api',
         accessTokenExpiry: '15m',
         refreshTokenExpiry: '7d'
       });

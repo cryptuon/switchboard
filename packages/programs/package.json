@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/programs",
+  "name": "@switchboard/programs",
   "version": "0.1.0",
-  "description": "ChainSync Solana Programs",
+  "description": "Switchboard Solana Programs",
   "private": true,
   "scripts": {
     "build": "anchor build",

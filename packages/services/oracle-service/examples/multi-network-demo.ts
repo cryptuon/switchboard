@@ -1,15 +1,15 @@
 #!/usr/bin/env ts-node
 /**
- * Multi-Network ChainSync Demo
+ * Multi-Network Switchboard Demo
  *
- * Demonstrates ChainSync's ability to connect to and manage 50+ blockchain networks
+ * Demonstrates Switchboard's ability to connect to and manage 50+ blockchain networks
  */
 
 import { StateOracle } from '../src/index';
 import { ConnectorFactory } from '../src/connector-factory';
 
 async function runMultiNetworkDemo() {
-  console.log('🚀 ChainSync Multi-Network Demo\n');
+  console.log('🚀 Switchboard Multi-Network Demo\n');
   console.log('Demonstrating support for 50+ blockchain networks\n');
 
   // Configuration for multiple networks across different categories
@@ -160,7 +160,7 @@ async function runMultiNetworkDemo() {
   console.log('• Proved runtime chain addition capabilities');
   console.log('• Validated Solana coordination layer integration');
 
-  console.log('\n🚀 ChainSync provides universal blockchain access!');
+  console.log('\n🚀 Switchboard provides universal blockchain access!');
   console.log('Deploy to any network, from any network, through one unified interface.');
 }
 

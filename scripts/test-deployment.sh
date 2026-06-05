@@ -5,7 +5,7 @@
 
 set -e
 
-echo "🚀 ChainSync Deployment Configuration Test"
+echo "🚀 Switchboard Deployment Configuration Test"
 echo "=========================================="
 
 # Check if Docker and Docker Compose are available
@@ -91,8 +91,8 @@ fi
 
 # Check network configuration
 echo "🔍 Validating network configuration..."
-if docker-compose config | grep -q "chainsync-network"; then
-    echo "✅ Dedicated network 'chainsync-network' configured"
+if docker-compose config | grep -q "switchboard-network"; then
+    echo "✅ Dedicated network 'switchboard-network' configured"
 else
     echo "❌ Missing dedicated network configuration"
 fi

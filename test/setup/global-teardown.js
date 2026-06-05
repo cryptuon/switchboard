@@ -7,7 +7,7 @@ const { promisify } = require('util');
 const execAsync = promisify(exec);
 
 module.exports = async () => {
-  console.log('🧹 Cleaning up ChainSync test environment...');
+  console.log('🧹 Cleaning up Switchboard test environment...');
 
   try {
     const testDuration = Date.now() - (global.testState?.startTime || Date.now());
@@ -16,8 +16,8 @@ module.exports = async () => {
     // Clean up test databases
     if (!process.env.SKIP_DATABASE_TESTS) {
       const testDatabases = [
-        'chainsync-test',
-        'chainsync-billing-test'
+        'switchboard-test',
+        'switchboard-billing-test'
       ];
 
       for (const dbName of testDatabases) {

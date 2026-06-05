@@ -1,6 +1,6 @@
 # Development Environment Setup
 
-This guide will help you set up your development environment for ChainSync.
+This guide will help you set up your development environment for Switchboard.
 
 ## Prerequisites
 
@@ -45,8 +45,8 @@ nvm use node
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-org/chainsync.git
-   cd chainsync
+   git clone https://github.com/your-org/switchboard.git
+   cd switchboard
    ```
 
 2. Install project dependencies:
@@ -64,7 +64,7 @@ nvm use node
 After setup, your project structure should look like:
 
 ```
-chainsync/
+switchboard/
 ├── docs/                    # Documentation
 ├── packages/                # Core code packages
 │   ├── programs/           # Solana on-chain programs
@@ -108,7 +108,7 @@ npm test
 
 To run tests for a specific package:
 ```bash
-npm test -- --scope=@chainsync/sdk
+npm test -- --scope=@switchboard/sdk
 ```
 
 ## Useful Commands

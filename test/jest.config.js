@@ -1,5 +1,5 @@
 /**
- * Jest Configuration for ChainSync Testing
+ * Jest Configuration for Switchboard Testing
  */
 
 module.exports = {
@@ -64,7 +64,7 @@ module.exports = {
 
   // Module name mapping for path resolution
   moduleNameMapping: {
-    '^@chainsync/(.*)$': '<rootDir>/packages/$1/src',
+    '^@switchboard/(.*)$': '<rootDir>/packages/$1/src',
     '^@/(.*)$': '<rootDir>/src/$1'
   },
 
@@ -132,7 +132,7 @@ module.exports = {
     [
       'jest-html-reporter',
       {
-        pageTitle: 'ChainSync Test Report',
+        pageTitle: 'Switchboard Test Report',
         outputPath: 'test-results/test-report.html',
         includeFailureMsg: true,
         includeSuiteFailure: true

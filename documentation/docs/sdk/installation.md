@@ -5,19 +5,19 @@
 === "npm"
 
     ```bash
-    npm install @chainsync/sdk
+    npm install @switchboard/sdk
     ```
 
 === "yarn"
 
     ```bash
-    yarn add @chainsync/sdk
+    yarn add @switchboard/sdk
     ```
 
 === "pnpm"
 
     ```bash
-    pnpm add @chainsync/sdk
+    pnpm add @switchboard/sdk
     ```
 
 ## Basic Setup
@@ -25,9 +25,9 @@
 ### TypeScript
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   // Solana coordination layer
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL!,
@@ -51,9 +51,9 @@ const chainSync = new ChainSync({
 ### JavaScript (CommonJS)
 
 ```javascript
-const { ChainSync } = require('@chainsync/sdk');
+const { Switchboard } = require('@switchboard/sdk');
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL,
   },
@@ -71,7 +71,7 @@ const chainSync = new ChainSync({
 ### Full Configuration
 
 ```typescript
-import { ChainSync, ChainSyncConfig } from '@chainsync/sdk';
+import { Switchboard, ChainSyncConfig } from '@switchboard/sdk';
 
 const config: ChainSyncConfig = {
   // Solana configuration
@@ -118,7 +118,7 @@ const config: ChainSyncConfig = {
   },
 };
 
-const chainSync = new ChainSync(config);
+const switchboard = new Switchboard(config);
 ```
 
 ### Environment Variables
@@ -143,9 +143,9 @@ Load with dotenv:
 
 ```typescript
 import 'dotenv/config';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL!,
   },
@@ -161,21 +161,21 @@ const chainSync = new ChainSync({
 ## Verifying Installation
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function verify() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: {
       rpcUrl: 'https://api.devnet.solana.com',
     },
   });
 
   // Check connection
-  const status = await chainSync.getStatus();
-  console.log('ChainSync Status:', status);
+  const status = await switchboard.getStatus();
+  console.log('Switchboard Status:', status);
 
   // List supported chains
-  const chains = await chainSync.getSupportedChains();
+  const chains = await switchboard.getSupportedChains();
   console.log('Supported Chains:', chains);
 }
 
@@ -187,14 +187,14 @@ verify();
 ### Next.js
 
 ```typescript
-// lib/chainsync.ts
-import { ChainSync } from '@chainsync/sdk';
+// lib/switchboard.ts
+import { Switchboard } from '@switchboard/sdk';
 
-let chainSync: ChainSync | null = null;
+let switchboard: Switchboard | null = null;
 
-export function getChainSync(): ChainSync {
-  if (!chainSync) {
-    chainSync = new ChainSync({
+export function getSwitchboard(): Switchboard {
+  if (!switchboard) {
+    switchboard = new Switchboard({
       solana: {
         rpcUrl: process.env.SOLANA_RPC_URL!,
       },
@@ -206,7 +206,7 @@ export function getChainSync(): ChainSync {
       },
     });
   }
-  return chainSync;
+  return switchboard;
 }
 ```
 
@@ -214,18 +214,18 @@ export function getChainSync(): ChainSync {
 
 ```typescript
 import express from 'express';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 const app = express();
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL!,
   },
 });
 
 app.get('/deploy', async (req, res) => {
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     // ... deployment config
   });
   res.json(deployment);
@@ -272,7 +272,7 @@ npm install typescript@latest --save-dev
 Test RPC connectivity:
 
 ```typescript
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: 'https://api.devnet.solana.com',
   },

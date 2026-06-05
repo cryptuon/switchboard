@@ -1,4 +1,4 @@
--- ChainSync ClickHouse Analytics Database Initialization
+-- Switchboard ClickHouse Analytics Database Initialization
 -- Creates optimized tables for high-throughput event and log analytics
 
 -- Create chainsync_analytics database
@@ -358,7 +358,7 @@ INSERT INTO coordination_logs VALUES
 -- COMPLETION MESSAGE
 -- =====================================================
 
-SELECT 'ClickHouse ChainSync Analytics Database Initialized Successfully!' as status;
+SELECT 'ClickHouse Switchboard Analytics Database Initialized Successfully!' as status;
 SELECT 'Created tables: blockchain_events, deployment_analytics, performance_metrics, chain_state_logs, coordination_logs, system_logs' as tables;
 SELECT 'Created materialized views for real-time analytics' as views;
 SELECT 'Applied performance indexes and partitioning' as optimization;

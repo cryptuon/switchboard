@@ -1,6 +1,6 @@
-# ChainSync Whitepaper Makefile
+# Switchboard Whitepaper Makefile
 
-MAIN = chainsync-whitepaper
+MAIN = switchboard-whitepaper
 LATEX = pdflatex
 BIBTEX = bibtex
 

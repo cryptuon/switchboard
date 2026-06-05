@@ -1,6 +1,6 @@
-# ChainSync Demo Dashboard
+# Switchboard Demo Dashboard
 
-A comprehensive web dashboard showcasing ChainSync's cross-chain coordination capabilities.
+A comprehensive web dashboard showcasing Switchboard's cross-chain coordination capabilities.
 
 ## Features
 
@@ -16,15 +16,15 @@ A comprehensive web dashboard showcasing ChainSync's cross-chain coordination ca
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Styling**: Tailwind CSS, Headless UI
 - **Charts**: Recharts
-- **API**: Axios for ChainSync API integration
+- **API**: Axios for Switchboard API integration
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
-- ChainSync API service running on port 3000
-- ChainSync Billing service running on port 3001
+- Switchboard API service running on port 3000
+- Switchboard Billing service running on port 3001
 
 ### Installation
 
@@ -81,7 +81,7 @@ BILLING_BASE_URL=http://localhost:3001
 
 ## API Integration
 
-The dashboard integrates with ChainSync's microservices:
+The dashboard integrates with Switchboard's microservices:
 
 - **API Service** - Core blockchain operations
 - **Billing Service** - Payment and subscription management
@@ -89,7 +89,7 @@ The dashboard integrates with ChainSync's microservices:
 
 ## Real-time Updates
 
-The dashboard polls the ChainSync API every 5 seconds for live updates:
+The dashboard polls the Switchboard API every 5 seconds for live updates:
 
 - System metrics
 - Chain status
@@ -112,7 +112,7 @@ npm start
 
 ## Demo Features
 
-This dashboard demonstrates ChainSync's core capabilities:
+This dashboard demonstrates Switchboard's core capabilities:
 
 1. **Sub-400ms Cross-Chain Coordination** - Real-time latency monitoring
 2. **Multi-Chain Deployments** - Deploy to 6+ blockchain networks

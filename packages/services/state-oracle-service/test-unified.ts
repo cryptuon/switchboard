@@ -5,7 +5,7 @@
 import { UnifiedStateOracle } from './src/state-oracle';
 
 async function main() {
-  console.log('Testing ChainSync Unified State Oracle...');
+  console.log('Testing Switchboard Unified State Oracle...');
   
   // Create unified state oracle instance
   const stateOracle = new UnifiedStateOracle();

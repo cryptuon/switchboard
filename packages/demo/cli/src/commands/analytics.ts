@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { table } from 'table';
 import fs from 'fs';
 import path from 'path';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { createSpinner } from '../utils/spinner';
 
 export const analyticsCommand = new Command('analytics')
@@ -12,14 +12,14 @@ export const analyticsCommand = new Command('analytics')
   .option('-c, --chain <chain>', 'Filter by specific chain')
   .option('--export <format>', 'Export data (json, csv)')
   .action(async (options) => {
-    console.log(chalk.blue('📊 ChainSync Analytics Dashboard\n'));
+    console.log(chalk.blue('📊 Switchboard Analytics Dashboard\n'));
 
     try {
       const spinner = createSpinner('Generating analytics...');
       spinner.start();
 
-      // Initialize ChainSync SDK
-      const chainSync = new ChainSync({
+      // Initialize Switchboard SDK
+      const switchboard = new Switchboard({
         solanaRpcUrl: process.env.SOLANA_RPC_URL!,
         ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
         polygonRpcUrl: process.env.POLYGON_RPC_URL,
@@ -30,7 +30,7 @@ export const analyticsCommand = new Command('analytics')
       });
 
       // Get analytics data
-      const analytics = await chainSync.getAnalytics({
+      const analytics = await switchboard.getAnalytics({
         period: options.period,
         chain: options.chain
       });
@@ -136,9 +136,9 @@ export const analyticsCommand = new Command('analytics')
       // Show detailed charts in verbose mode
       if (analytics.totalDeployments > 0) {
         console.log(chalk.blue('\n🔧 Quick Actions:'));
-        console.log(chalk.gray('• View specific deployment: chainsync track <id>'));
-        console.log(chalk.gray('• Check system status: chainsync status'));
-        console.log(chalk.gray('• Export data: chainsync analytics --export json'));
+        console.log(chalk.gray('• View specific deployment: switchboard track <id>'));
+        console.log(chalk.gray('• Check system status: switchboard status'));
+        console.log(chalk.gray('• Export data: switchboard analytics --export json'));
       }
 
     } catch (error) {
@@ -208,7 +208,7 @@ function generateRecommendations(analytics: any): string[] {
 
 async function exportAnalytics(analytics: any, format: string): Promise<void> {
   const timestamp = new Date().toISOString().slice(0, 10);
-  const filename = `chainsync-analytics-${timestamp}.${format}`;
+  const filename = `switchboard-analytics-${timestamp}.${format}`;
 
   try {
     if (format === 'json') {

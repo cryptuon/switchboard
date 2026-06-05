@@ -1,10 +1,10 @@
 /**
- * Comprehensive Test Suite for ChainSync SDK
+ * Comprehensive Test Suite for Switchboard SDK
  * Tests real-time integration with services and performance
  */
 
 import { describe, it, beforeEach, afterEach, expect, jest } from '@jest/globals';
-import ChainSync, { ChainSyncConfig } from '../src/index';
+import Switchboard, { ChainSyncConfig } from '../src/index';
 import { EventEmitter } from 'events';
 
 // Mock fetch for API calls
@@ -42,8 +42,8 @@ const createMockResponse = (data: any, options: Partial<Response> = {}): Respons
   json: async () => data
 } as Response);
 
-describe('ChainSync SDK', () => {
-  let sdk: ChainSync;
+describe('Switchboard SDK', () => {
+  let sdk: Switchboard;
   let mockConfig: ChainSyncConfig;
 
   beforeEach(() => {
@@ -58,7 +58,7 @@ describe('ChainSync SDK', () => {
       enableWebSockets: true
     };
 
-    sdk = new ChainSync(mockConfig);
+    sdk = new Switchboard(mockConfig);
 
     // Reset mocks
     mockFetch.mockReset();
@@ -478,7 +478,7 @@ describe('ChainSync SDK', () => {
 
   describe('Error Handling', () => {
     it('should throw when not initialized', async () => {
-      const uninitializedSdk = new ChainSync(mockConfig);
+      const uninitializedSdk = new Switchboard(mockConfig);
 
       await expect(uninitializedSdk.deployContract({
         bytecode: '0x123',

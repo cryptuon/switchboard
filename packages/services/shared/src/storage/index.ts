@@ -1,5 +1,5 @@
 /**
- * ChainSync Storage Module
+ * Switchboard Storage Module
  *
  * Unified storage abstraction with multi-database support
  */

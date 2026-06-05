@@ -1,5 +1,5 @@
 /**
- * Unified State Oracle for ChainSync
+ * Unified State Oracle for Switchboard
  * 
  * Orchestrates data collection from multiple blockchain networks
  */
@@ -100,7 +100,7 @@ export class UnifiedStateOracle extends EventEmitter {
     }
 
     this.isRunning = true;
-    console.log('Starting ChainSync Unified State Oracle...');
+    console.log('Starting Switchboard Unified State Oracle...');
     
     // Initialize all connectors
     this.initializeConnectors();
@@ -121,7 +121,7 @@ export class UnifiedStateOracle extends EventEmitter {
     }
 
     this.isRunning = false;
-    console.log('Stopping ChainSync Unified State Oracle...');
+    console.log('Stopping Switchboard Unified State Oracle...');
   }
 
   /**

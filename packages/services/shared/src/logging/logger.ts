@@ -1,5 +1,5 @@
 /**
- * ChainSync Logging Framework
+ * Switchboard Logging Framework
  *
  * Provides structured logging across all services
  */

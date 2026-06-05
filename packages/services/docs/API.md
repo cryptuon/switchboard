@@ -1,8 +1,8 @@
-# ChainSync API Documentation
+# Switchboard API Documentation
 
 ## Base URL
 ```
-Production: https://api.chainsync.com
+Production: https://api.switchboard.com
 Development: http://localhost:3000
 ```
 
@@ -515,7 +515,7 @@ GET /health
 {
   "status": "healthy",
   "timestamp": "2024-01-01T00:00:00.000Z",
-  "service": "chainsync-api",
+  "service": "switchboard-api",
   "version": "1.0.0",
   "uptime": 3600000,
   "checks": {
@@ -551,7 +551,7 @@ GET /health
 {
   "status": "unhealthy",
   "timestamp": "2024-01-01T00:00:00.000Z",
-  "service": "chainsync-api",
+  "service": "switchboard-api",
   "version": "1.0.0",
   "uptime": 3600000,
   "checks": {
@@ -580,25 +580,25 @@ GET /metrics
 ```
 # HELP http_requests_total Total number of HTTP requests
 # TYPE http_requests_total counter
-http_requests_total{service="chainsync-api",method="POST",endpoint="/api/v1/deploy",status="200"} 1250
+http_requests_total{service="switchboard-api",method="POST",endpoint="/api/v1/deploy",status="200"} 1250
 
 # HELP http_request_duration_seconds Duration of HTTP requests in seconds
 # TYPE http_request_duration_seconds histogram
-http_request_duration_seconds_bucket{service="chainsync-api",method="POST",endpoint="/api/v1/deploy",status="200",le="0.1"} 800
-http_request_duration_seconds_bucket{service="chainsync-api",method="POST",endpoint="/api/v1/deploy",status="200",le="0.5"} 1200
-http_request_duration_seconds_bucket{service="chainsync-api",method="POST",endpoint="/api/v1/deploy",status="200",le="+Inf"} 1250
-http_request_duration_seconds_sum{service="chainsync-api",method="POST",endpoint="/api/v1/deploy",status="200"} 125.5
-http_request_duration_seconds_count{service="chainsync-api",method="POST",endpoint="/api/v1/deploy",status="200"} 1250
+http_request_duration_seconds_bucket{service="switchboard-api",method="POST",endpoint="/api/v1/deploy",status="200",le="0.1"} 800
+http_request_duration_seconds_bucket{service="switchboard-api",method="POST",endpoint="/api/v1/deploy",status="200",le="0.5"} 1200
+http_request_duration_seconds_bucket{service="switchboard-api",method="POST",endpoint="/api/v1/deploy",status="200",le="+Inf"} 1250
+http_request_duration_seconds_sum{service="switchboard-api",method="POST",endpoint="/api/v1/deploy",status="200"} 125.5
+http_request_duration_seconds_count{service="switchboard-api",method="POST",endpoint="/api/v1/deploy",status="200"} 1250
 
 # HELP chainsync_deployments_total Total number of cross-chain deployments
 # TYPE chainsync_deployments_total counter
-chainsync_deployments_total{service="chainsync-api",status="completed",chain_count="3"} 850
-chainsync_deployments_total{service="chainsync-api",status="failed",chain_count="2"} 25
+chainsync_deployments_total{service="switchboard-api",status="completed",chain_count="3"} 850
+chainsync_deployments_total{service="switchboard-api",status="failed",chain_count="2"} 25
 ```
 
 ## Webhooks
 
-ChainSync supports webhooks for real-time notifications about deployment and transaction events.
+Switchboard supports webhooks for real-time notifications about deployment and transaction events.
 
 ### Webhook Configuration
 
@@ -611,7 +611,7 @@ POST /api/v1/webhooks
 **Request Body:**
 ```json
 {
-  "url": "https://your-app.com/webhooks/chainsync",
+  "url": "https://your-app.com/webhooks/switchboard",
   "events": ["deployment.completed", "deployment.failed", "transaction.confirmed"],
   "secret": "webhook-secret-key"
 }
@@ -658,19 +658,19 @@ POST /api/v1/webhooks
 ### JavaScript/TypeScript SDK
 
 ```bash
-npm install @chainsync/sdk
+npm install @switchboard/sdk
 ```
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   apiKey: 'your-api-key',
-  baseUrl: 'https://api.chainsync.com'
+  baseUrl: 'https://api.switchboard.com'
 });
 
 // Deploy contract
-const deployment = await chainSync.deploy({
+const deployment = await switchboard.deploy({
   chains: ['ethereum', 'polygon'],
   contractCode: '0x608060405...',
   config: {
@@ -679,21 +679,21 @@ const deployment = await chainSync.deploy({
 });
 
 // Monitor deployment
-const status = await chainSync.getDeploymentStatus(deployment.deploymentId);
+const status = await switchboard.getDeploymentStatus(deployment.deploymentId);
 ```
 
 ### Python SDK
 
 ```bash
-pip install chainsync-python
+pip install switchboard-python
 ```
 
 ```python
-from chainsync import ChainSync
+from switchboard import Switchboard
 
-client = ChainSync(
+client = Switchboard(
     api_key='your-api-key',
-    base_url='https://api.chainsync.com'
+    base_url='https://api.switchboard.com'
 )
 
 # Deploy contract
@@ -707,4 +707,4 @@ deployment = client.deploy(
 status = client.get_deployment_status(deployment['deploymentId'])
 ```
 
-This API documentation provides comprehensive coverage of all endpoints, request/response formats, error handling, and integration examples for the ChainSync platform.
+This API documentation provides comprehensive coverage of all endpoints, request/response formats, error handling, and integration examples for the Switchboard platform.

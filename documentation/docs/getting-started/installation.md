@@ -9,28 +9,28 @@ Choose the installation method that best fits your needs.
 The CLI provides the fastest way to get started:
 
 ```bash
-npm install -g @chainsync/cli
+npm install -g @switchboard/cli
 
 # Verify installation
-chainsync --version
+switchboard --version
 ```
 
 ### Option B: SDK for Programmatic Use
 
-For integrating ChainSync into your applications:
+For integrating Switchboard into your applications:
 
 ```bash
-npm install @chainsync/sdk
+npm install @switchboard/sdk
 ```
 
 ### Option C: Full Development Setup
 
-For contributing to ChainSync or running the full platform:
+For contributing to Switchboard or running the full platform:
 
 ```bash
 # Clone the repository
-git clone https://github.com/chainsync/chainsync
-cd chainsync
+git clone https://github.com/switchboard/switchboard
+cd switchboard
 
 # Install dependencies
 npm install
@@ -66,40 +66,40 @@ npm run build
 
 ```bash
 # Check version
-chainsync --version
+switchboard --version
 
 # View available commands
-chainsync --help
+switchboard --help
 
 # Check system configuration
-chainsync doctor
+switchboard doctor
 ```
 
 ### SDK Verification
 
 ```javascript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 // Initialize the SDK
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solana: {
     rpcUrl: process.env.SOLANA_RPC_URL,
   },
 });
 
 // Verify connection
-const status = await chainSync.getStatus();
-console.log('ChainSync Status:', status);
+const status = await switchboard.getStatus();
+console.log('Switchboard Status:', status);
 ```
 
 ## Docker Installation
 
-For running ChainSync services locally:
+For running Switchboard services locally:
 
 ```bash
 # Clone repository
-git clone https://github.com/chainsync/chainsync
-cd chainsync
+git clone https://github.com/switchboard/switchboard
+cd switchboard
 
 # Copy environment configuration
 cp .env.example .env
@@ -133,40 +133,40 @@ No special requirements. Ensure Node.js is installed via nvm or your package man
 # Install Node.js via Homebrew
 brew install node
 
-# Install ChainSync CLI
-npm install -g @chainsync/cli
+# Install Switchboard CLI
+npm install -g @switchboard/cli
 ```
 
 ### Windows
 
 1. Install Node.js from [nodejs.org](https://nodejs.org/)
 2. Use PowerShell or Windows Terminal
-3. Install ChainSync:
+3. Install Switchboard:
 
 ```powershell
-npm install -g @chainsync/cli
+npm install -g @switchboard/cli
 ```
 
 !!! tip "Windows Subsystem for Linux"
     For the best experience on Windows, consider using WSL2.
 
-## Updating ChainSync
+## Updating Switchboard
 
 ### CLI Updates
 
 ```bash
 # Update to latest version
-npm update -g @chainsync/cli
+npm update -g @switchboard/cli
 
 # Check for updates
-chainsync update:check
+switchboard update:check
 ```
 
 ### SDK Updates
 
 ```bash
 # Update SDK in your project
-npm update @chainsync/sdk
+npm update @switchboard/sdk
 ```
 
 ## Uninstalling
@@ -174,13 +174,13 @@ npm update @chainsync/sdk
 ### Remove CLI
 
 ```bash
-npm uninstall -g @chainsync/cli
+npm uninstall -g @switchboard/cli
 ```
 
 ### Remove SDK
 
 ```bash
-npm uninstall @chainsync/sdk
+npm uninstall @switchboard/sdk
 ```
 
 ## Troubleshooting Installation

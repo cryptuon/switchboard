@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# ChainSync Development Setup Script
+# Switchboard Development Setup Script
 
 set -e
 
-echo "🚀 Setting up ChainSync development environment..."
+echo "🚀 Setting up Switchboard development environment..."
 
 # Check if Node.js is installed
 if ! command -v node &> /dev/null; then

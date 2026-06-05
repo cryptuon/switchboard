@@ -1,5 +1,5 @@
 /**
- * ChainSync DuckDB Adapter
+ * Switchboard DuckDB Adapter
  *
  * Lightweight analytics storage adapter optimized for fast analytical queries
  */

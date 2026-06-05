@@ -1,6 +1,6 @@
 # Architecture Overview
 
-ChainSync is built on a simplified 2-service architecture designed for easy deployment, maintenance, and scalability.
+Switchboard is built on a simplified 2-service architecture designed for easy deployment, maintenance, and scalability.
 
 ## Design Principles
 
@@ -14,7 +14,7 @@ ChainSync is built on a simplified 2-service architecture designed for easy depl
 
 ```
                     ┌─────────────────────────────────────────────────────────┐
-                    │                      ChainSync                          │
+                    │                      Switchboard                          │
                     │                                                         │
 ┌──────────┐        │  ┌─────────────────┐    ┌──────────────────┐           │
 │  Client  │───────▶│  │  Customer API   │────│   Core Engine    │           │
@@ -108,13 +108,13 @@ The backend service handling all business logic and blockchain operations.
 
 ## Database Architecture
 
-ChainSync supports swappable database backends:
+Switchboard supports swappable database backends:
 
 === "MongoDB"
 
     ```bash
     DATABASE_TYPE=mongodb
-    MONGODB_URL=mongodb://chainsync:password@localhost:27017/chainsync
+    MONGODB_URL=mongodb://switchboard:password@localhost:27017/switchboard
     ```
 
     Best for:
@@ -127,7 +127,7 @@ ChainSync supports swappable database backends:
 
     ```bash
     DATABASE_TYPE=postgresql
-    POSTGRES_URL=postgres://chainsync:password@localhost:5432/chainsync
+    POSTGRES_URL=postgres://switchboard:password@localhost:5432/switchboard
     ```
 
     Best for:

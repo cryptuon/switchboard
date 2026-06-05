@@ -1,5 +1,5 @@
 /**
- * ChainSync Base Service Module
+ * Switchboard Base Service Module
  *
  * Exports all base service functionality
  */

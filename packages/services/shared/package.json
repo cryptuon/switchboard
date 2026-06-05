@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/services-shared",
+  "name": "@switchboard/services-shared",
   "version": "0.1.0",
-  "description": "Shared utilities for ChainSync services",
+  "description": "Shared utilities for Switchboard services",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -39,6 +39,6 @@
     "utilities",
     "cross-chain"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

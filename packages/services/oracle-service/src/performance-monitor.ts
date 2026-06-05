@@ -1,5 +1,5 @@
 /**
- * ChainSync Performance Monitor
+ * Switchboard Performance Monitor
  *
  * Real-time monitoring dashboard for streaming oracle performance
  * Tracks sub-400ms coordination target compliance
@@ -122,7 +122,7 @@ export class PerformanceMonitor {
     // Clear console for live dashboard effect
     console.clear();
 
-    console.log('🚀 ChainSync Real-time Performance Dashboard');
+    console.log('🚀 Switchboard Real-time Performance Dashboard');
     console.log('═'.repeat(60));
     console.log(`📅 ${new Date(latest.timestamp).toLocaleTimeString()}`);
     console.log('');

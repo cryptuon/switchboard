@@ -1,5 +1,5 @@
 /**
- * Stripe integration service for ChainSync Billing Service
+ * Stripe integration service for Switchboard Billing Service
  */
 
 // Mock Stripe service since we don't have actual Stripe credentials

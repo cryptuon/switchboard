@@ -7,12 +7,12 @@ const { promisify } = require('util');
 const execAsync = promisify(exec);
 
 module.exports = async () => {
-  console.log('🚀 Setting up ChainSync test environment...');
+  console.log('🚀 Setting up Switchboard test environment...');
 
   try {
     // Set test environment variables
     process.env.NODE_ENV = 'test';
-    process.env.JWT_SECRET = 'test-jwt-secret-for-chainsync-testing';
+    process.env.JWT_SECRET = 'test-jwt-secret-for-switchboard-testing';
 
     // Check if MongoDB is available for integration tests
     try {
@@ -21,8 +21,8 @@ module.exports = async () => {
 
       // Create test databases if they don't exist
       const testDatabases = [
-        'chainsync-test',
-        'chainsync-billing-test'
+        'switchboard-test',
+        'switchboard-billing-test'
       ];
 
       for (const dbName of testDatabases) {

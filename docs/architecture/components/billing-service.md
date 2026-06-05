@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Billing Service handles all aspects of billing and subscription management for ChainSync's SDK and API services. It tracks usage, manages subscriptions, generates invoices, and processes payments.
+The Billing Service handles all aspects of billing and subscription management for Switchboard's SDK and API services. It tracks usage, manages subscriptions, generates invoices, and processes payments.
 
 ## Architecture
 
@@ -175,9 +175,9 @@ The service integrates with Stripe for payment processing:
 - **Checkout Sessions**: Hosted payment pages
 - **Customer Portal**: Self-service billing management
 
-### ChainSync API
+### Switchboard API
 
-Integration with the main ChainSync API service:
+Integration with the main Switchboard API service:
 
 - **Usage Data**: Receives usage tracking data
 - **Subscription Status**: Provides subscription information

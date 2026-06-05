@@ -1,5 +1,5 @@
 /**
- * ChainSync Storage Manager
+ * Switchboard Storage Manager
  *
  * Central storage management with routing to appropriate databases
  */

@@ -71,7 +71,7 @@ TimeoutError: Transaction not confirmed within 120000ms
 
 1. **Increase gas price**
    ```bash
-   chainsync deploy --gas-multiplier 1.5
+   switchboard deploy --gas-multiplier 1.5
    ```
 
 2. **Check network congestion**
@@ -80,7 +80,7 @@ TimeoutError: Transaction not confirmed within 120000ms
 
 3. **Increase timeout**
    ```javascript
-   // chainsync.config.js
+   // switchboard.config.js
    module.exports = {
      deployment: {
        timeout: 300000, // 5 minutes
@@ -99,17 +99,17 @@ Error: Insufficient funds for gas
 
 1. **Check balance**
    ```bash
-   chainsync balance --network ethereum
+   switchboard balance --network ethereum
    ```
 
 2. **Get test tokens**
    ```bash
-   chainsync faucet --network sepolia --address YOUR_ADDRESS
+   switchboard faucet --network sepolia --address YOUR_ADDRESS
    ```
 
 3. **Estimate fees first**
    ```bash
-   chainsync estimate --contract MyContract --networks ethereum,polygon
+   switchboard estimate --contract MyContract --networks ethereum,polygon
    ```
 
 ### Contract Verification Failed
@@ -135,7 +135,7 @@ Error: Contract verification failed
 
 3. **Retry verification**
    ```bash
-   chainsync verify --contract MyContract --network ethereum --force
+   switchboard verify --contract MyContract --network ethereum --force
    ```
 
 ## Authentication Issues
@@ -151,12 +151,12 @@ Error: JWT token expired or invalid
 
 1. **Refresh token**
    ```bash
-   chainsync auth refresh
+   switchboard auth refresh
    ```
 
 2. **Re-login**
    ```bash
-   chainsync login
+   switchboard login
    ```
 
 ### API Key Not Working
@@ -204,7 +204,7 @@ Error: ECONNREFUSED 127.0.0.1:27017
 
 3. **Check connection URL**
    ```bash
-   MONGODB_URL=mongodb://localhost:27017/chainsync
+   MONGODB_URL=mongodb://localhost:27017/switchboard
    ```
 
 ### Authentication Failed
@@ -218,12 +218,12 @@ Error: Authentication failed
 
 1. **Check credentials**
    ```bash
-   MONGODB_URL=mongodb://user:password@localhost:27017/chainsync?authSource=admin
+   MONGODB_URL=mongodb://user:password@localhost:27017/switchboard?authSource=admin
    ```
 
 2. **Reset password**
    ```bash
-   docker-compose exec mongodb mongosh --eval "db.changeUserPassword('chainsync', 'newpassword')"
+   docker-compose exec mongodb mongosh --eval "db.changeUserPassword('switchboard', 'newpassword')"
    ```
 
 ## Performance Issues
@@ -308,12 +308,12 @@ If these solutions don't work:
 
 1. **Enable debug logging**
    ```bash
-   DEBUG=chainsync:* chainsync deploy
+   DEBUG=switchboard:* switchboard deploy
    ```
 
 2. **Collect diagnostics**
    ```bash
-   chainsync doctor > diagnostics.txt
+   switchboard doctor > diagnostics.txt
    ```
 
 3. **Open an issue** with:

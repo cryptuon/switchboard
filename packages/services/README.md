@@ -1,6 +1,6 @@
-# ChainSync Services
+# Switchboard Services
 
-This directory contains the off-chain services that support the ChainSync infrastructure.
+This directory contains the off-chain services that support the Switchboard infrastructure.
 
 ## Services
 
@@ -42,7 +42,7 @@ npm run build
 npm start
 
 # Run a specific service
-npm start -- --scope=@chainsync/oracle-service
+npm start -- --scope=@switchboard/oracle-service
 ```
 
 ## Configuration

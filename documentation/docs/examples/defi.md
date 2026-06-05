@@ -15,14 +15,14 @@ This example demonstrates:
 
 ```bash
 # Create project
-chainsync init my-defi --template defi --dev-mode
+switchboard init my-defi --template defi --dev-mode
 
 cd my-defi
 npm install
 
 # Configure and deploy
 cp .env.example .env
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 ```
 
 ## Smart Contracts
@@ -130,11 +130,11 @@ contract LiquidityPool is ReentrancyGuard {
 
 ```javascript
 // scripts/deploy-defi.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { readFileSync } from 'fs';
 
 async function main() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
     networks: {
       sepolia: {
@@ -154,7 +154,7 @@ async function main() {
   const pool = JSON.parse(readFileSync('./artifacts/LiquidityPool.json'));
 
   console.log('Deploying Token A...');
-  const tokenADeploy = await chainSync.deployContract({
+  const tokenADeploy = await switchboard.deployContract({
     name: 'TokenA',
     bytecode: tokenA.bytecode,
     abi: tokenA.abi,
@@ -163,7 +163,7 @@ async function main() {
   });
 
   console.log('Deploying Token B...');
-  const tokenBDeploy = await chainSync.deployContract({
+  const tokenBDeploy = await switchboard.deployContract({
     name: 'TokenB',
     bytecode: tokenB.bytecode,
     abi: tokenB.abi,
@@ -172,11 +172,11 @@ async function main() {
   });
 
   // Wait for token deployments
-  await waitForDeployment(chainSync, tokenADeploy.id);
-  await waitForDeployment(chainSync, tokenBDeploy.id);
+  await waitForDeployment(switchboard, tokenADeploy.id);
+  await waitForDeployment(switchboard, tokenBDeploy.id);
 
   console.log('Deploying Liquidity Pool...');
-  const poolDeploy = await chainSync.deployContract({
+  const poolDeploy = await switchboard.deployContract({
     name: 'LiquidityPool',
     bytecode: pool.bytecode,
     abi: pool.abi,
@@ -187,17 +187,17 @@ async function main() {
     chains: ['sepolia', 'mumbai'],
   });
 
-  const status = await waitForDeployment(chainSync, poolDeploy.id);
+  const status = await waitForDeployment(switchboard, poolDeploy.id);
 
   console.log('\nDeployment Complete!');
   console.log('Pool Addresses:', status.addresses);
 }
 
-async function waitForDeployment(chainSync, deploymentId) {
-  let status = await chainSync.trackDeployment(deploymentId);
+async function waitForDeployment(switchboard, deploymentId) {
+  let status = await switchboard.trackDeployment(deploymentId);
   while (status.status !== 'completed' && status.status !== 'failed') {
     await new Promise((r) => setTimeout(r, 5000));
-    status = await chainSync.trackDeployment(deploymentId);
+    status = await switchboard.trackDeployment(deploymentId);
   }
   return status;
 }
@@ -211,11 +211,11 @@ Monitor prices across chains:
 
 ```javascript
 // scripts/monitor-prices.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { ethers } from 'ethers';
 
 async function main() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
   });
 
@@ -263,7 +263,7 @@ Route swaps to the best chain:
 
 ```javascript
 // scripts/cross-chain-swap.js
-async function findBestSwap(chainSync, tokenIn, amountIn, pools) {
+async function findBestSwap(switchboard, tokenIn, amountIn, pools) {
   const quotes = {};
 
   for (const [chain, poolAddress] of Object.entries(pools)) {
@@ -303,7 +303,7 @@ describe('DeFi Protocol', () => {
   });
 
   it('should execute cross-chain swap', async () => {
-    const bestSwap = await findBestSwap(chainSync, tokenA, '100', pools);
+    const bestSwap = await findBestSwap(switchboard, tokenA, '100', pools);
     expect(bestSwap.chain).to.be.oneOf(['sepolia', 'mumbai']);
     expect(bestSwap.amountOut).to.be.greaterThan(0);
   });

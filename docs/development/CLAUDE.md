@@ -58,7 +58,7 @@ cd packages/services/oracle-service && npm test
 ## Architecture Overview
 
 ### High-Level System Design
-ChainSync is a **cross-chain state synchronization platform** that uses Solana as a coordination layer to enable real-time state verification across multiple blockchain networks.
+Switchboard is a **cross-chain state synchronization platform** that uses Solana as a coordination layer to enable real-time state verification across multiple blockchain networks.
 
 **Core Architecture Pattern:**
 1. **Universal State Oracle** - Collects state data from 50+ blockchain networks

@@ -1,5 +1,5 @@
 /**
- * ChainSync Customer API Service
+ * Switchboard Customer API Service
  *
  * Public-facing API for all customer interactions including:
  * - Authentication and user management
@@ -27,7 +27,7 @@ import {
   AuthMiddleware,
   UserRepository,
   DatabaseConnectionManager
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
 export interface CustomerApiConfig extends ServiceConfig {
   corsOrigins?: string[];
@@ -158,7 +158,7 @@ export class CustomerApiService extends BaseService {
       this.jwtManager = new JWTManager({
         secretKey: config.jwtSecret || process.env.JWT_SECRET || 'default-secret',
         issuer: config.name,
-        audience: 'chainsync-customer-api',
+        audience: 'switchboard-customer-api',
         accessTokenExpiry: '15m',
         refreshTokenExpiry: '7d'
       });

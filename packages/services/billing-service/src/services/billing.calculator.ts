@@ -1,5 +1,5 @@
 /**
- * Billing calculation service for ChainSync Billing Service
+ * Billing calculation service for Switchboard Billing Service
  */
 
 export class BillingCalculator {

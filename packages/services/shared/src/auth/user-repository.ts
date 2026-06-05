@@ -1,5 +1,5 @@
 /**
- * ChainSync User Repository
+ * Switchboard User Repository
  *
  * Database operations for users and API keys
  */

@@ -22,7 +22,7 @@ export interface ChainSyncConfig {
   };
 }
 
-const CONFIG_FILE = '.chainsync.yaml';
+const CONFIG_FILE = '.switchboard.yaml';
 
 export async function loadConfig(): Promise<ChainSyncConfig | null> {
   try {

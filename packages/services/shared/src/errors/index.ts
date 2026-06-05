@@ -1,5 +1,5 @@
 /**
- * ChainSync Errors Module
+ * Switchboard Errors Module
  *
  * Exports all error handling functionality
  */

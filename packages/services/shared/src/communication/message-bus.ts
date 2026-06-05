@@ -1,5 +1,5 @@
 /**
- * ChainSync Service Communication - Message Bus
+ * Switchboard Service Communication - Message Bus
  *
  * Provides inter-service communication patterns
  */

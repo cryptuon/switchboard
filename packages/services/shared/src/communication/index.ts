@@ -1,5 +1,5 @@
 /**
- * ChainSync Communication Module
+ * Switchboard Communication Module
  *
  * Exports all communication-related functionality
  */

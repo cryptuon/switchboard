@@ -1,11 +1,11 @@
 /**
- * ChainSync SDK - Real-time Cross-chain Coordination
+ * Switchboard SDK - Real-time Cross-chain Coordination
  *
  * A unified interface for real-time cross-chain state synchronization
  * with sub-400ms coordination latency and unlimited chain support
  */
 
-// import { StreamingStateOracle } from '@chainsync/oracle-service';
+// import { StreamingStateOracle } from '@switchboard/oracle-service';
 import { Connection, Keypair } from '@solana/web3.js';
 import * as WebSocket from 'ws';
 import { EventEmitter } from 'events';
@@ -13,8 +13,8 @@ import { EventEmitter } from 'events';
 export interface ChainSyncConfig {
   // Core configuration
   solanaRpcUrl: string;
-  apiServiceUrl?: string; // ChainSync API service endpoint
-  syncServiceUrl?: string; // ChainSync sync service endpoint
+  apiServiceUrl?: string; // Switchboard API service endpoint
+  syncServiceUrl?: string; // Switchboard sync service endpoint
   apiKey?: string; // For authentication and billing
 
   // Real-time settings
@@ -35,7 +35,7 @@ export interface ChainSyncConfig {
   maxReconnectAttempts?: number; // Default: 5
 }
 
-export class ChainSync extends EventEmitter {
+export class Switchboard extends EventEmitter {
   private config: ChainSyncConfig;
   // private streamingOracle?: StreamingStateOracle;
   private apiServiceUrl: string;
@@ -74,7 +74,7 @@ export class ChainSync extends EventEmitter {
    * Initialize the SDK and connect to services
    */
   async initialize(): Promise<void> {
-    console.log('🚀 Initializing ChainSync SDK with real-time streaming...');
+    console.log('🚀 Initializing Switchboard SDK with real-time streaming...');
 
     try {
       // Initialize streaming oracle
@@ -93,10 +93,10 @@ export class ChainSync extends EventEmitter {
       this.isConnected = true;
       this.emit('connected');
 
-      console.log('✅ ChainSync SDK initialized successfully');
+      console.log('✅ Switchboard SDK initialized successfully');
 
     } catch (error) {
-      console.error('❌ Failed to initialize ChainSync SDK:', error);
+      console.error('❌ Failed to initialize Switchboard SDK:', error);
       throw error;
     }
   }
@@ -121,7 +121,7 @@ export class ChainSync extends EventEmitter {
   }
 
   /**
-   * Connect to the ChainSync API service
+   * Connect to the Switchboard API service
    */
   private async connectToApiService(): Promise<void> {
     try {
@@ -462,7 +462,7 @@ export class ChainSync extends EventEmitter {
    * Disconnect from all services
    */
   async disconnect(): Promise<void> {
-    console.log('🔌 Disconnecting ChainSync SDK...');
+    console.log('🔌 Disconnecting Switchboard SDK...');
 
     if (this.webSocket) {
       this.webSocket.close();
@@ -475,7 +475,7 @@ export class ChainSync extends EventEmitter {
     this.isConnected = false;
     this.emit('disconnected');
 
-    console.log('✅ ChainSync SDK disconnected');
+    console.log('✅ Switchboard SDK disconnected');
   }
 
   /**
@@ -661,7 +661,7 @@ export interface ChainState {
   blockNumber: number;
 }
 
-export default ChainSync;
+export default Switchboard;
 
 // Export additional utilities
-export { StreamingStateOracle } from '@chainsync/oracle-service';
+export { StreamingStateOracle } from '@switchboard/oracle-service';

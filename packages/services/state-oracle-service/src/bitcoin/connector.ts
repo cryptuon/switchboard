@@ -1,5 +1,5 @@
 /**
- * Bitcoin Connector for ChainSync State Oracle
+ * Bitcoin Connector for Switchboard State Oracle
  * 
  * Connects to Bitcoin blockchain
  */

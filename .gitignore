@@ -56,3 +56,7 @@ lerna-debug.log*
 
 # Typescript
 *.tsbuildinfo
+
+# Python venv (used for mkdocs)
+.venv/
+documentation/site/

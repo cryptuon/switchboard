@@ -1,5 +1,5 @@
 /**
- * ChainSync HTTP Client
+ * Switchboard HTTP Client
  *
  * HTTP client with retry, circuit breaker, and metrics
  */

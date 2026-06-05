@@ -1,5 +1,5 @@
 /**
- * ChainSync Deployment Repository
+ * Switchboard Deployment Repository
  *
  * Repository for managing deployment entities in primary storage
  */

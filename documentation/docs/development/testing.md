@@ -1,6 +1,6 @@
 # Testing
 
-Guide to running and writing tests for ChainSync.
+Guide to running and writing tests for Switchboard.
 
 ## Test Types
 
@@ -62,32 +62,32 @@ npm run test:coverage
 ### Unit Test Example
 
 ```typescript
-// packages/sdk/tests/unit/chainSync.test.ts
+// packages/sdk/tests/unit/switchboard.test.ts
 import { describe, it, expect } from 'vitest';
-import { ChainSync } from '../../src';
+import { Switchboard } from '../../src';
 
-describe('ChainSync', () => {
+describe('Switchboard', () => {
   describe('constructor', () => {
     it('should initialize with valid config', () => {
-      const chainSync = new ChainSync({
+      const switchboard = new Switchboard({
         solana: { rpcUrl: 'https://api.devnet.solana.com' },
       });
 
-      expect(chainSync).toBeDefined();
+      expect(switchboard).toBeDefined();
     });
 
     it('should throw on invalid config', () => {
-      expect(() => new ChainSync({})).toThrow();
+      expect(() => new Switchboard({})).toThrow();
     });
   });
 
   describe('getSupportedChains', () => {
     it('should return list of chains', async () => {
-      const chainSync = new ChainSync({
+      const switchboard = new Switchboard({
         solana: { rpcUrl: 'https://api.devnet.solana.com' },
       });
 
-      const chains = await chainSync.getSupportedChains();
+      const chains = await switchboard.getSupportedChains();
 
       expect(chains).toContain('ethereum');
       expect(chains).toContain('polygon');
@@ -171,11 +171,11 @@ describe('Authentication API', () => {
 ```typescript
 // tests/e2e/deployment.test.ts
 import { describe, it, expect } from 'vitest';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 describe('End-to-End Deployment', () => {
   it('should deploy contract across chains', async () => {
-    const chainSync = new ChainSync({
+    const switchboard = new Switchboard({
       solana: { rpcUrl: process.env.SOLANA_RPC_URL },
       networks: {
         sepolia: {
@@ -185,7 +185,7 @@ describe('End-to-End Deployment', () => {
       },
     });
 
-    const deployment = await chainSync.deployContract({
+    const deployment = await switchboard.deployContract({
       name: 'TestContract',
       bytecode: '0x...',
       abi: [],
@@ -195,10 +195,10 @@ describe('End-to-End Deployment', () => {
     expect(deployment.id).toBeDefined();
 
     // Wait for completion
-    let status = await chainSync.trackDeployment(deployment.id);
+    let status = await switchboard.trackDeployment(deployment.id);
     while (status.status === 'pending' || status.status === 'deploying') {
       await new Promise((r) => setTimeout(r, 5000));
-      status = await chainSync.trackDeployment(deployment.id);
+      status = await switchboard.trackDeployment(deployment.id);
     }
 
     expect(status.status).toBe('completed');

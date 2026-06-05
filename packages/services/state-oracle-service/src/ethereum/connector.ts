@@ -1,5 +1,5 @@
 /**
- * EVM Connector for ChainSync State Oracle
+ * EVM Connector for Switchboard State Oracle
  * 
  * Connects to EVM-compatible chains like Ethereum and Polygon
  */

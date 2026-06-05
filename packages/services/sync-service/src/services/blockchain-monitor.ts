@@ -1,5 +1,5 @@
 /**
- * ChainSync Blockchain Monitor
+ * Switchboard Blockchain Monitor
  *
  * Monitors blockchain transactions and events across multiple networks
  */
@@ -16,7 +16,7 @@ import {
   RetryManager,
   MetricsCollector,
   CircuitBreaker
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
 import { TransactionRepository } from '../repositories/transaction-repository';
 import { DeploymentRepository } from '../repositories/deployment-repository';

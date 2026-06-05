@@ -17,7 +17,7 @@ The `docker-compose.yml` configuration is **production-ready** and comprehensive
 ### **Production Features**
 ✅ **Health Checks**: All services have comprehensive health monitoring
 ✅ **Service Dependencies**: Proper startup order with `depends_on` conditions
-✅ **Network Isolation**: Dedicated `chainsync-network` bridge network
+✅ **Network Isolation**: Dedicated `switchboard-network` bridge network
 ✅ **Volume Persistence**: Data persistence for all databases
 ✅ **Security**: Non-root users, authentication, environment variables
 ✅ **Monitoring**: Full Prometheus + Grafana observability stack
@@ -41,8 +41,8 @@ ORACLE_SERVICE_URL=http://oracle-service:3001
 SYNC_SERVICE_URL=http://sync-service:3002
 
 # Database URLs
-MONGODB_URL=mongodb://chainsync:${MONGODB_PASSWORD}@mongodb:27017/chainsync
-CLICKHOUSE_URL=http://chainsync:${CLICKHOUSE_PASSWORD}@clickhouse:8123/chainsync_analytics
+MONGODB_URL=mongodb://switchboard:${MONGODB_PASSWORD}@mongodb:27017/switchboard
+CLICKHOUSE_URL=http://switchboard:${CLICKHOUSE_PASSWORD}@clickhouse:8123/chainsync_analytics
 REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
 
 # Performance Configuration
@@ -70,12 +70,12 @@ MAX_CONCURRENT_CHAINS=100
 
 ### **Service Discovery**
 All services use Docker's built-in DNS resolution:
-- `oracle-service` → `chainsync-oracle` container
-- `sync-service` → `chainsync-sync` container
-- `api-service` → `chainsync-api` container
-- `mongodb` → `chainsync-mongodb` container
-- `redis` → `chainsync-redis` container
-- `clickhouse` → `chainsync-clickhouse` container
+- `oracle-service` → `switchboard-oracle` container
+- `sync-service` → `switchboard-sync` container
+- `api-service` → `switchboard-api` container
+- `mongodb` → `switchboard-mongodb` container
+- `redis` → `switchboard-redis` container
+- `clickhouse` → `switchboard-clickhouse` container
 
 ### **API Flow Validation**
 1. **SDK → API Service** (Port 3000)
@@ -130,7 +130,7 @@ Blockchain Networks → Oracle Service (WebSocket) → Sync Service → API Serv
 ## ✅ **Security Implementation**
 
 ### **Network Security**
-- Isolated Docker network (`chainsync-network`)
+- Isolated Docker network (`switchboard-network`)
 - No direct external database access
 - Internal service-to-service communication
 - Port exposure only where necessary

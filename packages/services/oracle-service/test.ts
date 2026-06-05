@@ -1,5 +1,5 @@
 /**
- * Test script for ChainSync Oracle Service
+ * Test script for Switchboard Oracle Service
  */
 
 import { StateOracle } from './src/index';

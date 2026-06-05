@@ -1,5 +1,5 @@
 /**
- * Ethereum connector for ChainSync Oracle Service
+ * Ethereum connector for Switchboard Oracle Service
  */
 
 import { JsonRpcProvider, Block, TransactionReceipt, BigNumberish } from 'ethers';

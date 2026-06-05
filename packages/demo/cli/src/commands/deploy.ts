@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { createSpinner } from '../utils/spinner';
 import { loadConfig } from '../utils/config';
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 export const deployCommand = new Command('deploy')
   .description('Deploy contracts across multiple chains')
@@ -20,7 +20,7 @@ export const deployCommand = new Command('deploy')
       // Load configuration
       const config = await loadConfig();
       if (!config) {
-        console.log(chalk.red('❌ No ChainSync configuration found. Run: chainsync init'));
+        console.log(chalk.red('❌ No Switchboard configuration found. Run: switchboard init'));
         return;
       }
 
@@ -93,10 +93,10 @@ export const deployCommand = new Command('deploy')
         throw new Error('Unsupported contract format. Use .sol or .bin files.');
       }
 
-      spinner.text = 'Initializing ChainSync SDK...';
+      spinner.text = 'Initializing Switchboard SDK...';
 
-      // Initialize ChainSync SDK
-      const chainSync = new ChainSync({
+      // Initialize Switchboard SDK
+      const switchboard = new Switchboard({
         solanaRpcUrl: process.env.SOLANA_RPC_URL!,
         ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
         polygonRpcUrl: process.env.POLYGON_RPC_URL,
@@ -109,7 +109,7 @@ export const deployCommand = new Command('deploy')
       spinner.text = 'Deploying contracts...';
 
       // Deploy contract
-      const deployment = await chainSync.deployContract({
+      const deployment = await switchboard.deployContract({
         bytecode,
         chains: targetChains,
         value: 0
@@ -133,9 +133,9 @@ export const deployCommand = new Command('deploy')
       saveDeploymentInfo(deployment);
 
       console.log(chalk.blue('\n📊 Next steps:'));
-      console.log(chalk.gray('• Track deployment: chainsync track ' + deployment.id));
-      console.log(chalk.gray('• Check status: chainsync status'));
-      console.log(chalk.gray('• View analytics: chainsync analytics'));
+      console.log(chalk.gray('• Track deployment: switchboard track ' + deployment.id));
+      console.log(chalk.gray('• Check status: switchboard status'));
+      console.log(chalk.gray('• View analytics: switchboard analytics'));
 
     } catch (error) {
       console.error(chalk.red('Deployment failed:'), error);

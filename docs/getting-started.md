@@ -1,24 +1,24 @@
-# ChainSync Developer Getting Started Guide
+# Switchboard Developer Getting Started Guide
 
-Welcome to ChainSync! This comprehensive guide will get you up and running with cross-chain development in minutes.
+Welcome to Switchboard! This comprehensive guide will get you up and running with cross-chain development in minutes.
 
 ## 🚀 Quick Start (5 minutes)
 
-### 1. Install ChainSync
+### 1. Install Switchboard
 
 ```bash
 # Install the CLI globally
-npm install -g @chainsync/cli
+npm install -g @switchboard/cli
 
 # Verify installation
-chainsync --version
+switchboard --version
 ```
 
 ### 2. Create Your First Cross-Chain Project
 
 ```bash
 # Initialize a new project in development mode (testnets)
-chainsync init my-first-dapp --dev-mode
+switchboard init my-first-dapp --dev-mode
 
 cd my-first-dapp
 ```
@@ -27,20 +27,20 @@ cd my-first-dapp
 
 ```bash
 # Deploy to development networks (all testnets)
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 
 # Or deploy to specific testnet chains
-chainsync deploy --networks sepolia,mumbai,fuji
+switchboard deploy --networks sepolia,mumbai,fuji
 ```
 
 ### 4. Monitor Your Deployment
 
 ```bash
 # Check deployment status
-chainsync status
+switchboard status
 
 # Real-time monitoring
-chainsync status --watch
+switchboard status --watch
 ```
 
 🎉 **Congratulations!** You've just deployed across multiple blockchains!
@@ -49,7 +49,7 @@ chainsync status --watch
 
 ## 🧪 Development Mode vs Production Mode
 
-ChainSync provides two distinct modes for different stages of development:
+Switchboard provides two distinct modes for different stages of development:
 
 ### Development Mode (Testnets)
 - **Purpose**: Safe testing and development
@@ -67,18 +67,18 @@ ChainSync provides two distinct modes for different stages of development:
 
 ```bash
 # Development mode commands
-chainsync init my-app --dev-mode
-chainsync deploy --dev-mode
-chainsync networks --dev-mode
+switchboard init my-app --dev-mode
+switchboard deploy --dev-mode
+switchboard networks --dev-mode
 
 # Production mode commands
-chainsync init my-app --prod-mode
-chainsync deploy --prod-mode
-chainsync networks --prod-mode
+switchboard init my-app --prod-mode
+switchboard deploy --prod-mode
+switchboard networks --prod-mode
 
 # Default mode (you choose networks)
-chainsync init my-app
-chainsync deploy --networks ethereum,polygon,arbitrum
+switchboard init my-app
+switchboard deploy --networks ethereum,polygon,arbitrum
 ```
 
 ---
@@ -100,10 +100,10 @@ chainsync deploy --networks ethereum,polygon,arbitrum
 For development mode, you'll need test tokens from faucets:
 
 ```bash
-# ChainSync can help you get test tokens
-chainsync faucet --network sepolia --address YOUR_ADDRESS
-chainsync faucet --network mumbai --address YOUR_ADDRESS
-chainsync faucet --network fuji --address YOUR_ADDRESS
+# Switchboard can help you get test tokens
+switchboard faucet --network sepolia --address YOUR_ADDRESS
+switchboard faucet --network mumbai --address YOUR_ADDRESS
+switchboard faucet --network fuji --address YOUR_ADDRESS
 
 # Or visit faucet websites manually
 # Sepolia: https://sepoliafaucet.com/
@@ -119,19 +119,19 @@ chainsync faucet --network fuji --address YOUR_ADDRESS
 
 #### Option A: CLI Only (Recommended for beginners)
 ```bash
-npm install -g @chainsync/cli
+npm install -g @switchboard/cli
 ```
 
 #### Option B: SDK for programmatic use
 ```bash
-npm install @chainsync/sdk
+npm install @switchboard/sdk
 ```
 
 #### Option C: Full development setup
 ```bash
 # Clone the repository for contributing
-git clone https://github.com/chainsync/chainsync
-cd chainsync
+git clone https://github.com/switchboard/switchboard
+cd switchboard
 npm install
 npm run build
 ```
@@ -140,38 +140,38 @@ npm run build
 
 #### Interactive Initialization (Recommended)
 ```bash
-chainsync init
+switchboard init
 # Follow the interactive prompts to configure your project
 ```
 
 #### Quick Initialization with Templates
 ```bash
 # Simple token deployment
-chainsync init my-token --template token --dev-mode
+switchboard init my-token --template token --dev-mode
 
 # DeFi protocol
-chainsync init my-defi --template defi --dev-mode
+switchboard init my-defi --template defi --dev-mode
 
 # NFT collection
-chainsync init my-nft --template nft --dev-mode
+switchboard init my-nft --template nft --dev-mode
 
 # Cross-chain bridge
-chainsync init my-bridge --template bridge --dev-mode
+switchboard init my-bridge --template bridge --dev-mode
 
 # GameFi platform
-chainsync init my-game --template gamefi --dev-mode
+switchboard init my-game --template gamefi --dev-mode
 ```
 
 #### Custom Network Configuration
 ```bash
 # Initialize with specific networks
-chainsync init my-app --networks sepolia,mumbai,fuji,arbitrum-goerli
+switchboard init my-app --networks sepolia,mumbai,fuji,arbitrum-goerli
 
 # Initialize with network categories
-chainsync init my-app --category evm --dev-mode
+switchboard init my-app --category evm --dev-mode
 
 # Initialize for specific ecosystem
-chainsync init my-app --ecosystem ethereum --dev-mode
+switchboard init my-app --ecosystem ethereum --dev-mode
 ```
 
 ### 3. Project Structure
@@ -180,7 +180,7 @@ After initialization, your project will have this structure:
 
 ```
 my-project/
-├── chainsync.config.js     # Main configuration
+├── switchboard.config.js     # Main configuration
 ├── contracts/              # Smart contracts
 │   ├── evm/               # EVM-compatible contracts
 │   ├── near/              # NEAR contracts
@@ -229,8 +229,8 @@ APTOS_RPC_URL=https://fullnode.testnet.aptoslabs.com
 PRIVATE_KEY=your_test_private_key
 ```
 
-#### ChainSync Configuration
-Edit `chainsync.config.js`:
+#### Switchboard Configuration
+Edit `switchboard.config.js`:
 
 ```javascript
 module.exports = {
@@ -307,16 +307,16 @@ cd my-project
 npm run test
 
 # 4. Deploy to testnets
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 
 # 5. Test cross-chain functionality
 npm run test:integration
 
 # 6. Monitor deployment
-chainsync status --watch
+switchboard status --watch
 
 # 7. When ready, deploy to production
-chainsync deploy --prod-mode
+switchboard deploy --prod-mode
 ```
 
 ### 2. Testing Commands
@@ -346,35 +346,35 @@ npm run test:cross-chain
 
 ```bash
 # Start local blockchain network
-chainsync local:start
+switchboard local:start
 
 # Deploy to local networks
-chainsync deploy --local
+switchboard deploy --local
 
 # Run local tests
 npm run test:local
 
 # Stop local networks
-chainsync local:stop
+switchboard local:stop
 ```
 
 ### 4. Debugging and Monitoring
 
 ```bash
 # Enable debug mode
-export DEBUG=chainsync:*
+export DEBUG=switchboard:*
 
 # Monitor deployments
-chainsync monitor --deployment-id abc123
+switchboard monitor --deployment-id abc123
 
 # View deployment logs
-chainsync logs --deployment-id abc123
+switchboard logs --deployment-id abc123
 
 # Check network health
-chainsync health
+switchboard health
 
 # Validate configurations
-chainsync validate
+switchboard validate
 ```
 
 ---
@@ -385,45 +385,45 @@ chainsync validate
 
 ```bash
 # Initialize token project
-chainsync init my-token --template token --dev-mode
+switchboard init my-token --template token --dev-mode
 
 cd my-token
 
 # Deploy to multiple testnets
-chainsync deploy --networks sepolia,mumbai,fuji
+switchboard deploy --networks sepolia,mumbai,fuji
 
 # Verify deployment
-chainsync status
+switchboard status
 ```
 
 ### 2. DeFi Protocol Development
 
 ```bash
 # Initialize DeFi project
-chainsync init my-defi --template defi --dev-mode
+switchboard init my-defi --template defi --dev-mode
 
 cd my-defi
 
 # Deploy core contracts
-chainsync deploy --category evm --dev-mode
+switchboard deploy --category evm --dev-mode
 
 # Test liquidity pools
 npm run test:pools
 
 # Monitor protocol health
-chainsync monitor --protocol defi
+switchboard monitor --protocol defi
 ```
 
 ### 3. NFT Collection Launch
 
 ```bash
 # Initialize NFT project
-chainsync init my-nft --template nft --dev-mode
+switchboard init my-nft --template nft --dev-mode
 
 cd my-nft
 
 # Deploy to NFT-friendly networks
-chainsync deploy --networks sepolia,mumbai,near-testnet
+switchboard deploy --networks sepolia,mumbai,near-testnet
 
 # Mint test NFTs
 npm run mint:test
@@ -436,18 +436,18 @@ npm run test:marketplace
 
 ```bash
 # Initialize bridge project
-chainsync init my-bridge --template bridge --dev-mode
+switchboard init my-bridge --template bridge --dev-mode
 
 cd my-bridge
 
 # Deploy bridge contracts
-chainsync deploy --networks sepolia,mumbai,arbitrum-goerli
+switchboard deploy --networks sepolia,mumbai,arbitrum-goerli
 
 # Test cross-chain transfers
 npm run test:bridge
 
 # Monitor bridge activity
-chainsync monitor --bridge
+switchboard monitor --bridge
 ```
 
 ---
@@ -476,9 +476,9 @@ cd examples/nft-collection && npm run tutorial
 ```
 
 ### Video Guides
-- [ChainSync in 5 Minutes](https://youtube.com/watch?v=chainsync-5min)
-- [Cross-Chain Development Masterclass](https://youtube.com/watch?v=chainsync-masterclass)
-- [Production Deployment Guide](https://youtube.com/watch?v=chainsync-production)
+- [Switchboard in 5 Minutes](https://youtube.com/watch?v=switchboard-5min)
+- [Cross-Chain Development Masterclass](https://youtube.com/watch?v=switchboard-masterclass)
+- [Production Deployment Guide](https://youtube.com/watch?v=switchboard-production)
 
 ---
 
@@ -510,10 +510,10 @@ Before deploying to production mode:
 ### Deployment Commands
 ```bash
 # Final production deployment
-chainsync init my-app --prod-mode
-chainsync validate --all
-chainsync deploy --prod-mode --verify
-chainsync monitor --production
+switchboard init my-app --prod-mode
+switchboard validate --all
+switchboard deploy --prod-mode --verify
+switchboard monitor --production
 ```
 
 ---
@@ -525,68 +525,68 @@ chainsync monitor --production
 #### 1. RPC Connection Errors
 ```bash
 # Test network connectivity
-chainsync test:rpc --network sepolia
+switchboard test:rpc --network sepolia
 
 # Use alternative RPC
-chainsync config set sepolia.rpcUrl https://alternative-rpc.com
+switchboard config set sepolia.rpcUrl https://alternative-rpc.com
 
 # Check network status
-chainsync health --network sepolia
+switchboard health --network sepolia
 ```
 
 #### 2. Gas Estimation Failures
 ```bash
 # Set manual gas price
-chainsync deploy --gas-price 20000000000
+switchboard deploy --gas-price 20000000000
 
 # Enable gas optimization
-chainsync config set gasOptimization true
+switchboard config set gasOptimization true
 
 # Use gas price oracle
-chainsync config set gasStrategy dynamic
+switchboard config set gasStrategy dynamic
 ```
 
 #### 3. Contract Verification Issues
 ```bash
 # Skip verification temporarily
-chainsync deploy --no-verify
+switchboard deploy --no-verify
 
 # Verify manually later
-chainsync verify --contract MyContract --network sepolia
+switchboard verify --contract MyContract --network sepolia
 
 # Check verification status
-chainsync verify:status --deployment-id abc123
+switchboard verify:status --deployment-id abc123
 ```
 
 #### 4. Cross-Chain Sync Issues
 ```bash
 # Check Solana coordination layer
-chainsync status:solana
+switchboard status:solana
 
 # Retry failed synchronization
-chainsync sync:retry --deployment-id abc123
+switchboard sync:retry --deployment-id abc123
 
 # Force state update
-chainsync sync:force --deployment-id abc123
+switchboard sync:force --deployment-id abc123
 ```
 
 ### Debug Mode
 ```bash
 # Enable verbose logging
-export DEBUG=chainsync:*
+export DEBUG=switchboard:*
 
 # Run with debug output
-chainsync deploy --debug --verbose
+switchboard deploy --debug --verbose
 
 # Save debug logs
-chainsync deploy --debug --log-file debug.log
+switchboard deploy --debug --log-file debug.log
 ```
 
 ### Getting Help
-- [GitHub Issues](https://github.com/chainsync/chainsync/issues)
-- [Discord Community](https://discord.gg/chainsync)
-- [Developer Forum](https://forum.chainsync.network)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/chainsync)
+- [GitHub Issues](https://github.com/switchboard/switchboard/issues)
+- [Discord Community](https://discord.gg/switchboard)
+- [Developer Forum](https://forum.switchboard.network)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/switchboard)
 
 ---
 
@@ -610,22 +610,22 @@ chainsync deploy --debug --log-file debug.log
 
 ## 🎉 Next Steps
 
-Now that you're set up with ChainSync:
+Now that you're set up with Switchboard:
 
 1. **Build your first dApp** using our templates
 2. **Join our community** for support and updates
-3. **Contribute** to the ChainSync ecosystem
+3. **Contribute** to the Switchboard ecosystem
 4. **Share your projects** with the community
 5. **Stay updated** with new network integrations
 
 ### Community Links
-- [Discord](https://discord.gg/chainsync)
-- [Twitter](https://twitter.com/chainsync)
-- [GitHub](https://github.com/chainsync/chainsync)
-- [Blog](https://blog.chainsync.network)
+- [Discord](https://discord.gg/switchboard)
+- [Twitter](https://twitter.com/switchboard)
+- [GitHub](https://github.com/switchboard/switchboard)
+- [Blog](https://blog.switchboard.network)
 
 ### Contributing
-See our [Contributing Guide](./development/contributing.md) to help improve ChainSync.
+See our [Contributing Guide](./development/contributing.md) to help improve Switchboard.
 
 ---
 

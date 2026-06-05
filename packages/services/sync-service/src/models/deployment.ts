@@ -1,5 +1,5 @@
 /**
- * ChainSync Deployment Model
+ * Switchboard Deployment Model
  *
  * Database model for tracking cross-chain deployments
  */

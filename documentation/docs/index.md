@@ -1,14 +1,14 @@
-# ChainSync
+# Switchboard
 
 !!! warning "Under active development"
 
-    ChainSync is under active development. APIs, schemas, and on-chain
+    Switchboard is under active development. APIs, schemas, and on-chain
     layouts may change. Production use at your own risk.
     Issues + PRs welcome — see the [GitHub repo](https://github.com/cryptuon/switchboard).
 
 **Unified Cross-Chain State Synchronization Platform**
 
-ChainSync enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, ChainSync provides real-time verification across all supported chains with **sub-400ms coordination latency**.
+Switchboard enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, Switchboard provides real-time verification across all supported chains with **sub-400ms coordination latency**.
 
 ---
 
@@ -46,38 +46,38 @@ ChainSync enables seamless cross-chain state synchronization, allowing developer
 
 ## Quick Start
 
-Get started with ChainSync in under 5 minutes:
+Get started with Switchboard in under 5 minutes:
 
 === "CLI Installation"
 
     ```bash
     # Install the CLI globally
-    npm install -g @chainsync/cli
+    npm install -g @switchboard/cli
 
     # Verify installation
-    chainsync --version
+    switchboard --version
     ```
 
 === "SDK Installation"
 
     ```bash
     # Install the SDK for programmatic use
-    npm install @chainsync/sdk
+    npm install @switchboard/sdk
     ```
 
 ### Create Your First Project
 
 ```bash
 # Initialize a new project (development mode uses testnets)
-chainsync init my-first-dapp --dev-mode
+switchboard init my-first-dapp --dev-mode
 
 cd my-first-dapp
 
 # Deploy to multiple testnets
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 
 # Monitor deployment status
-chainsync status --watch
+switchboard status --watch
 ```
 
 [Get Started :material-arrow-right:](getting-started/quickstart.md){ .md-button .md-button--primary }
@@ -87,7 +87,7 @@ chainsync status --watch
 
 ## Architecture Overview
 
-ChainSync uses a simplified **2-service architecture** for easier deployment and maintenance:
+Switchboard uses a simplified **2-service architecture** for easier deployment and maintenance:
 
 ```
 ┌─────────────────┐    ┌──────────────────┐
@@ -111,7 +111,7 @@ ChainSync uses a simplified **2-service architecture** for easier deployment and
 
 ## Supported Networks
 
-ChainSync supports **50+ blockchain networks** across multiple ecosystems:
+Switchboard supports **50+ blockchain networks** across multiple ecosystems:
 
 ### EVM Networks
 Ethereum, Polygon, Arbitrum, Optimism, BSC, Avalanche, Base, zkSync Era, Polygon zkEVM, Linea, Mantle, Scroll
@@ -180,6 +180,6 @@ Celestia, StarkNet, Flow, Celo, Gnosis, Moonbeam
 ## Getting Help
 
 - **Documentation**: You're reading it!
-- **GitHub Issues**: [Report bugs and request features](https://github.com/chainsync/chainsync/issues)
-- **Discord**: [Join our community](https://discord.gg/chainsync)
-- **Twitter**: [Follow for updates](https://twitter.com/chainsync)
+- **GitHub Issues**: [Report bugs and request features](https://github.com/switchboard/switchboard/issues)
+- **Discord**: [Join our community](https://discord.gg/switchboard)
+- **Twitter**: [Follow for updates](https://twitter.com/switchboard)

@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/sync-service",
+  "name": "@switchboard/sync-service",
   "version": "0.1.0",
-  "description": "ChainSync Synchronization Service",
+  "description": "Switchboard Synchronization Service",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@solana/web3.js": "^1.78.0",
-    "@chainsync/sdk": "^0.1.0",
-    "@chainsync/services-shared": "^0.1.0",
+    "@switchboard/sdk": "^0.1.0",
+    "@switchboard/services-shared": "^0.1.0",
     "mongoose": "^7.3.0",
     "ethers": "^6.6.2",
     "ws": "^8.13.0"
@@ -40,6 +40,6 @@
     "synchronization",
     "cross-chain"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

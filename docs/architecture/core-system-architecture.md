@@ -1,10 +1,10 @@
-# ChainSync Core System Architecture Assessment
+# Switchboard Core System Architecture Assessment
 
-This document provides a comprehensive analysis of the actual ChainSync architecture based on the implemented codebase.
+This document provides a comprehensive analysis of the actual Switchboard architecture based on the implemented codebase.
 
 ## 🏗️ **High-Level Architecture Overview**
 
-ChainSync implements a **Solana-Centric Hub Architecture** where Solana acts as the coordination layer for cross-chain state synchronization across 50+ blockchain networks.
+Switchboard implements a **Solana-Centric Hub Architecture** where Solana acts as the coordination layer for cross-chain state synchronization across 50+ blockchain networks.
 
 ```mermaid
 graph TD
@@ -18,7 +18,7 @@ graph TD
         DOTS[... 44+ more networks]
     end
 
-    subgraph "ChainSync Core Infrastructure"
+    subgraph "Switchboard Core Infrastructure"
         subgraph "Solana Coordination Layer"
             SO[State Oracle Program]
             CP[Coordinator Program]
@@ -43,7 +43,7 @@ graph TD
         end
 
         subgraph "Client Layer"
-            SDK[ChainSync SDK]
+            SDK[Switchboard SDK]
             CLI[Developer CLI]
         end
     end
@@ -83,7 +83,7 @@ graph TD
 
 **Location**: `/packages/programs/`
 
-The foundation of ChainSync is built on **three Solana programs** written in Rust using the Anchor framework:
+The foundation of Switchboard is built on **three Solana programs** written in Rust using the Anchor framework:
 
 #### **State Oracle Program** (`state-oracle`)
 - **Program ID**: `F9PpEEnEt7nnNzDom1wK2GtLk2A94ffvMuqbcxXkfwtn`
@@ -176,9 +176,9 @@ The Oracle Service is the **critical bridge** between external blockchains and t
 
 ### **4. Client Layer**
 
-#### **ChainSync SDK** (`/packages/sdk/`)
+#### **Switchboard SDK** (`/packages/sdk/`)
 - **Language**: TypeScript
-- **Purpose**: Developer-friendly interface for ChainSync
+- **Purpose**: Developer-friendly interface for Switchboard
 - **Features**:
   - Support for 50+ network configurations
   - Contract deployment across multiple chains
@@ -186,7 +186,7 @@ The Oracle Service is the **critical bridge** between external blockchains and t
   - Mock implementations for development
 
 #### **Developer CLI** (`/packages/demo/cli/`)
-- **Purpose**: Command-line tool for ChainSync operations
+- **Purpose**: Command-line tool for Switchboard operations
 - **Commands**:
   - `init`: Initialize new projects
   - `deploy`: Deploy contracts across chains
@@ -199,7 +199,7 @@ The Oracle Service is the **critical bridge** between external blockchains and t
 
 ### **Pattern: Hub-and-Spoke with Solana Hub**
 
-ChainSync implements a **hub-and-spoke architecture** with Solana as the central hub:
+Switchboard implements a **hub-and-spoke architecture** with Solana as the central hub:
 
 - **Hub**: Solana blockchain (high performance, low cost)
 - **Spokes**: 50+ external blockchains (Ethereum, Polygon, NEAR, etc.)
@@ -371,14 +371,14 @@ packages/
 ### **Future Vision**: Universal Blockchain Interoperability
 - 🚀 Support for 100+ blockchain networks
 - 🚀 Real-time cross-chain smart contract calls
-- 🚀 Advanced DeFi protocols built on ChainSync
+- 🚀 Advanced DeFi protocols built on Switchboard
 - 🚀 Enterprise-grade management tools
 
 ---
 
 ## **Summary**
 
-ChainSync implements a **sophisticated, production-ready architecture** that successfully addresses the core challenge of cross-chain state synchronization. The **Solana-centric hub model** provides an optimal balance of performance, cost, and reliability while supporting unprecedented network breadth.
+Switchboard implements a **sophisticated, production-ready architecture** that successfully addresses the core challenge of cross-chain state synchronization. The **Solana-centric hub model** provides an optimal balance of performance, cost, and reliability while supporting unprecedented network breadth.
 
 **Key Architectural Achievements**:
 - ✅ **Universal Network Support**: 50+ blockchains through unified interface

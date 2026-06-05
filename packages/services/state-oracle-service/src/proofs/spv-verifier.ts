@@ -1,5 +1,5 @@
 /**
- * SPV Proof Verification for ChainSync
+ * SPV Proof Verification for Switchboard
  * 
  * Implements Simplified Payment Verification for cross-chain transactions
  */

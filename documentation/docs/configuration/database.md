@@ -1,6 +1,6 @@
 # Database Configuration
 
-ChainSync supports MongoDB and PostgreSQL as the primary database.
+Switchboard supports MongoDB and PostgreSQL as the primary database.
 
 ## Database Selection
 
@@ -27,18 +27,18 @@ MONGODB_URL=mongodb://username:password@host:27017/database
 
 | Component | Description | Example |
 |-----------|-------------|---------|
-| `username` | Database user | `chainsync` |
+| `username` | Database user | `switchboard` |
 | `password` | User password | `password123` |
 | `host` | MongoDB host | `localhost` |
 | `port` | MongoDB port | `27017` |
-| `database` | Database name | `chainsync` |
+| `database` | Database name | `switchboard` |
 
 ### Replica Set
 
 For production, use a replica set:
 
 ```bash
-MONGODB_URL=mongodb://user:pass@host1:27017,host2:27017,host3:27017/chainsync?replicaSet=rs0
+MONGODB_URL=mongodb://user:pass@host1:27017,host2:27017,host3:27017/switchboard?replicaSet=rs0
 ```
 
 ### Connection Options
@@ -46,7 +46,7 @@ MONGODB_URL=mongodb://user:pass@host1:27017,host2:27017,host3:27017/chainsync?re
 Add options to the connection string:
 
 ```bash
-MONGODB_URL=mongodb://user:pass@host:27017/chainsync?authSource=admin&retryWrites=true
+MONGODB_URL=mongodb://user:pass@host:27017/switchboard?authSource=admin&retryWrites=true
 ```
 
 Common options:
@@ -66,7 +66,7 @@ services:
   mongodb:
     image: mongo:7
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=chainsync
+      - MONGO_INITDB_ROOT_USERNAME=switchboard
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     volumes:
       - mongodb_data:/data/db
@@ -87,16 +87,16 @@ POSTGRES_URL=postgres://username:password@host:5432/database
 
 | Component | Description | Example |
 |-----------|-------------|---------|
-| `username` | Database user | `chainsync` |
+| `username` | Database user | `switchboard` |
 | `password` | User password | `password123` |
 | `host` | PostgreSQL host | `localhost` |
 | `port` | PostgreSQL port | `5432` |
-| `database` | Database name | `chainsync` |
+| `database` | Database name | `switchboard` |
 
 ### Connection Options
 
 ```bash
-POSTGRES_URL=postgres://user:pass@host:5432/chainsync?sslmode=require&pool_max=20
+POSTGRES_URL=postgres://user:pass@host:5432/switchboard?sslmode=require&pool_max=20
 ```
 
 Common options:
@@ -115,9 +115,9 @@ services:
   postgres:
     image: postgres:16
     environment:
-      - POSTGRES_USER=chainsync
+      - POSTGRES_USER=switchboard
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=chainsync
+      - POSTGRES_DB=switchboard
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -170,7 +170,7 @@ services:
   clickhouse:
     image: clickhouse/clickhouse-server:latest
     environment:
-      - CLICKHOUSE_USER=chainsync
+      - CLICKHOUSE_USER=switchboard
       - CLICKHOUSE_PASSWORD=${CLICKHOUSE_PASSWORD}
       - CLICKHOUSE_DB=chainsync_analytics
     volumes:
@@ -259,7 +259,7 @@ docker-compose logs mongodb
 
 ```bash
 # Verify credentials
-docker-compose exec mongodb mongosh -u chainsync -p password
+docker-compose exec mongodb mongosh -u switchboard -p password
 
 # Check authSource
 MONGODB_URL=mongodb://user:pass@host:27017/db?authSource=admin

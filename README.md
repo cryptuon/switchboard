@@ -1,4 +1,4 @@
-# ChainSync 🔗
+# Switchboard 🔗
 
 > **Active development.** This project is under active development. APIs,
 > schemas, and on-chain layouts may change between releases.
@@ -6,7 +6,7 @@
 
 **Unified Cross-Chain State Synchronization Platform**
 
-ChainSync enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, ChainSync provides real-time verification across all supported chains with **sub-400ms coordination latency**.
+Switchboard enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, Switchboard provides real-time verification across all supported chains with **sub-400ms coordination latency**.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)]()
@@ -28,7 +28,7 @@ ChainSync enables seamless cross-chain state synchronization, allowing developer
 
 ## 🏗️ Architecture
 
-ChainSync uses a simplified **2-service architecture**:
+Switchboard uses a simplified **2-service architecture**:
 
 ```
 ┌─────────────────┐    ┌──────────────────┐

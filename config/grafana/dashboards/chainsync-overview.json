@@ -1,8 +1,8 @@
 {
   "dashboard": {
     "id": null,
-    "title": "ChainSync Overview",
-    "tags": ["chainsync", "overview", "performance"],
+    "title": "Switchboard Overview",
+    "tags": ["switchboard", "overview", "performance"],
     "style": "dark",
     "timezone": "browser",
     "refresh": "10s",
@@ -221,12 +221,12 @@
         "type": "graph",
         "targets": [
           {
-            "expr": "rate(container_cpu_usage_seconds_total{name=~\".*chainsync.*\"}[5m]) * 100",
+            "expr": "rate(container_cpu_usage_seconds_total{name=~\".*switchboard.*\"}[5m]) * 100",
             "legendFormat": "{{name}} CPU",
             "refId": "A"
           },
           {
-            "expr": "container_memory_usage_bytes{name=~\".*chainsync.*\"} / 1024 / 1024",
+            "expr": "container_memory_usage_bytes{name=~\".*switchboard.*\"} / 1024 / 1024",
             "legendFormat": "{{name}} Memory",
             "refId": "B"
           }

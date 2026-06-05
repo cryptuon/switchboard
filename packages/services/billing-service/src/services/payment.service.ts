@@ -1,5 +1,5 @@
 /**
- * Payment service for ChainSync Billing Service
+ * Payment service for Switchboard Billing Service
  */
 
 export class PaymentService {

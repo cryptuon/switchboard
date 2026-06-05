@@ -1,5 +1,5 @@
 /**
- * ChainSync Health Checker
+ * Switchboard Health Checker
  *
  * Provides comprehensive health monitoring for services
  */

@@ -1,5 +1,5 @@
 /**
- * ChainSync Fee Oracle Service
+ * Switchboard Fee Oracle Service
  * 
  * Monitors on-chain fee collection and provides reporting
  */

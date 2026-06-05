@@ -1,5 +1,5 @@
 /**
- * ChainSync ClickHouse Storage Adapter
+ * Switchboard ClickHouse Storage Adapter
  *
  * High-performance time-series storage for blockchain events and analytics
  */

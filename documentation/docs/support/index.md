@@ -1,6 +1,6 @@
 # Support
 
-Get help with ChainSync.
+Get help with Switchboard.
 
 ## Resources
 
@@ -21,13 +21,13 @@ Start with the documentation:
 
 For bugs and feature requests:
 
-1. Search [existing issues](https://github.com/chainsync/chainsync/issues)
+1. Search [existing issues](https://github.com/switchboard/switchboard/issues)
 2. Open a new issue with details
 3. Use issue templates
 
 ### Discord
 
-Join our [Discord server](https://discord.gg/chainsync) for:
+Join our [Discord server](https://discord.gg/switchboard) for:
 
 - Real-time help
 - Community discussions
@@ -35,9 +35,9 @@ Join our [Discord server](https://discord.gg/chainsync) for:
 
 ### Stack Overflow
 
-Ask questions with the `chainsync` tag:
+Ask questions with the `switchboard` tag:
 
-- [ChainSync on Stack Overflow](https://stackoverflow.com/questions/tagged/chainsync)
+- [Switchboard on Stack Overflow](https://stackoverflow.com/questions/tagged/switchboard)
 
 ## Reporting Bugs
 
@@ -46,7 +46,7 @@ Include in your bug report:
 1. **Description** - What happened?
 2. **Steps to reproduce** - How can we recreate it?
 3. **Expected behavior** - What should happen?
-4. **Environment** - OS, Node.js version, ChainSync version
+4. **Environment** - OS, Node.js version, Switchboard version
 5. **Logs** - Error messages and stack traces
 
 ### Example Bug Report
@@ -56,9 +56,9 @@ Include in your bug report:
 Deployment fails on Polygon Mumbai with timeout error.
 
 ## Steps to Reproduce
-1. Initialize project with `chainsync init my-app --dev-mode`
+1. Initialize project with `switchboard init my-app --dev-mode`
 2. Configure Mumbai RPC URL
-3. Run `chainsync deploy --networks mumbai`
+3. Run `switchboard deploy --networks mumbai`
 
 ## Expected Behavior
 Deployment should complete within 5 minutes.
@@ -70,7 +70,7 @@ Deployment times out after 2 minutes with error:
 ## Environment
 - OS: Ubuntu 22.04
 - Node.js: 20.10.0
-- ChainSync CLI: 1.2.3
+- Switchboard CLI: 1.2.3
 - RPC Provider: Alchemy
 
 ## Logs
@@ -90,7 +90,7 @@ For feature requests:
 For security vulnerabilities:
 
 - **Do NOT** open a public issue
-- Email: security@chainsync.dev
+- Email: security@switchboard.dev
 - We'll respond within 48 hours
 
 ## Enterprise Support
@@ -101,8 +101,8 @@ For enterprise customers:
 - Custom integrations
 - SLA guarantees
 
-Contact: enterprise@chainsync.dev
+Contact: enterprise@switchboard.dev
 
 ## Status Page
 
-Check service status at: [status.chainsync.dev](https://status.chainsync.dev)
+Check service status at: [status.switchboard.dev](https://status.switchboard.dev)

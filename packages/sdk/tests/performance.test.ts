@@ -4,7 +4,7 @@
  */
 
 import { describe, it, beforeEach, expect, jest } from '@jest/globals';
-import ChainSync, { ChainSyncConfig } from '../src/index';
+import Switchboard, { ChainSyncConfig } from '../src/index';
 
 // Mock fetch for controlled response times
 const mockFetch = jest.fn() as jest.MockedFunction<typeof fetch>;
@@ -30,7 +30,7 @@ const createMockResponse = (data: any, options: Partial<Response> = {}): Respons
 } as Response);
 
 describe('Performance Validation', () => {
-  let sdk: ChainSync;
+  let sdk: Switchboard;
   let mockConfig: ChainSyncConfig;
 
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe('Performance Validation', () => {
       coordinationLatencyTarget: 400
     };
 
-    sdk = new ChainSync(mockConfig);
+    sdk = new Switchboard(mockConfig);
     mockFetch.mockReset();
   });
 

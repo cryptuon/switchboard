@@ -1,5 +1,5 @@
 /**
- * ChainSync Metrics Collector
+ * Switchboard Metrics Collector
  *
  * Provides comprehensive metrics collection and monitoring
  */

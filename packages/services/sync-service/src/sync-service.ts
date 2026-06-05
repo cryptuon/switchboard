@@ -1,5 +1,5 @@
 /**
- * ChainSync Synchronization Service
+ * Switchboard Synchronization Service
  *
  * Main service that coordinates blockchain monitoring and deployment processing
  */
@@ -12,9 +12,9 @@ import {
   MessageBus,
   ServiceRegistry,
   ServiceRegistration
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
-import { StreamingStateOracle } from '@chainsync/oracle-service';
+import { StreamingStateOracle } from '@switchboard/oracle-service';
 import { DeploymentRepository } from './repositories/deployment-repository';
 import { TransactionRepository } from './repositories/transaction-repository';
 import { BlockchainMonitor, BlockchainConfig } from './services/blockchain-monitor';

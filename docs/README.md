@@ -1,6 +1,6 @@
-# ChainSync Documentation
+# Switchboard Documentation
 
-Welcome to the ChainSync documentation! This directory contains comprehensive guides, references, and examples for working with ChainSync.
+Welcome to the Switchboard documentation! This directory contains comprehensive guides, references, and examples for working with Switchboard.
 
 ## 📚 Documentation Structure
 
@@ -65,4 +65,4 @@ If you can't find what you're looking for:
 ---
 
 **Last updated:** September 2024
-**Version:** ChainSync 2.0 (2-Service Architecture)
+**Version:** Switchboard 2.0 (2-Service Architecture)

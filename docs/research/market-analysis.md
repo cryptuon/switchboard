@@ -41,21 +41,21 @@ Developers must maintain separate codebases for each chain they want to support,
 - Focuses on liquidity rather than state synchronization
 - Complex user experience for developers
 
-## ChainSync Differentiation
+## Switchboard Differentiation
 
-ChainSync addresses these challenges through its unique approach:
+Switchboard addresses these challenges through its unique approach:
 
 ### Unified State Verification
-Instead of each protocol implementing its own verification, ChainSync provides a single, unified approach to state verification across all supported chains.
+Instead of each protocol implementing its own verification, Switchboard provides a single, unified approach to state verification across all supported chains.
 
 ### High-Performance Coordination
-By leveraging Solana's 65,000 TPS and sub-second finality, ChainSync achieves sub-400ms synchronization times, significantly faster than existing solutions.
+By leveraging Solana's 65,000 TPS and sub-second finality, Switchboard achieves sub-400ms synchronization times, significantly faster than existing solutions.
 
 ### Developer-Centric Design
 The single SDK approach enables 90% code reuse across chains, dramatically reducing development overhead.
 
 ### Solana-Native Advantages
-ChainSync is designed specifically to leverage Solana's unique architectural advantages:
+Switchboard is designed specifically to leverage Solana's unique architectural advantages:
 - Sub-second finality
 - Sub-penny costs
 - Parallel processing capabilities
@@ -79,6 +79,6 @@ Research confirms that unified cross-chain state synchronization is technically 
 
 ## Competitive Landscape
 
-While established players like LayerZero ($3B valuation) and Wormhole ($2.5B valuation) focus on general cross-chain messaging, ChainSync positions itself as "cross-chain native infrastructure" rather than bridge aggregation.
+While established players like LayerZero ($3B valuation) and Wormhole ($2.5B valuation) focus on general cross-chain messaging, Switchboard positions itself as "cross-chain native infrastructure" rather than bridge aggregation.
 
-This positioning allows ChainSync to focus on the specific needs of developers building cross-chain applications rather than trying to be a general-purpose messaging solution.
+This positioning allows Switchboard to focus on the specific needs of developers building cross-chain applications rather than trying to be a general-purpose messaging solution.

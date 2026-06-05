@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/oracle-service",
+  "name": "@switchboard/oracle-service",
   "version": "0.1.0",
-  "description": "ChainSync Oracle Service",
+  "description": "Switchboard Oracle Service",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -38,6 +38,6 @@
     "oracle",
     "cross-chain"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

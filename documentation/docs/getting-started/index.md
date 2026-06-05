@@ -1,10 +1,10 @@
 # Getting Started
 
-Welcome to ChainSync! This section will help you get up and running with cross-chain development.
+Welcome to Switchboard! This section will help you get up and running with cross-chain development.
 
 ## Overview
 
-ChainSync provides two main ways to interact with the platform:
+Switchboard provides two main ways to interact with the platform:
 
 1. **CLI (Command Line Interface)** - Best for quick deployments and project management
 2. **SDK (Software Development Kit)** - Best for programmatic integration into your applications
@@ -26,7 +26,7 @@ Before you begin, ensure you have:
 
 ## Development vs Production Mode
 
-ChainSync provides two distinct modes:
+Switchboard provides two distinct modes:
 
 | Mode | Networks | Cost | Use Case |
 |------|----------|------|----------|

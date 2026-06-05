@@ -1,12 +1,12 @@
-# ChainSync Scripts
+# Switchboard Scripts
 
-This directory contains utility scripts for building, testing, and deploying ChainSync.
+This directory contains utility scripts for building, testing, and deploying Switchboard.
 
 ## Available Scripts
 
 - `build-programs.sh` - Build Solana programs
 - `test-programs.sh` - Test Solana programs
-- `deploy.sh` - Deploy ChainSync to a Solana cluster
+- `deploy.sh` - Deploy Switchboard to a Solana cluster
 
 ## Usage
 

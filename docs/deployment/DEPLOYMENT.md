@@ -1,4 +1,4 @@
-# ChainSync Deployment Guide
+# Switchboard Deployment Guide
 
 ## 🚀 Quick Start
 
@@ -136,7 +136,7 @@ NEAR_RPC_URL=https://rpc.mainnet.near.org
 ## 📈 Monitoring & Observability
 
 ### Grafana Dashboards
-- **ChainSync Overview**: System health and performance
+- **Switchboard Overview**: System health and performance
 - **Coordination Metrics**: Sub-400ms latency tracking
 - **Blockchain Health**: Network status and connectivity
 - **Database Performance**: MongoDB, ClickHouse, Redis metrics
@@ -190,13 +190,13 @@ ufw deny 8123   # Block direct ClickHouse access
 ### Database Backups
 ```bash
 # MongoDB backup
-docker exec chainsync-mongodb mongodump --out /backup
+docker exec switchboard-mongodb mongodump --out /backup
 
 # ClickHouse backup
-docker exec chainsync-clickhouse clickhouse-backup create
+docker exec switchboard-clickhouse clickhouse-backup create
 
 # Redis backup (automatic with RDB snapshots)
-docker exec chainsync-redis redis-cli BGSAVE
+docker exec switchboard-redis redis-cli BGSAVE
 ```
 
 ### Service Recovery
@@ -267,20 +267,20 @@ curl -X POST https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY \
   -d '{"method":"eth_blockNumber","params":[],"id":1,"jsonrpc":"2.0"}'
 
 # Monitor database performance
-docker exec chainsync-mongodb mongostat
-docker exec chainsync-clickhouse clickhouse-client --query "SHOW PROCESSLIST"
+docker exec switchboard-mongodb mongostat
+docker exec switchboard-clickhouse clickhouse-client --query "SHOW PROCESSLIST"
 ```
 
 **Database connection issues:**
 ```bash
 # Test MongoDB connection
-docker exec chainsync-mongodb mongosh --eval "db.adminCommand('ping')"
+docker exec switchboard-mongodb mongosh --eval "db.adminCommand('ping')"
 
 # Test ClickHouse connection
-docker exec chainsync-clickhouse clickhouse-client --query "SELECT 1"
+docker exec switchboard-clickhouse clickhouse-client --query "SELECT 1"
 
 # Test Redis connection
-docker exec chainsync-redis redis-cli ping
+docker exec switchboard-redis redis-cli ping
 ```
 
 ### Performance Optimization

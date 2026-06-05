@@ -1,6 +1,6 @@
-# ChainSync 2-Service Architecture
+# Switchboard 2-Service Architecture
 
-ChainSync has been restructured from multiple microservices into a simplified 2-service architecture for easier deployment and maintenance.
+Switchboard has been restructured from multiple microservices into a simplified 2-service architecture for easier deployment and maintenance.
 
 ## Architecture Overview
 
@@ -40,7 +40,7 @@ ChainSync has been restructured from multiple microservices into a simplified 2-
 
 ## Database Support
 
-ChainSync now supports **swappable databases**:
+Switchboard now supports **swappable databases**:
 
 - **MongoDB** (default): Document-based storage
 - **PostgreSQL**: Relational database with Sequelize ORM
@@ -49,11 +49,11 @@ Configure via `DATABASE_TYPE` environment variable:
 ```bash
 # Use MongoDB
 DATABASE_TYPE=mongodb
-MONGODB_URL=mongodb://chainsync:password@localhost:27017/chainsync
+MONGODB_URL=mongodb://switchboard:password@localhost:27017/switchboard
 
 # OR use PostgreSQL
 DATABASE_TYPE=postgresql
-POSTGRES_URL=postgres://chainsync:password@localhost:5432/chainsync
+POSTGRES_URL=postgres://switchboard:password@localhost:5432/switchboard
 ```
 
 ## Deployment

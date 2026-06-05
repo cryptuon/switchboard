@@ -1,6 +1,6 @@
-site_name: ChainSync Documentation
+site_name: Switchboard Documentation
 site_description: Unified Cross-Chain State Synchronization Platform - Deploy once, sync everywhere
-site_author: ChainSync Team
+site_author: Switchboard Team
 site_url: https://docs.cryptuon.com/switchboard/
 
 repo_name: cryptuon/switchboard
@@ -91,11 +91,11 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/chainsync
+      link: https://github.com/switchboard
     - icon: fontawesome/brands/twitter
-      link: https://twitter.com/chainsync
+      link: https://twitter.com/switchboard
     - icon: fontawesome/brands/discord
-      link: https://discord.gg/chainsync
+      link: https://discord.gg/switchboard
   generator: false
   version:
     provider: mike
@@ -148,4 +148,4 @@ nav:
     - Troubleshooting: support/troubleshooting.md
     - FAQ: support/faq.md
 
-copyright: Copyright &copy; 2024 ChainSync. All rights reserved.
+copyright: Copyright &copy; 2024 Switchboard. All rights reserved.

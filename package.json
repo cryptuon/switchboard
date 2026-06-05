@@ -1,7 +1,7 @@
 {
-  "name": "chainsync-monorepo",
+  "name": "switchboard-monorepo",
   "version": "1.0.0",
-  "description": "ChainSync - Sub-400ms Cross-Chain Coordination Platform",
+  "description": "Switchboard - Sub-400ms Cross-Chain Coordination Platform",
   "private": true,
   "workspaces": [
     "packages/programs/state-oracle",
@@ -13,16 +13,16 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "build:services": "lerna run build --scope=\"@chainsync/services-*\"",
-    "build:customer-api": "lerna run build --scope=\"@chainsync/customer-api\"",
-    "build:core-engine": "lerna run build --scope=\"@chainsync/core-engine\"",
+    "build:services": "lerna run build --scope=\"@switchboard/services-*\"",
+    "build:customer-api": "lerna run build --scope=\"@switchboard/customer-api\"",
+    "build:core-engine": "lerna run build --scope=\"@switchboard/core-engine\"",
     "dev": "lerna run dev --parallel",
-    "dev:customer-api": "lerna run dev --scope=\"@chainsync/customer-api\"",
-    "dev:core-engine": "lerna run dev --scope=\"@chainsync/core-engine\"",
-    "dev:demo": "lerna run dev --scope=\"@chainsync/demo\"",
+    "dev:customer-api": "lerna run dev --scope=\"@switchboard/customer-api\"",
+    "dev:core-engine": "lerna run dev --scope=\"@switchboard/core-engine\"",
+    "dev:demo": "lerna run dev --scope=\"@switchboard/demo\"",
     "start": "lerna run start --parallel",
-    "start:customer-api": "lerna run start --scope=\"@chainsync/customer-api\"",
-    "start:core-engine": "lerna run start --scope=\"@chainsync/core-engine\"",
+    "start:customer-api": "lerna run start --scope=\"@switchboard/customer-api\"",
+    "start:core-engine": "lerna run start --scope=\"@switchboard/core-engine\"",
     "clean": "lerna run clean && rimraf node_modules",
     "clean:dist": "lerna run clean",
     "lint": "lerna run lint",
@@ -73,7 +73,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/chainsync.git"
+    "url": "git+https://github.com/cryptuon/switchboard.git"
   },
   "keywords": [
     "solana",
@@ -81,10 +81,10 @@
     "cross-chain",
     "defi"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/your-org/chainsync/issues"
+    "url": "https://github.com/cryptuon/switchboard/issues"
   },
-  "homepage": "https://github.com/your-org/chainsync#readme"
+  "homepage": "https://github.com/cryptuon/switchboard#readme"
 }

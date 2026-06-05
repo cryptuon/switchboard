@@ -1,5 +1,5 @@
 /**
- * ChainSync Metrics Module
+ * Switchboard Metrics Module
  *
  * Exports all metrics functionality
  */

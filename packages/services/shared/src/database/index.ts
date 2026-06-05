@@ -1,5 +1,5 @@
 /**
- * ChainSync Database Module
+ * Switchboard Database Module
  *
  * Exports all database-related functionality
  */

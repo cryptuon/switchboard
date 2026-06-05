@@ -1,5 +1,5 @@
 /**
- * ChainSync Retry Module
+ * Switchboard Retry Module
  *
  * Exports all retry and circuit breaker functionality
  */

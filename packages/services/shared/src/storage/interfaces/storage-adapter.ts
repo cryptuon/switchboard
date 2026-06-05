@@ -1,5 +1,5 @@
 /**
- * ChainSync Storage Adapter Interfaces
+ * Switchboard Storage Adapter Interfaces
  *
  * Abstract interfaces for different storage backends optimized for specific use cases
  */

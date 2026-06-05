@@ -1,9 +1,9 @@
 #!/bin/bash
-# ChainSync Production Deployment Script
+# Switchboard Production Deployment Script
 
 set -e
 
-echo "🚀 Starting ChainSync Production Deployment..."
+echo "🚀 Starting Switchboard Production Deployment..."
 
 # Color codes for output
 RED='\033[0;31m'
@@ -115,7 +115,7 @@ else
     log_warning "Database schema file not found, creating basic schema..."
     mkdir -p scripts
     cat > scripts/schema.sql << 'EOF'
--- ChainSync Database Schema
+-- Switchboard Database Schema
 CREATE TABLE IF NOT EXISTS deployments (
     id SERIAL PRIMARY KEY,
     deployment_id VARCHAR(255) UNIQUE NOT NULL,
@@ -170,7 +170,7 @@ log_info "Stopping existing services..."
 docker-compose -f docker-compose.production.yml down
 
 # Step 7: Start services
-log_info "Starting ChainSync services..."
+log_info "Starting Switchboard services..."
 docker-compose -f docker-compose.production.yml up -d
 
 if [ $? -ne 0 ]; then
@@ -227,7 +227,7 @@ fi
 
 # Check database connectivity
 log_info "Checking database connectivity..."
-if docker-compose -f docker-compose.production.yml exec -T postgres pg_isready -U chainsync; then
+if docker-compose -f docker-compose.production.yml exec -T postgres pg_isready -U switchboard; then
     log_success "Database is ready"
 else
     log_error "Database connectivity check failed"
@@ -246,7 +246,7 @@ fi
 # Step 10: Display deployment summary
 echo
 echo "========================================="
-echo "🎉 ChainSync Deployment Summary"
+echo "🎉 Switchboard Deployment Summary"
 echo "========================================="
 
 if [ "$health_checks_passed" = true ]; then
@@ -270,7 +270,7 @@ if [ "$health_checks_passed" = true ]; then
     echo "  Stop all: docker-compose -f docker-compose.production.yml down"
 
     echo
-    log_success "ChainSync is now running in production mode! 🚀"
+    log_success "Switchboard is now running in production mode! 🚀"
 
 else
     log_error "Some health checks failed. Please check the logs:"

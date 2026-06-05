@@ -1,5 +1,5 @@
 /**
- * ChainSync Core Engine Service
+ * Switchboard Core Engine Service
  *
  * Backend service that handles all core functionality:
  * - Blockchain oracle and state coordination
@@ -23,7 +23,7 @@ import {
   ErrorCode,
   CommonHealthChecks,
   DatabaseConnectionManager
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
 import { StreamingStateOracle } from '../../oracle-service/src/streaming-state-oracle';
 import { ConnectorFactory } from '../../oracle-service/src/connector-factory';

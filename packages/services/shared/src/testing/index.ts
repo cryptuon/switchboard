@@ -1,5 +1,5 @@
 /**
- * ChainSync Testing Module
+ * Switchboard Testing Module
  *
  * Exports all testing utilities and helpers
  */

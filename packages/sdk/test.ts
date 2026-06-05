@@ -1,21 +1,21 @@
 /**
- * Test script for ChainSync SDK
+ * Test script for Switchboard SDK
  */
 
-import { ChainSync } from './src/index';
+import { Switchboard } from './src/index';
 
 async function main() {
   // Create SDK instance
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solanaRpcUrl: 'https://api.devnet.solana.com'
   });
 
   // Test fee calculation
-  const estimatedFee = chainSync['calculateFee'](1000000); // 1,000,000 units
+  const estimatedFee = switchboard['calculateFee'](1000000); // 1,000,000 units
   console.log(`Estimated fee for transaction: ${estimatedFee}`);
 
   // Test contract deployment with fee estimation
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     bytecode: '0x1234',
     chains: ['ethereum', 'polygon'],
     value: 1000000
@@ -24,7 +24,7 @@ async function main() {
   console.log('Deployment result:', deployment);
   
   // Test transaction tracking
-  const tracking = await chainSync.trackTransaction('test-transaction-id');
+  const tracking = await switchboard.trackTransaction('test-transaction-id');
   console.log('Tracking result:', tracking);
 }
 

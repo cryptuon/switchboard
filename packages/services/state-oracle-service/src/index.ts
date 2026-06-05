@@ -1,5 +1,5 @@
 /**
- * Simple ChainSync State Oracle Service
+ * Simple Switchboard State Oracle Service
  * 
  * Collects and verifies state data from multiple blockchain networks
  */
@@ -39,7 +39,7 @@ export class StateOracle extends EventEmitter {
     }
 
     this.isRunning = true;
-    console.log('Starting ChainSync Universal State Oracle...');
+    console.log('Starting Switchboard Universal State Oracle...');
 
     // Start monitoring all chains
     for (const [chainName, config] of this.chains.entries()) {
@@ -59,7 +59,7 @@ export class StateOracle extends EventEmitter {
     }
 
     this.isRunning = false;
-    console.log('Stopping ChainSync Universal State Oracle...');
+    console.log('Stopping Switchboard Universal State Oracle...');
     this.emit('stopped');
   }
 

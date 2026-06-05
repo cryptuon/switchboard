@@ -1,5 +1,5 @@
 /**
- * ChainSync Deployment Processor
+ * Switchboard Deployment Processor
  *
  * Processes cross-chain deployments and coordinates with blockchain networks
  */
@@ -16,7 +16,7 @@ import {
   MetricsCollector,
   MessageBus,
   Message
-} from '@chainsync/services-shared';
+} from '@switchboard/services-shared';
 
 import { DeploymentRepository } from '../repositories/deployment-repository';
 import { TransactionRepository } from '../repositories/transaction-repository';

@@ -1,10 +1,10 @@
 # Development
 
-Resources for contributing to and extending ChainSync.
+Resources for contributing to and extending Switchboard.
 
 ## Overview
 
-ChainSync is an open-source project that welcomes contributions. This section covers:
+Switchboard is an open-source project that welcomes contributions. This section covers:
 
 - [Contributing](contributing.md) - How to contribute
 - [Testing](testing.md) - Running and writing tests
@@ -20,8 +20,8 @@ ChainSync is an open-source project that welcomes contributions. This section co
 ### Clone and Install
 
 ```bash
-git clone https://github.com/chainsync/chainsync
-cd chainsync
+git clone https://github.com/switchboard/switchboard
+cd switchboard
 npm install
 ```
 
@@ -38,7 +38,7 @@ npm run dev
 ### Project Structure
 
 ```
-chainsync/
+switchboard/
 ├── packages/
 │   ├── services/
 │   │   ├── customer-api/      # Customer API service

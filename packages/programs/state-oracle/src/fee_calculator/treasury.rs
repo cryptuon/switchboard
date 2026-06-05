@@ -1,4 +1,4 @@
-//! Treasury account management for ChainSync programs
+//! Treasury account management for Switchboard programs
 
 use anchor_lang::prelude::*;
 

@@ -20,7 +20,7 @@ describe('Billing Service Integration Tests', () => {
       webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || 'whsec_test_webhook_secret'
     },
     database: {
-      url: process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/chainsync-billing-test',
+      url: process.env.TEST_DATABASE_URL || 'mongodb://localhost:27017/switchboard-billing-test',
       options: {}
     },
     pricing: {
@@ -158,7 +158,7 @@ describe('Billing Service Integration Tests', () => {
       customerId: 'test_customer_id',
       amount: 2999, // $29.99
       currency: 'usd',
-      description: 'Test payment for ChainSync services'
+      description: 'Test payment for Switchboard services'
     };
 
     test('POST /api/v1/billing/payment-intents should validate request', async () => {

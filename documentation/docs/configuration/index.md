@@ -1,10 +1,10 @@
 # Configuration
 
-This section covers all configuration options for ChainSync.
+This section covers all configuration options for Switchboard.
 
 ## Configuration Overview
 
-ChainSync is configured through environment variables and configuration files.
+Switchboard is configured through environment variables and configuration files.
 
 | Configuration | Purpose |
 |---------------|---------|
@@ -22,7 +22,7 @@ NODE_ENV=production
 
 # Database (choose one)
 DATABASE_TYPE=mongodb
-MONGODB_URL=mongodb://localhost:27017/chainsync
+MONGODB_URL=mongodb://localhost:27017/switchboard
 
 # Solana Coordination
 SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
@@ -35,7 +35,7 @@ JWT_SECRET=your-secure-secret
 
 ### Project Configuration
 
-For CLI projects, use `chainsync.config.js`:
+For CLI projects, use `switchboard.config.js`:
 
 ```javascript
 module.exports = {
@@ -73,7 +73,7 @@ nano .env
 Configuration is loaded in this order (later overrides earlier):
 
 1. Default values
-2. Configuration file (`chainsync.config.js`)
+2. Configuration file (`switchboard.config.js`)
 3. Environment variables
 4. CLI arguments
 
@@ -83,13 +83,13 @@ Validate your configuration:
 
 ```bash
 # Validate project configuration
-chainsync validate
+switchboard validate
 
 # Check specific settings
-chainsync validate --config
+switchboard validate --config
 
 # Verify network connectivity
-chainsync health
+switchboard health
 ```
 
 ## Next Steps

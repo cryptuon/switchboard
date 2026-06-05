@@ -1,5 +1,5 @@
 /**
- * ChainSync Storage Usage Examples
+ * Switchboard Storage Usage Examples
  *
  * Demonstrates how to use the flexible storage system
  */
@@ -23,7 +23,7 @@ export async function setupMongoClickHouseStorage(logger: Logger, metricsCollect
     mongodb: {
       host: process.env.MONGODB_HOST || 'localhost',
       port: parseInt(process.env.MONGODB_PORT || '27017'),
-      database: process.env.MONGODB_DATABASE || 'chainsync',
+      database: process.env.MONGODB_DATABASE || 'switchboard',
       username: process.env.MONGODB_USERNAME,
       password: process.env.MONGODB_PASSWORD,
       ssl: process.env.MONGODB_SSL === 'true'
@@ -31,7 +31,7 @@ export async function setupMongoClickHouseStorage(logger: Logger, metricsCollect
     clickhouse: {
       host: process.env.CLICKHOUSE_HOST || 'localhost',
       port: parseInt(process.env.CLICKHOUSE_PORT || '8123'),
-      database: process.env.CLICKHOUSE_DATABASE || 'chainsync',
+      database: process.env.CLICKHOUSE_DATABASE || 'switchboard',
       username: process.env.CLICKHOUSE_USERNAME,
       password: process.env.CLICKHOUSE_PASSWORD
     },
@@ -70,7 +70,7 @@ export async function setupPostgresDuckDBStorage(logger: Logger, metricsCollecto
     postgresql: {
       host: process.env.POSTGRES_HOST || 'localhost',
       port: parseInt(process.env.POSTGRES_PORT || '5432'),
-      database: process.env.POSTGRES_DATABASE || 'chainsync',
+      database: process.env.POSTGRES_DATABASE || 'switchboard',
       username: process.env.POSTGRES_USERNAME || 'postgres',
       password: process.env.POSTGRES_PASSWORD || 'password',
       ssl: process.env.POSTGRES_SSL === 'true'

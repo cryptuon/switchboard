@@ -1,10 +1,10 @@
-# ChainSync Off-Chain Infrastructure
+# Switchboard Off-Chain Infrastructure
 
-Production-ready off-chain infrastructure for ChainSync cross-chain deployment platform.
+Production-ready off-chain infrastructure for Switchboard cross-chain deployment platform.
 
 ## Architecture Overview
 
-The ChainSync infrastructure consists of multiple microservices working together to provide reliable cross-chain deployment capabilities:
+The Switchboard infrastructure consists of multiple microservices working together to provide reliable cross-chain deployment capabilities:
 
 ### Core Services
 
@@ -63,7 +63,7 @@ LOG_LEVEL=info
 PORT=3000
 
 # Database
-DATABASE_URL=mongodb://localhost:27017/chainsync
+DATABASE_URL=mongodb://localhost:27017/switchboard
 DB_MAX_CONNECTIONS=20
 
 # Security
@@ -204,7 +204,7 @@ Response:
 {
   "status": "healthy",
   "timestamp": "2024-01-01T00:00:00.000Z",
-  "service": "chainsync-api",
+  "service": "switchboard-api",
   "version": "0.1.0",
   "uptime": 3600000,
   "checks": {

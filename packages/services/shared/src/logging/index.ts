@@ -1,5 +1,5 @@
 /**
- * ChainSync Logging Module
+ * Switchboard Logging Module
  *
  * Exports all logging functionality
  */

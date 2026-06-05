@@ -1,6 +1,6 @@
-# ChainSync Solana Programs
+# Switchboard Solana Programs
 
-This directory contains the Solana on-chain programs that power ChainSync's coordination layer.
+This directory contains the Solana on-chain programs that power Switchboard's coordination layer.
 
 ## Programs
 

@@ -1,5 +1,5 @@
 /**
- * ChainSync Session Repository
+ * Switchboard Session Repository
  *
  * Repository for managing user sessions in cache storage
  */

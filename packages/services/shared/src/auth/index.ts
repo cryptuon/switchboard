@@ -1,5 +1,5 @@
 /**
- * ChainSync Authentication Module
+ * Switchboard Authentication Module
  *
  * Exports all authentication-related components
  */

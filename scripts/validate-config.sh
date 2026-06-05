@@ -5,7 +5,7 @@
 
 set -e
 
-echo "🔍 ChainSync Deployment Configuration Analysis"
+echo "🔍 Switchboard Deployment Configuration Analysis"
 echo "=============================================="
 
 cd /home/dipankar/Github/switchboard
@@ -76,8 +76,8 @@ done
 
 # Check network configuration
 echo "🔍 Validating network configuration..."
-if grep -q "chainsync-network" docker-compose.yml; then
-    echo "✅ Dedicated network 'chainsync-network' configured"
+if grep -q "switchboard-network" docker-compose.yml; then
+    echo "✅ Dedicated network 'switchboard-network' configured"
 else
     echo "❌ Missing dedicated network"
 fi

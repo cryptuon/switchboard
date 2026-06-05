@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * ChainSync Integration Test Suite
+ * Switchboard Integration Test Suite
  * Validates end-to-end system functionality and performance
  */
 
@@ -363,7 +363,7 @@ async function testInterServiceCommunication() {
 
 // Main test runner
 async function runIntegrationTests() {
-  log('🧪 Starting ChainSync Integration Test Suite', 'info');
+  log('🧪 Starting Switchboard Integration Test Suite', 'info');
   log(`Testing against: ${config.apiUrl}`, 'info');
 
   const startTime = performance.now();

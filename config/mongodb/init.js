@@ -1,12 +1,12 @@
 /**
  * MongoDB Initialization Script
- * Creates ChainSync database collections and indexes for optimal performance
+ * Creates Switchboard database collections and indexes for optimal performance
  */
 
-// Switch to chainsync database
-db = db.getSiblingDB('chainsync');
+// Switch to switchboard database
+db = db.getSiblingDB('switchboard');
 
-print('🚀 Initializing ChainSync MongoDB database...');
+print('🚀 Initializing Switchboard MongoDB database...');
 
 // Create collections with validation schemas
 
@@ -227,14 +227,14 @@ db.configurations.insertMany([
 
 print('👤 Creating application user...');
 
-// Create application user for ChainSync services
+// Create application user for Switchboard services
 db.createUser({
   user: 'chainsync_app',
   pwd: 'chainsync_app_password_change_in_production',
   roles: [
     {
       role: 'readWrite',
-      db: 'chainsync'
+      db: 'switchboard'
     }
   ]
 });
@@ -242,7 +242,7 @@ db.createUser({
 print('📊 Database statistics:');
 db.stats();
 
-print('✅ ChainSync MongoDB initialization completed successfully!');
+print('✅ Switchboard MongoDB initialization completed successfully!');
 print('');
 print('📋 Created collections:');
 print('  - deployments (with validation schema)');
@@ -255,4 +255,4 @@ print('🔍 Created indexes for optimal query performance');
 print('⚙️ Inserted default configuration values');
 print('👤 Created application user: chainsync_app');
 print('');
-print('🚀 Database ready for ChainSync services!');
+print('🚀 Database ready for Switchboard services!');

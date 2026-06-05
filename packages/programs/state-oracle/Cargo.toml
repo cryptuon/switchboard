@@ -1,7 +1,7 @@
 [package]
 name = "state-oracle"
 version = "0.1.0"
-description = "ChainSync State Oracle Program"
+description = "Switchboard State Oracle Program"
 edition = "2021"
 
 [lib]

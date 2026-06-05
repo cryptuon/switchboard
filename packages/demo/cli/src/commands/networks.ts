@@ -9,7 +9,7 @@ export const networksCommand = new Command('networks')
   .option('--dev-mode', 'Show development mode (testnet) networks')
   .option('--prod-mode', 'Show production mode (mainnet) networks')
   .action(async (options) => {
-    console.log(chalk.blue('🌐 ChainSync Supported Networks\n'));
+    console.log(chalk.blue('🌐 Switchboard Supported Networks\n'));
 
     const networks = {
       evm: {
@@ -110,19 +110,19 @@ export const networksCommand = new Command('networks')
     if (!options.category) {
       console.log(chalk.blue('📚 Usage Examples:'));
       console.log(chalk.gray('• Initialize with multiple chains:'));
-      console.log(chalk.yellow('  chainsync init --chains ethereum,polygon,arbitrum,bsc'));
+      console.log(chalk.yellow('  switchboard init --chains ethereum,polygon,arbitrum,bsc'));
       console.log(chalk.gray('• Deploy to Layer 2 networks:'));
-      console.log(chalk.yellow('  chainsync deploy --chains base,optimism,zksync,linea'));
+      console.log(chalk.yellow('  switchboard deploy --chains base,optimism,zksync,linea'));
       console.log(chalk.gray('• Use alternative blockchains:'));
-      console.log(chalk.yellow('  chainsync init --chains near,sui,aptos,cosmos'));
+      console.log(chalk.yellow('  switchboard init --chains near,sui,aptos,cosmos'));
 
       console.log(chalk.blue('\n🔧 Network Commands:'));
       console.log(chalk.gray('• View EVM chains only:'));
-      console.log(chalk.yellow('  chainsync networks --category evm'));
+      console.log(chalk.yellow('  switchboard networks --category evm'));
       console.log(chalk.gray('• View Layer 2 solutions:'));
-      console.log(chalk.yellow('  chainsync networks --category layer2'));
+      console.log(chalk.yellow('  switchboard networks --category layer2'));
       console.log(chalk.gray('• View testnets only:'));
-      console.log(chalk.yellow('  chainsync networks --testnet'));
+      console.log(chalk.yellow('  switchboard networks --testnet'));
 
       const totalChains = Object.values(networks).reduce((sum, group) => sum + group.chains.length, 0);
       console.log(chalk.green(`\n✨ Total supported networks: ${totalChains}+`));

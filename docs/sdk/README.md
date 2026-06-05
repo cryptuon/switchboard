@@ -1,21 +1,21 @@
-# ChainSync SDK Documentation
+# Switchboard SDK Documentation
 
 ## Overview
 
-The ChainSync SDK provides a unified interface for cross-chain development, enabling developers to deploy contracts and track transactions across multiple blockchain networks with minimal code changes.
+The Switchboard SDK provides a unified interface for cross-chain development, enabling developers to deploy contracts and track transactions across multiple blockchain networks with minimal code changes.
 
 ## Installation
 
 ```bash
-npm install @chainsync/sdk
+npm install @switchboard/sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solanaRpcUrl: 'https://api.devnet.solana.com',
   ethereumRpcUrl: 'https://eth-goerli.g.alchemy.com/v2/your-key',
   polygonRpcUrl: 'https://polygon-mumbai.g.alchemy.com/v2/your-key'
@@ -24,12 +24,12 @@ const chainSync = new ChainSync({
 
 ## API Reference
 
-### ChainSync Class
+### Switchboard Class
 
 #### Constructor
 
 ```typescript
-new ChainSync(config: ChainSyncConfig)
+new Switchboard(config: ChainSyncConfig)
 ```
 
 **Parameters:**
@@ -78,7 +78,7 @@ async deployContract(options: {
 
 **Example:**
 ```typescript
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   bytecode: '0x608060405234801561001057600080fd5b50...',
   chains: ['ethereum', 'polygon'],
   value: 1000000 // 1M wei
@@ -104,7 +104,7 @@ async trackTransaction(transactionId: string): Promise<TransactionStatus>
 
 **Example:**
 ```typescript
-const status = await chainSync.trackTransaction('deploy_1234567890_abc123');
+const status = await switchboard.trackTransaction('deploy_1234567890_abc123');
 
 console.log(`Status: ${status.status}`);
 console.log(`Confirmations: ${status.confirmations}`);
@@ -182,7 +182,7 @@ The SDK provides comprehensive error handling for common scenarios:
 
 ```typescript
 try {
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     bytecode: '0xinvalid',
     chains: ['ethereum']
   });
@@ -199,7 +199,7 @@ try {
 
 ## Fee Calculation
 
-ChainSync uses a standard fee structure:
+Switchboard uses a standard fee structure:
 
 - **Base fee rate**: 0.04% (4 basis points)
 - **Multi-chain multiplier**: Fee calculated per target chain
@@ -219,7 +219,7 @@ ChainSync uses a standard fee structure:
 
 ```typescript
 // Use environment variables for RPC URLs
-const chainSync = new ChainSync({
+const switchboard = new Switchboard({
   solanaRpcUrl: process.env.SOLANA_RPC_URL,
   ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
   polygonRpcUrl: process.env.POLYGON_RPC_URL,
@@ -232,7 +232,7 @@ const chainSync = new ChainSync({
 ```typescript
 // Always wrap async calls in try-catch
 try {
-  const result = await chainSync.deployContract(options);
+  const result = await switchboard.deployContract(options);
   // Handle success
 } catch (error) {
   // Handle specific error types
@@ -245,11 +245,11 @@ try {
 ```typescript
 // Poll for transaction status updates
 async function waitForConfirmation(transactionId: string) {
-  let status = await chainSync.trackTransaction(transactionId);
+  let status = await switchboard.trackTransaction(transactionId);
 
   while (status.status === 'pending') {
     await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5 seconds
-    status = await chainSync.trackTransaction(transactionId);
+    status = await switchboard.trackTransaction(transactionId);
   }
 
   return status;
@@ -261,7 +261,7 @@ async function waitForConfirmation(transactionId: string) {
 ```typescript
 // Deploy to multiple chains efficiently
 const chains = ['ethereum', 'polygon', 'arbitrum'];
-const deployment = await chainSync.deployContract({
+const deployment = await switchboard.deployContract({
   bytecode: contractBytecode,
   chains: chains
 });
@@ -277,10 +277,10 @@ for (const chainDeployment of deployment.deployments) {
 ### Complete Deployment Flow
 
 ```typescript
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 
 async function deployAndTrack() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solanaRpcUrl: process.env.SOLANA_RPC_URL!,
     ethereumRpcUrl: process.env.ETHEREUM_RPC_URL!,
     polygonRpcUrl: process.env.POLYGON_RPC_URL!
@@ -288,7 +288,7 @@ async function deployAndTrack() {
 
   try {
     // Deploy contract
-    const deployment = await chainSync.deployContract({
+    const deployment = await switchboard.deployContract({
       bytecode: '0x608060405234801561001057600080fd5b50...',
       chains: ['ethereum', 'polygon'],
       value: 1000000
@@ -298,13 +298,13 @@ async function deployAndTrack() {
     console.log(`Estimated fee: ${deployment.estimatedFee} wei`);
 
     // Track status
-    let status = await chainSync.trackTransaction(deployment.id);
+    let status = await switchboard.trackTransaction(deployment.id);
     console.log(`Initial status: ${status.status}`);
 
     // Wait for confirmation
     while (status.status === 'pending') {
       await new Promise(resolve => setTimeout(resolve, 10000));
-      status = await chainSync.trackTransaction(deployment.id);
+      status = await switchboard.trackTransaction(deployment.id);
 
       console.log(`Status update: ${status.status}`);
       status.chainStates.forEach(chain => {
@@ -333,8 +333,8 @@ deployAndTrack()
 
 ```typescript
 // Access the internal fee calculation method
-const chainSync = new ChainSync(config);
-const customFee = chainSync['calculateFee'](2000000); // 2M wei
+const switchboard = new Switchboard(config);
+const customFee = switchboard['calculateFee'](2000000); // 2M wei
 console.log(`Custom fee: ${customFee} wei`);
 ```
 
@@ -342,9 +342,9 @@ console.log(`Custom fee: ${customFee} wei`);
 
 ```typescript
 // Get chain ID for a chain name
-const chainSync = new ChainSync(config);
-const ethereumId = chainSync['getChainId']('ethereum'); // Returns 1
-const polygonId = chainSync['getChainId']('polygon'); // Returns 137
+const switchboard = new Switchboard(config);
+const ethereumId = switchboard['getChainId']('ethereum'); // Returns 1
+const polygonId = switchboard['getChainId']('polygon'); // Returns 137
 ```
 
 ## Troubleshooting
@@ -361,11 +361,11 @@ const polygonId = chainSync['getChainId']('polygon'); // Returns 137
 Enable debug logging by setting the environment variable:
 
 ```bash
-export DEBUG=chainsync:*
+export DEBUG=switchboard:*
 ```
 
 ### Support
 
-- Documentation: [docs.chainsync.org](https://docs.chainsync.org)
-- GitHub Issues: [github.com/your-org/chainsync/issues](https://github.com/your-org/chainsync/issues)
-- Discord: [discord.gg/chainsync](https://discord.gg/chainsync)
+- Documentation: [docs.switchboard.org](https://docs.switchboard.org)
+- GitHub Issues: [github.com/your-org/switchboard/issues](https://github.com/your-org/switchboard/issues)
+- Discord: [discord.gg/switchboard](https://discord.gg/switchboard)

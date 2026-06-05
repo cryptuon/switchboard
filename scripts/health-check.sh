@@ -1,5 +1,5 @@
 #!/bin/bash
-# ChainSync Health Check Script
+# Switchboard Health Check Script
 
 set -e
 
@@ -26,7 +26,7 @@ log_warning() {
     echo -e "${YELLOW}[WARNING]${NC} $1"
 }
 
-echo "🏥 ChainSync Health Check"
+echo "🏥 Switchboard Health Check"
 echo "========================="
 
 # Function to check HTTP endpoint
@@ -68,11 +68,11 @@ check_docker_service() {
 check_database() {
     log_info "Checking PostgreSQL database"
 
-    if docker-compose -f docker-compose.production.yml exec -T postgres pg_isready -U chainsync 2>/dev/null; then
+    if docker-compose -f docker-compose.production.yml exec -T postgres pg_isready -U switchboard 2>/dev/null; then
         log_success "PostgreSQL is ready ✅"
 
         # Check if tables exist
-        table_count=$(docker-compose -f docker-compose.production.yml exec -T postgres psql -U chainsync -d chainsync -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | xargs)
+        table_count=$(docker-compose -f docker-compose.production.yml exec -T postgres psql -U switchboard -d switchboard -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public';" 2>/dev/null | xargs)
         if [ "$table_count" -gt 0 ]; then
             log_success "Database schema is set up ($table_count tables) ✅"
         else
@@ -253,7 +253,7 @@ main() {
     # Summary
     echo "========================="
     if [ $overall_status -eq 0 ]; then
-        log_success "🎉 All critical health checks passed! ChainSync is healthy."
+        log_success "🎉 All critical health checks passed! Switchboard is healthy."
     else
         log_error "❌ Some health checks failed. Please review the issues above."
     fi

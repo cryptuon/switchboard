@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/customer-api",
+  "name": "@switchboard/customer-api",
   "version": "0.1.0",
-  "description": "ChainSync Customer API Service",
+  "description": "Switchboard Customer API Service",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,7 +14,7 @@
     "format": "prettier --write src"
   },
   "dependencies": {
-    "@chainsync/services-shared": "workspace:*",
+    "@switchboard/services-shared": "*",
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "helmet": "^7.0.0",
@@ -44,6 +44,6 @@
     "rest",
     "microservice"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

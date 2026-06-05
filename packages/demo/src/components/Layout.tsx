@@ -38,7 +38,7 @@ export default function Layout({ children }: LayoutProps) {
       <div className="lg:hidden">
         <div className="flex items-center justify-between px-4 py-2 bg-white shadow-sm">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-gray-900">ChainSync</h1>
+            <h1 className="text-xl font-bold text-gray-900">Switchboard</h1>
           </div>
           <button
             type="button"
@@ -64,7 +64,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className="flex flex-col h-full">
             {/* Logo */}
             <div className="flex items-center justify-center h-16 bg-primary-600">
-              <h1 className="text-2xl font-bold text-white">ChainSync</h1>
+              <h1 className="text-2xl font-bold text-white">Switchboard</h1>
             </div>
 
             {/* Navigation */}

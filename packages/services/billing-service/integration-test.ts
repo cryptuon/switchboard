@@ -1,5 +1,5 @@
 /**
- * Integration test for ChainSync Billing Service
+ * Integration test for Switchboard Billing Service
  */
 
 import { BillingCalculator } from './src/services/billing.calculator';
@@ -7,7 +7,7 @@ import { SubscriptionManager } from './src/services/subscription.manager';
 import { InvoiceService } from './src/services/invoice.service';
 
 async function main() {
-  console.log('Testing ChainSync Billing Service Integration...');
+  console.log('Testing Switchboard Billing Service Integration...');
   
   // Create service instances
   const billingCalculator = new BillingCalculator();

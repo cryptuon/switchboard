@@ -1,4 +1,4 @@
-//! Fee handling logic for ChainSync coordinator program
+//! Fee handling logic for Switchboard coordinator program
 
 use anchor_lang::prelude::*;
 

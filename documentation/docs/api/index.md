@@ -1,11 +1,11 @@
 # API Reference
 
-ChainSync exposes a REST API through the Customer API service (port 3000).
+Switchboard exposes a REST API through the Customer API service (port 3000).
 
 ## Base URL
 
 ```
-https://api.chainsync.dev/api/v1
+https://api.switchboard.dev/api/v1
 ```
 
 For local development:

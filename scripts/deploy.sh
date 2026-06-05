@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Deployment script for ChainSync
+# Deployment script for Switchboard
 
-echo "Deploying ChainSync..."
+echo "Deploying Switchboard..."
 
 # Build all packages
 echo "Building all packages..."
@@ -16,4 +16,4 @@ echo "Deploying Solana programs..."
 # This would typically involve:
 # anchor deploy --provider.cluster mainnet
 
-echo "ChainSync deployed successfully!"
+echo "Switchboard deployed successfully!"

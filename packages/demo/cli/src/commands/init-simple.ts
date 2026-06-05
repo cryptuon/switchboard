@@ -6,18 +6,18 @@ import { createSpinner } from '../utils/spinner';
 import { saveConfig, ChainSyncConfig } from '../utils/config';
 
 export const initCommand = new Command('init')
-  .description('Initialize a new ChainSync project')
+  .description('Initialize a new Switchboard project')
   .option('-f, --force', 'Overwrite existing configuration')
   .option('-t, --template <type>', 'Project template (defi, nft, token)', 'basic')
   .option('-n, --name <name>', 'Project name', '')
   .option('--chains <chains>', 'Comma-separated list of chains', 'ethereum,polygon')
   .option('--network <network>', 'Network type (testnet/mainnet)', 'testnet')
   .action(async (options) => {
-    console.log(chalk.blue('🚀 Initializing ChainSync project...\n'));
+    console.log(chalk.blue('🚀 Initializing Switchboard project...\n'));
 
     // Check if already initialized
-    if (fs.existsSync('.chainsync.yaml') && !options.force) {
-      console.log(chalk.yellow('⚠️  ChainSync project already initialized!'));
+    if (fs.existsSync('.switchboard.yaml') && !options.force) {
+      console.log(chalk.yellow('⚠️  Switchboard project already initialized!'));
       console.log(chalk.gray('Use --force to overwrite existing configuration'));
       return;
     }
@@ -27,7 +27,7 @@ export const initCommand = new Command('init')
       spinner.start();
 
       // Get project name
-      const projectName = options.name || path.basename(process.cwd()) || 'my-chainsync-project';
+      const projectName = options.name || path.basename(process.cwd()) || 'my-switchboard-project';
 
       // Parse chains
       const chains = options.chains.split(',').map((c: string) => c.trim());
@@ -36,7 +36,7 @@ export const initCommand = new Command('init')
       const config: ChainSyncConfig = {
         project: {
           name: projectName,
-          description: 'A cross-chain application built with ChainSync',
+          description: 'A cross-chain application built with Switchboard',
           version: '1.0.0'
         },
         chains: chains,
@@ -75,7 +75,7 @@ export const initCommand = new Command('init')
       spinner.succeed(chalk.green('Project initialized successfully!'));
 
       // Success message
-      console.log(chalk.green('\n✅ ChainSync project created!'));
+      console.log(chalk.green('\n✅ Switchboard project created!'));
       console.log(chalk.blue('\nProject Details:'));
       console.log(chalk.gray(`  Name: ${projectName}`));
       console.log(chalk.gray(`  Network: ${options.network}`));
@@ -84,9 +84,9 @@ export const initCommand = new Command('init')
 
       console.log(chalk.blue('\nNext steps:'));
       console.log(chalk.gray('1. Edit .env with your API keys'));
-      console.log(chalk.gray('2. Run: chainsync deploy'));
-      console.log(chalk.gray('3. Check: chainsync status'));
-      console.log(chalk.gray('\n📚 Documentation: https://docs.chainsync.org'));
+      console.log(chalk.gray('2. Run: switchboard deploy'));
+      console.log(chalk.gray('3. Check: switchboard status'));
+      console.log(chalk.gray('\n📚 Documentation: https://docs.switchboard.org'));
 
     } catch (error) {
       console.error(chalk.red('Failed to initialize project:'), error);
@@ -321,12 +321,12 @@ function createProjectStructure(projectName: string, template: string): void {
 
   // Create deployment script
   const deployScript = `
-// ChainSync Deployment Script
-import { ChainSync } from '@chainsync/sdk';
+// Switchboard Deployment Script
+import { Switchboard } from '@switchboard/sdk';
 import fs from 'fs';
 
 async function deploy() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solanaRpcUrl: process.env.SOLANA_RPC_URL!,
     ethereumRpcUrl: process.env.ETHEREUM_RPC_URL,
     polygonRpcUrl: process.env.POLYGON_RPC_URL
@@ -334,7 +334,7 @@ async function deploy() {
 
   const bytecode = fs.readFileSync('contracts/MyContract.bin', 'utf8');
 
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     bytecode,
     chains: ['ethereum', 'polygon']
   });
@@ -404,7 +404,7 @@ contract MyToken {
 
 function createEnvExample(chains: string[], network: string): void {
   const isMainnet = network === 'mainnet';
-  let envContent = `# ChainSync Environment Configuration
+  let envContent = `# Switchboard Environment Configuration
 # Copy this file to .env and configure your settings
 
 # Solana Configuration
@@ -420,7 +420,7 @@ SOLANA_RPC_URL=${isMainnet ? 'https://api.mainnet-beta.solana.com' : 'https://ap
   });
 
   envContent += `
-# ChainSync API (optional)
+# Switchboard API (optional)
 CHAINSYNC_API_KEY=your-api-key-here
 
 # Private Key (for deployment)
@@ -454,9 +454,9 @@ out/
 # Cache
 .cache/
 
-# ChainSync
+# Switchboard
 deployments/*.json
-.chainsync/cache/
+.switchboard/cache/
 `;
 
   fs.writeFileSync('.gitignore', gitignoreContent.trim());

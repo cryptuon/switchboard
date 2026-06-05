@@ -1,5 +1,5 @@
 /**
- * Polygon connector for ChainSync Oracle Service
+ * Polygon connector for Switchboard Oracle Service
  */
 
 import { JsonRpcProvider, Block, TransactionReceipt, BigNumberish } from 'ethers';

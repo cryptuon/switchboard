@@ -1,11 +1,11 @@
 {
-  "name": "@chainsync/cli",
+  "name": "@switchboard/cli",
   "version": "0.1.0",
-  "description": "ChainSync Developer CLI - Cross-chain deployment and management tool",
+  "description": "Switchboard Developer CLI - Cross-chain deployment and management tool",
   "main": "dist/index.js",
   "bin": {
-    "chainsync": "dist/cli.js",
-    "cs": "dist/cli.js"
+    "switchboard": "dist/cli.js",
+    "sb": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
@@ -24,10 +24,10 @@
     "cli",
     "developer-tools"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT",
   "dependencies": {
-    "@chainsync/sdk": "file:../../sdk",
+    "@switchboard/sdk": "file:../../sdk",
     "commander": "^11.0.0",
     "inquirer": "^9.2.0",
     "chalk": "^4.1.2",

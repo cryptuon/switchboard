@@ -1,7 +1,7 @@
 {
-  "name": "@chainsync/sdk",
+  "name": "@switchboard/sdk",
   "version": "0.1.0",
-  "description": "ChainSync Developer SDK",
+  "description": "Switchboard Developer SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -37,6 +37,6 @@
     "cross-chain",
     "sdk"
   ],
-  "author": "ChainSync Team",
+  "author": "Switchboard Team",
   "license": "MIT"
 }

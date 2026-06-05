@@ -1,5 +1,5 @@
 /**
- * API Client for ChainSync Demo
+ * API Client for Switchboard Demo
  */
 
 import axios, { AxiosInstance, AxiosError } from 'axios';

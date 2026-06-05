@@ -7,12 +7,12 @@ export const statusCommand = new Command('status')
   .description('Show overall system status and health')
   .option('-v, --verbose', 'Show detailed status information')
   .action(async (options) => {
-    console.log(chalk.blue('📊 ChainSync System Status\n'));
+    console.log(chalk.blue('📊 Switchboard System Status\n'));
 
     try {
       const config = await loadConfig();
       if (!config) {
-        console.log(chalk.red('❌ No configuration found. Run: chainsync init'));
+        console.log(chalk.red('❌ No configuration found. Run: switchboard init'));
         return;
       }
 
@@ -45,9 +45,9 @@ export const statusCommand = new Command('status')
 
       // Quick actions
       console.log(chalk.blue('\n🔧 Quick Actions:'));
-      console.log(chalk.gray('• Deploy contract: chainsync deploy'));
-      console.log(chalk.gray('• Update config: chainsync config'));
-      console.log(chalk.gray('• Validate setup: chainsync validate'));
+      console.log(chalk.gray('• Deploy contract: switchboard deploy'));
+      console.log(chalk.gray('• Update config: switchboard config'));
+      console.log(chalk.gray('• Validate setup: switchboard validate'));
 
     } catch (error) {
       console.error(chalk.red('Failed to get system status:'), error);

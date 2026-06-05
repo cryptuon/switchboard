@@ -1,11 +1,11 @@
 /**
- * Test script for ChainSync Billing Service
+ * Test script for Switchboard Billing Service
  */
 
 import { BillingCalculator } from './src/services/billing.calculator';
 
 async function main() {
-  console.log('Testing ChainSync Billing Service...');
+  console.log('Testing Switchboard Billing Service...');
   
   // Create billing calculator
   const calculator = new BillingCalculator();

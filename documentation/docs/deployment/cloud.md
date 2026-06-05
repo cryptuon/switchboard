@@ -1,6 +1,6 @@
 # Cloud Provider Deployment
 
-Deploy ChainSync to major cloud providers.
+Deploy Switchboard to major cloud providers.
 
 ## AWS Deployment
 
@@ -31,7 +31,7 @@ Deploy ChainSync to major cloud providers.
 
 ```json
 {
-  "family": "chainsync-customer-api",
+  "family": "switchboard-customer-api",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "1024",
@@ -39,7 +39,7 @@ Deploy ChainSync to major cloud providers.
   "containerDefinitions": [
     {
       "name": "customer-api",
-      "image": "chainsync/customer-api:latest",
+      "image": "switchboard/customer-api:latest",
       "portMappings": [
         {
           "containerPort": 3000,
@@ -65,7 +65,7 @@ Deploy ChainSync to major cloud providers.
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/chainsync",
+          "awslogs-group": "/ecs/switchboard",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "customer-api"
         }
@@ -79,8 +79,8 @@ Deploy ChainSync to major cloud providers.
 
 ```hcl
 # main.tf
-module "chainsync" {
-  source = "./modules/chainsync"
+module "switchboard" {
+  source = "./modules/switchboard"
 
   environment     = "production"
   vpc_id          = module.vpc.vpc_id
@@ -135,7 +135,7 @@ spec:
         autoscaling.knative.dev/maxScale: "10"
     spec:
       containers:
-        - image: gcr.io/project/chainsync-customer-api
+        - image: gcr.io/project/switchboard-customer-api
           ports:
             - containerPort: 3000
           env:
@@ -151,7 +151,7 @@ spec:
 
 ```bash
 gcloud run deploy customer-api \
-  --image gcr.io/project/chainsync-customer-api \
+  --image gcr.io/project/switchboard-customer-api \
   --platform managed \
   --region us-central1 \
   --min-instances 2 \
@@ -190,9 +190,9 @@ gcloud run deploy customer-api \
 # Create Container App
 az containerapp create \
   --name customer-api \
-  --resource-group chainsync-rg \
-  --environment chainsync-env \
-  --image chainsync.azurecr.io/customer-api:latest \
+  --resource-group switchboard-rg \
+  --environment switchboard-env \
+  --image switchboard.azurecr.io/customer-api:latest \
   --target-port 3000 \
   --ingress external \
   --min-replicas 2 \
@@ -219,7 +219,7 @@ resource customerApi 'Microsoft.App/containerApps@2023-05-01' = {
       containers: [
         {
           name: 'customer-api'
-          image: 'chainsync.azurecr.io/customer-api:latest'
+          image: 'switchboard.azurecr.io/customer-api:latest'
           resources: {
             cpu: json('1')
             memory: '2Gi'
@@ -240,12 +240,12 @@ resource customerApi 'Microsoft.App/containerApps@2023-05-01' = {
 ### Helm Chart
 
 ```bash
-# Add ChainSync Helm repo
-helm repo add chainsync https://charts.chainsync.dev
+# Add Switchboard Helm repo
+helm repo add switchboard https://charts.switchboard.dev
 
 # Install
-helm install chainsync chainsync/chainsync \
-  --namespace chainsync \
+helm install switchboard switchboard/switchboard \
+  --namespace switchboard \
   --create-namespace \
   --set customerApi.replicas=3 \
   --set coreEngine.replicas=2 \
@@ -287,7 +287,7 @@ ingress:
   enabled: true
   className: nginx
   hosts:
-    - host: api.chainsync.dev
+    - host: api.switchboard.dev
       paths:
         - path: /
           pathType: Prefix

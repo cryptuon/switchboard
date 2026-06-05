@@ -15,14 +15,14 @@ This example demonstrates:
 
 ```bash
 # Create project
-chainsync init my-nft --template nft --dev-mode
+switchboard init my-nft --template nft --dev-mode
 
 cd my-nft
 npm install
 
 # Configure and deploy
 cp .env.example .env
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 ```
 
 ## Smart Contract
@@ -124,11 +124,11 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable {
 
 ```javascript
 // scripts/deploy-nft.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { readFileSync } from 'fs';
 
 async function main() {
-  const chainSync = new ChainSync({
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
     networks: {
       sepolia: {
@@ -146,7 +146,7 @@ async function main() {
     readFileSync('./artifacts/MyNFT.json', 'utf-8')
   );
 
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     name: 'MyNFT',
     bytecode: artifact.bytecode,
     abi: artifact.abi,
@@ -166,10 +166,10 @@ async function main() {
   console.log('Deployment ID:', deployment.id);
 
   // Wait for completion
-  let status = await chainSync.trackDeployment(deployment.id);
+  let status = await switchboard.trackDeployment(deployment.id);
   while (status.status === 'pending' || status.status === 'deploying') {
     await new Promise((r) => setTimeout(r, 5000));
-    status = await chainSync.trackDeployment(deployment.id);
+    status = await switchboard.trackDeployment(deployment.id);
   }
 
   console.log('NFT Collection Deployed!');
@@ -231,7 +231,7 @@ Monitor NFT state across chains:
 
 ```javascript
 // scripts/sync-metadata.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { ethers } from 'ethers';
 
 async function checkOwnership(chain, contractAddress, tokenId) {

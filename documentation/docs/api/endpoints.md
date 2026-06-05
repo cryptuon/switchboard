@@ -1,6 +1,6 @@
 # API Endpoints
 
-Detailed documentation for all ChainSync API endpoints.
+Detailed documentation for all Switchboard API endpoints.
 
 ## Deployments
 

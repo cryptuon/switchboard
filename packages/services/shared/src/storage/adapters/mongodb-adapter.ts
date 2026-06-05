@@ -1,5 +1,5 @@
 /**
- * ChainSync MongoDB Storage Adapter
+ * Switchboard MongoDB Storage Adapter
  *
  * Document storage for transactional data with ACID properties
  */

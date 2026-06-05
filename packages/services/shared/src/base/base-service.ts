@@ -1,7 +1,7 @@
 /**
- * ChainSync Base Service Architecture
+ * Switchboard Base Service Architecture
  *
- * Provides common functionality for all ChainSync services
+ * Provides common functionality for all Switchboard services
  */
 
 import { EventEmitter } from 'events';

@@ -1,10 +1,10 @@
-# ChainSync Cloud Deployment Architecture Guide
+# Switchboard Cloud Deployment Architecture Guide
 
-This guide provides a complete overview of ChainSync's cloud infrastructure architecture and step-by-step deployment instructions for your team.
+This guide provides a complete overview of Switchboard's cloud infrastructure architecture and step-by-step deployment instructions for your team.
 
-## 🏗️ **ChainSync Infrastructure Architecture**
+## 🏗️ **Switchboard Infrastructure Architecture**
 
-ChainSync consists of **two main deployment layers**:
+Switchboard consists of **two main deployment layers**:
 
 ### **Layer 1: Solana Programs (On-Chain)**
 - **State Oracle Program**: Deployed to Solana blockchain
@@ -70,8 +70,8 @@ graph TB
 
     subgraph "Users"
         DEV[Developers]
-        CLI[ChainSync CLI]
-        SDK[ChainSync SDK]
+        CLI[Switchboard CLI]
+        SDK[Switchboard SDK]
     end
 
     %% External connections
@@ -255,8 +255,8 @@ Resources:
 #### **1. Environment Preparation**
 ```bash
 # Clone repository
-git clone https://github.com/your-org/chainsync.git
-cd chainsync
+git clone https://github.com/your-org/switchboard.git
+cd switchboard
 
 # Install dependencies
 npm install
@@ -298,7 +298,7 @@ APTOS_RPC_URL=https://fullnode.mainnet.aptoslabs.com/v1
 COSMOS_RPC_URL=https://cosmos-rpc.polkachu.com
 
 # === DATABASE CONFIGURATION ===
-DATABASE_URL=postgresql://chainsync:password@your-db-host:5432/chainsync
+DATABASE_URL=postgresql://switchboard:password@your-db-host:5432/switchboard
 REDIS_URL=redis://your-redis-host:6379
 
 # === SERVICE CONFIGURATION ===
@@ -323,13 +323,13 @@ RATE_LIMIT_MAX=100
 #### **1. Setup Solana Deployment Wallet**
 ```bash
 # Generate deployment keypair
-solana-keygen new --outfile ~/.config/solana/chainsync-deployer.json
+solana-keygen new --outfile ~/.config/solana/switchboard-deployer.json
 
 # Fund wallet (minimum 10 SOL for mainnet deployment)
 # Transfer SOL from your main wallet to the deployer address
 
 # Configure Solana CLI
-solana config set --keypair ~/.config/solana/chainsync-deployer.json
+solana config set --keypair ~/.config/solana/switchboard-deployer.json
 solana config set --url mainnet-beta
 
 # Verify configuration
@@ -385,31 +385,31 @@ aws configure
 # Deploy infrastructure stack
 cd infrastructure/aws
 cdk bootstrap
-cdk deploy chainsync-infrastructure-stack
+cdk deploy switchboard-infrastructure-stack
 ```
 
 ##### **2. Setup RDS Database**
 ```bash
 # Create database
 aws rds create-db-instance \
-  --db-instance-identifier chainsync-prod \
+  --db-instance-identifier switchboard-prod \
   --db-instance-class db.t3.medium \
   --engine postgres \
-  --master-username chainsync \
+  --master-username switchboard \
   --master-user-password YourSecurePassword \
   --allocated-storage 100 \
   --vpc-security-group-ids sg-xxxxxxxx \
-  --db-subnet-group-name chainsync-db-subnet-group
+  --db-subnet-group-name switchboard-db-subnet-group
 
 # Create database schema
-psql -h your-rds-endpoint -U chainsync -d chainsync -f scripts/schema.sql
+psql -h your-rds-endpoint -U switchboard -d switchboard -f scripts/schema.sql
 ```
 
 ##### **3. Setup ElastiCache Redis**
 ```bash
 # Create Redis cluster
 aws elasticache create-cache-cluster \
-  --cache-cluster-id chainsync-redis \
+  --cache-cluster-id switchboard-redis \
   --cache-node-type cache.t3.micro \
   --engine redis \
   --num-cache-nodes 1
@@ -418,21 +418,21 @@ aws elasticache create-cache-cluster \
 ##### **4. Deploy Services to ECS**
 ```bash
 # Build Docker images
-docker build -t chainsync/oracle-service -f packages/services/oracle-service/Dockerfile .
-docker build -t chainsync/sync-service -f packages/services/sync-service/Dockerfile .
-docker build -t chainsync/api-service -f packages/services/api/Dockerfile .
+docker build -t switchboard/oracle-service -f packages/services/oracle-service/Dockerfile .
+docker build -t switchboard/sync-service -f packages/services/sync-service/Dockerfile .
+docker build -t switchboard/api-service -f packages/services/api/Dockerfile .
 
 # Tag and push to ECR
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin your-account.dkr.ecr.us-east-1.amazonaws.com
 
-docker tag chainsync/oracle-service:latest your-account.dkr.ecr.us-east-1.amazonaws.com/chainsync/oracle-service:latest
-docker push your-account.dkr.ecr.us-east-1.amazonaws.com/chainsync/oracle-service:latest
+docker tag switchboard/oracle-service:latest your-account.dkr.ecr.us-east-1.amazonaws.com/switchboard/oracle-service:latest
+docker push your-account.dkr.ecr.us-east-1.amazonaws.com/switchboard/oracle-service:latest
 
 # Deploy ECS services
 aws ecs create-service \
-  --cluster chainsync-cluster \
+  --cluster switchboard-cluster \
   --service-name oracle-service \
-  --task-definition chainsync-oracle:1 \
+  --task-definition switchboard-oracle:1 \
   --desired-count 2
 ```
 
@@ -456,7 +456,7 @@ services:
       - api-service-1
       - api-service-2
     networks:
-      - chainsync-network
+      - switchboard-network
 
   api-service-1:
     build:
@@ -471,7 +471,7 @@ services:
       - postgres
       - redis
     networks:
-      - chainsync-network
+      - switchboard-network
 
   api-service-2:
     build:
@@ -486,7 +486,7 @@ services:
       - postgres
       - redis
     networks:
-      - chainsync-network
+      - switchboard-network
 
   oracle-service-1:
     build:
@@ -500,7 +500,7 @@ services:
     depends_on:
       - redis
     networks:
-      - chainsync-network
+      - switchboard-network
 
   oracle-service-2:
     build:
@@ -514,7 +514,7 @@ services:
     depends_on:
       - redis
     networks:
-      - chainsync-network
+      - switchboard-network
 
   sync-service:
     build:
@@ -529,7 +529,7 @@ services:
       - postgres
       - redis
     networks:
-      - chainsync-network
+      - switchboard-network
 
   fee-oracle:
     build:
@@ -541,7 +541,7 @@ services:
     env_file:
       - .env.production
     networks:
-      - chainsync-network
+      - switchboard-network
 
   billing-service:
     build:
@@ -555,19 +555,19 @@ services:
     depends_on:
       - postgres
     networks:
-      - chainsync-network
+      - switchboard-network
 
   postgres:
     image: postgres:14
     environment:
-      POSTGRES_DB: chainsync
-      POSTGRES_USER: chainsync
+      POSTGRES_DB: switchboard
+      POSTGRES_USER: switchboard
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
     networks:
-      - chainsync-network
+      - switchboard-network
 
   redis:
     image: redis:7-alpine
@@ -575,7 +575,7 @@ services:
     volumes:
       - redis_data:/data
     networks:
-      - chainsync-network
+      - switchboard-network
 
   prometheus:
     image: prom/prometheus
@@ -585,7 +585,7 @@ services:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     networks:
-      - chainsync-network
+      - switchboard-network
 
   grafana:
     image: grafana/grafana
@@ -597,7 +597,7 @@ services:
       - grafana_data:/var/lib/grafana
       - ./monitoring/grafana:/etc/grafana/provisioning
     networks:
-      - chainsync-network
+      - switchboard-network
 
 volumes:
   postgres_data:
@@ -606,7 +606,7 @@ volumes:
   grafana_data:
 
 networks:
-  chainsync-network:
+  switchboard-network:
     driver: bridge
 ```
 
@@ -647,13 +647,13 @@ http {
 
     server {
         listen 80;
-        server_name api.chainsync.org;
+        server_name api.switchboard.org;
         return 301 https://$server_name$request_uri;
     }
 
     server {
         listen 443 ssl http2;
-        server_name api.chainsync.org;
+        server_name api.switchboard.org;
 
         ssl_certificate /etc/ssl/cert.pem;
         ssl_certificate_key /etc/ssl/key.pem;
@@ -700,23 +700,23 @@ rule_files:
   - "alert_rules.yml"
 
 scrape_configs:
-  - job_name: 'chainsync-api'
+  - job_name: 'switchboard-api'
     static_configs:
       - targets: ['api-service-1:3000', 'api-service-2:3000']
 
-  - job_name: 'chainsync-oracle'
+  - job_name: 'switchboard-oracle'
     static_configs:
       - targets: ['oracle-service-1:3001', 'oracle-service-2:3001']
 
-  - job_name: 'chainsync-sync'
+  - job_name: 'switchboard-sync'
     static_configs:
       - targets: ['sync-service:3002']
 
-  - job_name: 'chainsync-fee-oracle'
+  - job_name: 'switchboard-fee-oracle'
     static_configs:
       - targets: ['fee-oracle:3003']
 
-  - job_name: 'chainsync-billing'
+  - job_name: 'switchboard-billing'
     static_configs:
       - targets: ['billing-service:3004']
 
@@ -731,7 +731,7 @@ alerting:
 ```json
 {
   "dashboard": {
-    "title": "ChainSync Production Dashboard",
+    "title": "Switchboard Production Dashboard",
     "panels": [
       {
         "title": "Cross-Chain Transaction Volume",
@@ -747,7 +747,7 @@ alerting:
         "type": "stat",
         "targets": [
           {
-            "expr": "up{job='chainsync-oracle'}"
+            "expr": "up{job='switchboard-oracle'}"
           }
         ]
       },
@@ -782,11 +782,11 @@ alerting:
 sudo apt-get install certbot
 
 # Get SSL certificate
-sudo certbot certonly --standalone -d api.chainsync.org
+sudo certbot certonly --standalone -d api.switchboard.org
 
 # Copy certificates to Docker volume
-sudo cp /etc/letsencrypt/live/api.chainsync.org/fullchain.pem ./ssl/cert.pem
-sudo cp /etc/letsencrypt/live/api.chainsync.org/privkey.pem ./ssl/key.pem
+sudo cp /etc/letsencrypt/live/api.switchboard.org/fullchain.pem ./ssl/cert.pem
+sudo cp /etc/letsencrypt/live/api.switchboard.org/privkey.pem ./ssl/key.pem
 
 # Set up auto-renewal
 echo "0 2 * * * root certbot renew --quiet && docker-compose -f docker-compose.production.yml restart nginx" | sudo tee -a /etc/crontab
@@ -815,7 +815,7 @@ sudo ufw deny 3000:3004/tcp
 
 set -e
 
-echo "🚀 Starting ChainSync Production Deployment..."
+echo "🚀 Starting Switchboard Production Deployment..."
 
 # 1. Environment setup
 echo "📋 Setting up environment..."
@@ -851,7 +851,7 @@ sleep 30
 echo "🏥 Running health checks..."
 ./scripts/health-check.sh
 
-echo "✅ ChainSync deployed successfully!"
+echo "✅ Switchboard deployed successfully!"
 echo "📊 Monitoring: https://grafana.your-domain.com"
 echo "🔍 API Docs: https://api.your-domain.com/docs"
 ```
@@ -862,7 +862,7 @@ echo "🔍 API Docs: https://api.your-domain.com/docs"
 # scripts/health-check.sh
 
 ENDPOINTS=(
-    "https://api.chainsync.org/health"
+    "https://api.switchboard.org/health"
     "http://localhost:3001/health"
     "http://localhost:3002/health"
 )
@@ -989,8 +989,8 @@ jobs:
       run: |
         echo "$DEPLOY_KEY" > deploy_key
         chmod 600 deploy_key
-        scp -i deploy_key -r . $DEPLOY_USER@$DEPLOY_HOST:/opt/chainsync/
-        ssh -i deploy_key $DEPLOY_USER@$DEPLOY_HOST 'cd /opt/chainsync && ./scripts/deploy-production.sh'
+        scp -i deploy_key -r . $DEPLOY_USER@$DEPLOY_HOST:/opt/switchboard/
+        ssh -i deploy_key $DEPLOY_USER@$DEPLOY_HOST 'cd /opt/switchboard && ./scripts/deploy-production.sh'
 ```
 
 ## 🆘 **Troubleshooting Guide**
@@ -1027,7 +1027,7 @@ curl -X POST https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY \
 #### **3. Database Connection Issues**
 ```bash
 # Test database connection
-psql -h your-db-host -U chainsync -d chainsync -c "SELECT version();"
+psql -h your-db-host -U switchboard -d switchboard -c "SELECT version();"
 
 # Check connection pool
 docker-compose exec api-service-1 npm run db:status
@@ -1053,4 +1053,4 @@ For deployment assistance:
 
 ---
 
-Your ChainSync infrastructure is now production-ready with full monitoring, security, and scalability! 🚀
+Your Switchboard infrastructure is now production-ready with full monitoring, security, and scalability! 🚀

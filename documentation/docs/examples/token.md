@@ -15,7 +15,7 @@ This example demonstrates how to:
 
 ```bash
 # Create project from template
-chainsync init my-token --template token --dev-mode
+switchboard init my-token --template token --dev-mode
 
 cd my-token
 npm install
@@ -25,7 +25,7 @@ cp .env.example .env
 # Edit .env with your keys
 
 # Deploy to testnets
-chainsync deploy --dev-mode
+switchboard deploy --dev-mode
 ```
 
 ## The Contract
@@ -55,7 +55,7 @@ contract MyToken is ERC20, Ownable {
 
 ## Configuration
 
-### chainsync.config.js
+### switchboard.config.js
 
 ```javascript
 module.exports = {
@@ -107,7 +107,7 @@ PRIVATE_KEY=0x...
 
 ```javascript
 // scripts/deploy.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { readFileSync } from 'fs';
 
 async function main() {
@@ -116,8 +116,8 @@ async function main() {
     readFileSync('./artifacts/MyToken.json', 'utf-8')
   );
 
-  // Initialize ChainSync
-  const chainSync = new ChainSync({
+  // Initialize Switchboard
+  const switchboard = new Switchboard({
     solana: { rpcUrl: process.env.SOLANA_RPC_URL },
     networks: {
       sepolia: {
@@ -138,7 +138,7 @@ async function main() {
   console.log('Starting deployment...\n');
 
   // Deploy across chains
-  const deployment = await chainSync.deployContract({
+  const deployment = await switchboard.deployContract({
     name: 'MyToken',
     bytecode: artifact.bytecode,
     abi: artifact.abi,
@@ -152,7 +152,7 @@ async function main() {
   console.log(`Deployment ID: ${deployment.id}\n`);
 
   // Wait and monitor
-  let status = await chainSync.trackDeployment(deployment.id);
+  let status = await switchboard.trackDeployment(deployment.id);
 
   while (status.status !== 'completed' && status.status !== 'failed') {
     console.log(`Status: ${status.status}`);
@@ -160,7 +160,7 @@ async function main() {
     console.log(`Pending: ${status.pendingChains.join(', ') || 'none'}\n`);
 
     await new Promise((r) => setTimeout(r, 5000));
-    status = await chainSync.trackDeployment(deployment.id);
+    status = await switchboard.trackDeployment(deployment.id);
   }
 
   if (status.status === 'completed') {
@@ -183,28 +183,28 @@ After deployment, verify on block explorers:
 
 ```bash
 # Verify on Etherscan (Sepolia)
-chainsync verify --contract MyToken --network sepolia
+switchboard verify --contract MyToken --network sepolia
 
 # Verify on Polygonscan (Mumbai)
-chainsync verify --contract MyToken --network mumbai
+switchboard verify --contract MyToken --network mumbai
 
 # Verify on Snowtrace (Fuji)
-chainsync verify --contract MyToken --network fuji
+switchboard verify --contract MyToken --network fuji
 ```
 
 ## Testing
 
 ```javascript
 // tests/token.test.js
-import { ChainSync } from '@chainsync/sdk';
+import { Switchboard } from '@switchboard/sdk';
 import { expect } from 'chai';
 
 describe('MyToken', () => {
-  let chainSync;
+  let switchboard;
   let addresses;
 
   before(async () => {
-    chainSync = new ChainSync({
+    switchboard = new Switchboard({
       solana: { rpcUrl: process.env.SOLANA_RPC_URL },
     });
 
@@ -216,7 +216,7 @@ describe('MyToken', () => {
   });
 
   it('should have consistent state across chains', async () => {
-    const state = await chainSync.getState({
+    const state = await switchboard.getState({
       contractAddress: addresses.sepolia,
       chains: ['sepolia', 'mumbai', 'fuji'],
     });
@@ -284,7 +284,7 @@ When ready for production:
 
 ```bash
 # Deploy to mainnets
-chainsync deploy --prod-mode --networks ethereum,polygon,avalanche
+switchboard deploy --prod-mode --networks ethereum,polygon,avalanche
 ```
 
 ## Next Steps

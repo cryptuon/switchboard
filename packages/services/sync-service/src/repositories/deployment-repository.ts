@@ -1,12 +1,12 @@
 /**
- * ChainSync Deployment Repository
+ * Switchboard Deployment Repository
  *
  * Repository for deployment data operations
  */
 
-import { RepositoryBase, DatabaseConnectionManager, PaginatedResult, PaginationOptions } from '@chainsync/services-shared';
-import { Logger } from '@chainsync/services-shared';
-import { MetricsCollector } from '@chainsync/services-shared';
+import { RepositoryBase, DatabaseConnectionManager, PaginatedResult, PaginationOptions } from '@switchboard/services-shared';
+import { Logger } from '@switchboard/services-shared';
+import { MetricsCollector } from '@switchboard/services-shared';
 import { IDeployment, Deployment } from '../models/deployment';
 
 export interface DeploymentFilters {
