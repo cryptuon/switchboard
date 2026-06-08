@@ -32,6 +32,7 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
+    - navigation.indexes
     - navigation.expand
     - navigation.top
     - navigation.footer
@@ -105,47 +106,49 @@ extra_css:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - getting-started/index.md
-    - Quick Start: getting-started/quickstart.md
-    - Installation: getting-started/installation.md
-    - First Deployment: getting-started/first-deployment.md
-  - Architecture:
-    - architecture/index.md
-    - 2-Service Architecture: architecture/two-service-architecture.md
-    - Solana Coordination: architecture/solana-coordination.md
-    - Supported Chains: architecture/supported-chains.md
+  - Docs:
+      - Getting Started:
+          - getting-started/index.md
+          - Quick Start: getting-started/quickstart.md
+          - Installation: getting-started/installation.md
+          - First Deployment: getting-started/first-deployment.md
+      - Architecture:
+          - architecture/index.md
+          - 2-Service Architecture: architecture/two-service-architecture.md
+          - Solana Coordination: architecture/solana-coordination.md
+          - Supported Chains: architecture/supported-chains.md
+      - Examples:
+          - examples/index.md
+          - Token Deployment: examples/token.md
+          - DeFi Protocol: examples/defi.md
+          - NFT Collection: examples/nft.md
+      - Support:
+          - support/index.md
+          - Troubleshooting: support/troubleshooting.md
+          - FAQ: support/faq.md
   - SDK:
-    - sdk/index.md
-    - Installation: sdk/installation.md
-    - Core Methods: sdk/core-methods.md
-    - Examples: sdk/examples.md
+      - sdk/index.md
+      - Installation: sdk/installation.md
+      - Core Methods: sdk/core-methods.md
+      - Examples: sdk/examples.md
   - API Reference:
-    - api/index.md
-    - Authentication: api/authentication.md
-    - Endpoints: api/endpoints.md
-  - Deployment:
-    - deployment/index.md
-    - Docker: deployment/docker.md
-    - Production: deployment/production.md
-    - Cloud Providers: deployment/cloud.md
-  - Configuration:
-    - configuration/index.md
-    - Environment Variables: configuration/environment.md
-    - Database: configuration/database.md
-    - Networks: configuration/networks.md
-  - Examples:
-    - examples/index.md
-    - Token Deployment: examples/token.md
-    - DeFi Protocol: examples/defi.md
-    - NFT Collection: examples/nft.md
-  - Development:
-    - development/index.md
-    - Contributing: development/contributing.md
-    - Testing: development/testing.md
-  - Support:
-    - support/index.md
-    - Troubleshooting: support/troubleshooting.md
-    - FAQ: support/faq.md
+      - api/index.md
+      - Authentication: api/authentication.md
+      - Endpoints: api/endpoints.md
+  - Project:
+      - Deployment:
+          - deployment/index.md
+          - Docker: deployment/docker.md
+          - Production: deployment/production.md
+          - Cloud Providers: deployment/cloud.md
+      - Configuration:
+          - configuration/index.md
+          - Environment Variables: configuration/environment.md
+          - Database: configuration/database.md
+          - Networks: configuration/networks.md
+      - Development:
+          - development/index.md
+          - Contributing: development/contributing.md
+          - Testing: development/testing.md
 
 copyright: Copyright &copy; 2024 Switchboard. All rights reserved.
