@@ -3,6 +3,10 @@ name = "test-simple"
 version = "0.1.0"
 description = "Simple test program"
 edition = "2021"
+homepage = "https://switchboard.cryptuon.com/"
+documentation = "https://docs.cryptuon.com/switchboard/"
+repository = "https://github.com/cryptuon/switchboard"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib", "rlib"]

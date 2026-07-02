@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Switchboard Demo Dashboard",
   "private": true,
+  "author": "Cryptuon Research <contact@cryptuon.com>",
+  "license": "MIT",
+  "homepage": "https://switchboard.cryptuon.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cryptuon/switchboard.git",
+    "directory": "packages/demo"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

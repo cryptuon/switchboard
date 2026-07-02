@@ -1,6 +1,6 @@
 site_name: Switchboard Documentation
 site_description: Unified Cross-Chain State Synchronization Platform - Deploy once, sync everywhere
-site_author: Switchboard Team
+site_author: Cryptuon Research
 site_url: https://docs.cryptuon.com/switchboard/
 
 repo_name: cryptuon/switchboard
@@ -90,13 +90,14 @@ markdown_extensions:
   - pymdownx.tilde
 
 extra:
+  homepage: https://switchboard.cryptuon.com/
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/switchboard
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/switchboard
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/switchboard
+      link: https://github.com/cryptuon/switchboard
+    - icon: material/web
+      link: https://switchboard.cryptuon.com/
+    - icon: material/flask-outline
+      link: https://www.cryptuon.com
   generator: false
   version:
     provider: mike
@@ -151,4 +152,4 @@ nav:
           - Contributing: development/contributing.md
           - Testing: development/testing.md
 
-copyright: Copyright &copy; 2024 Switchboard. All rights reserved.
+copyright: "&copy; 2026 Cryptuon Research"

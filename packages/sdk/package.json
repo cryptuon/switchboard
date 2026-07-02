@@ -32,11 +32,23 @@
     "typescript": "^5.1.3"
   },
   "keywords": [
-    "solana",
-    "blockchain",
     "cross-chain",
+    "solana",
+    "state-sync",
+    "interoperability",
+    "blockchain",
     "sdk"
   ],
-  "author": "Switchboard Team",
-  "license": "MIT"
+  "author": "Cryptuon Research <contact@cryptuon.com>",
+  "license": "MIT",
+  "homepage": "https://switchboard.cryptuon.com/",
+  "documentation": "https://docs.cryptuon.com/switchboard/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cryptuon/switchboard.git",
+    "directory": "packages/sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/cryptuon/switchboard/issues"
+  }
 }

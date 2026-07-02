@@ -76,15 +76,17 @@
     "url": "git+https://github.com/cryptuon/switchboard.git"
   },
   "keywords": [
-    "solana",
-    "blockchain",
     "cross-chain",
-    "defi"
+    "solana",
+    "state-sync",
+    "interoperability",
+    "blockchain"
   ],
-  "author": "Switchboard Team",
+  "author": "Cryptuon Research <contact@cryptuon.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cryptuon/switchboard/issues"
   },
-  "homepage": "https://github.com/cryptuon/switchboard#readme"
+  "documentation": "https://docs.cryptuon.com/switchboard/",
+  "homepage": "https://switchboard.cryptuon.com/"
 }

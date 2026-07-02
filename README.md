@@ -13,6 +13,8 @@ Switchboard enables seamless cross-chain state synchronization, allowing develop
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Solana](https://img.shields.io/badge/Solana-9945FF?style=flat&logo=solana&logoColor=white)]()
 
+**[🌐 Site](https://switchboard.cryptuon.com/) · [📚 Docs](https://docs.cryptuon.com/switchboard/) · [🔬 Cryptuon Research](https://github.com/cryptuon)**
+
 ---
 
 ## ✨ Key Features
@@ -190,3 +192,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <p align="center">
   <strong>Built with ❤️ for the multi-chain future</strong>
 </p>
+
+---
+
+## Part of Cryptuon Research
+
+`switchboard` is one of [20 open-source blockchain-infrastructure projects](https://www.cryptuon.com/projects) from **[Cryptuon Research](https://www.cryptuon.com)** — blockchain theory, shipped as protocols.
+
+**Related projects:** [Tesseract](https://tesseract.cryptuon.com/) · [StreamSync](https://streamsync.cryptuon.com/) · [SolanaVault](https://solanavault.cryptuon.com/)
+
+Docs: [docs.cryptuon.com/switchboard](https://docs.cryptuon.com/switchboard/) · Contact: [contact@cryptuon.com](mailto:contact@cryptuon.com)
