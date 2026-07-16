@@ -4,23 +4,41 @@
 > schemas, and on-chain layouts may change between releases.
 > Production use at your own risk. Issues and PRs welcome.
 
-**Unified Cross-Chain State Synchronization Platform**
+**The cross-chain state and coordination layer for atomic composability.**
 
-Switchboard enables seamless cross-chain state synchronization, allowing developers to **deploy once and sync everywhere**. By leveraging Solana's performance and sub-second finality, Switchboard provides real-time verification across all supported chains with **sub-400ms coordination latency**.
+Switchboard is a sub-400ms cross-chain state synchronization platform. It uses Solana as a high-throughput **coordination layer** so a single contract, service, or autonomous agent can read and write state across **50+ EVM and non-EVM chains** — through one integration, without bespoke bridge code per route. Write once, read everywhere, at trading-grade latency.
+
+> **Not the Solana oracle.** Cryptuon Switchboard is a *cross-chain state-synchronization and coordination* product. It is unrelated to, and distinct from, the well-known Solana "Switchboard" oracle network. Switchboard here uses Solana as a coordination clock — it is not an on-chain price oracle.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![Coverage](https://img.shields.io/badge/coverage-92%25-brightgreen)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Solana](https://img.shields.io/badge/Solana-9945FF?style=flat&logo=solana&logoColor=white)]()
 
-**[🌐 Site](https://switchboard.cryptuon.com/) · [📚 Docs](https://docs.cryptuon.com/switchboard/) · [🔬 Cryptuon Research](https://github.com/cryptuon)**
+**[🌐 Site](https://switchboard.cryptuon.com/) · [📚 Docs](https://docs.cryptuon.com/switchboard/) · [🗺️ Roadmap](ROADMAP.md) · [🔬 Cryptuon Research](https://github.com/cryptuon)**
+
+---
+
+## 🌐 Why this matters in 2026
+
+The multi-chain world settled into a hard shape: liquidity, state, and users are spread across dozens of L1s and L2s, and the fastest-growing class of on-chain actors — **autonomous agents** making agentic payments and executing intents — need to *act across many chains at once*. The old answer was N bespoke bridges, each with its own validator set, message format, and multi-second quorum. That does not compose, and it does not move at agent speed.
+
+Switchboard reframes the problem around **atomic composability**: one coordinator on Solana that every chain agrees to watch, so a single write fans out to every destination inside one latency budget. For an agent or an intent-solver, that is the difference between orchestrating N brittle integrations and issuing **one call** against a coordination layer.
+
+- **Agentic payments & intents** — an agent commits once to the coordinator; the relayer pool races the destination transactions. One integration instead of N bridges.
+- **Atomic composability** — cross-chain routes anchor to a single finality clock instead of negotiating trust per corridor.
+- **Parallel-EVM & non-EVM reach** — coordinate EVM L2s, Solana, and Move chains behind the same SDK surface.
+- **Honest scope** — this is a coordination layer plus the ops stack to run it, not a validator network or a new token. See the [roadmap](ROADMAP.md) for what is and is not production-ready.
+
+See **[ROADMAP.md](ROADMAP.md)** for the vision, milestones, and the cheapest path to production.
 
 ---
 
 ## ✨ Key Features
 
-🚀 **Sub-400ms Latency** - Real-time cross-chain coordination
-🔗 **50+ Chain Support** - All major EVM and non-EVM networks
+🚀 **Sub-400ms Latency** - Real-time cross-chain coordination for agents, orderbooks, and intents
+🔗 **50+ Chain Support** - Reach EVM and non-EVM networks through one integration
+🧩 **One Integration, Not N Bridges** - Coordinate on Solana; skip bespoke per-corridor bridge code
 🏗️ **90% Code Reuse** - Deploy once, sync everywhere
 💾 **Flexible Database** - MongoDB or PostgreSQL support
 🔐 **Enterprise Security** - Production-ready authentication
@@ -143,13 +161,17 @@ npm run test:performance
 
 ## 🌐 Supported Chains
 
+One integration reaches every chain below — an agent or contract does not add code per corridor.
+
 **EVM Networks:** Ethereum, Polygon, Arbitrum, Optimism, BSC, Avalanche, Base, zkSync Era, Polygon zkEVM
 
 **L1 Alternatives:** Solana (coordinator), NEAR, Cosmos, Terra, Sui, Aptos
 
 **Emerging Networks:** Celestia, StarkNet, Flow, Celo, Gnosis
 
-[View complete list →](docs/supported-chains.md)
+> **Coordination, not oracle feeds.** Solana here is the coordination clock that every destination watches — this is state synchronization, not the Solana price-oracle product of the same name.
+
+[View complete list →](docs/supported-chains.md) · [Chain-coverage prioritization →](ROADMAP.md#cheapest-path-to-production)
 
 ---
 
